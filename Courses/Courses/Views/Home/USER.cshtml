@@ -15,10 +15,64 @@
         </ol>
         <div class="row">
             <div class="col-12">
-                <h1>Blank</h1>
-                <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
+                
+
+
+                <div class="col-6">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                         
+                            <h5>STUDENT COURSES</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form id="myform" action="#" method="get" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Select Programe</label>
+                                    <div class="controls">
+                                        <select>
+                                            <option>Web-Designing</option>
+                                            <option>Graphic-Designing</option>
+                                            <option>Web-Development</option>
+                                            <option>Computer Introduction</option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Multiple Select Courses</label>
+                                    <div class="controls">
+                                        <select multiple>
+                                            <option>HTML/CSS</option>
+                                            <option>PHOTOSHOP</option>
+                                            <option>ASP.NET</option>
+                                            <option>MS-OFFICE</option>
+                                            <option>BASIC INTERNET</option>
+                                            <option>EBOOK</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+<br />
+                                <div class="form-actions">
+                                    <input type="button" onclick="myFun()" value="SAVE" class="btn btn-success">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
+
+
     </div>
 </div>
+<script>
+    function myFun() {
+        document.getElementById("myform").reset();
+        alert("Save Success");
+    }
+</script>
 

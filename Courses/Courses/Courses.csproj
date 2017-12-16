@@ -215,6 +215,11 @@
     <Content Include="Content\js\sb-admin-datatables.min.js" />
     <Content Include="Content\js\sb-admin.js" />
     <Content Include="Content\js\sb-admin.min.js" />
+    <Content Include="Content\newJS\jquery.min.js" />
+    <Content Include="Content\newJS\jquery.uniform.js" />
+    <Content Include="Content\newJS\matrix.form_common.js" />
+    <Content Include="Content\newJS\select2.min.js" />
+    <Content Include="Content\New\css\select2.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
