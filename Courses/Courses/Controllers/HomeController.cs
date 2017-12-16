@@ -26,5 +26,29 @@ namespace Courses.Controllers
 
             return View();
         }
+        public ActionResult newIndex()
+        {
+            ViewBag.Message = "Your HOME PAGE";
+
+            return View();
+        }
+        public ActionResult USER()
+        {
+            ViewBag.Message = "Your User PAGE";
+
+            return View();
+        }
+
+        public ActionResult Admin()
+        {
+            ViewBag.Message = "Your Admin PAGE";
+
+            return View();
+        }
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Your Login PAGE";
+            return View();
+        }
     }
 }

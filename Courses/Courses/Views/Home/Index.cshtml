@@ -1,13 +1,14 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
 @using Microsoft.AspNet.Identity
 
 <div class="jumbotron">
 
 @if (Request.IsAuthenticated)
 {
-    <input type="hidden" id="UserName" value="@User.Identity.GetUserName()"></input>
+    <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
     <div ng-controller="courseController">
       
 
@@ -16,7 +17,7 @@
         <h1>Islamic Learning Foundation Courses</h1>
 
 
-        <p class="lead">Welcomeeeeebfdxgfdgfdgfd {{UserName}} to the ILF Learning platform </p>
+        <p class="lead">Welcome {{UserName}} to the ILF Learning platform </p>
         <p>You are enrolled in the following courses...</p>
         </div>
         }
@@ -30,23 +31,23 @@
     </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started yasir</h2>
+    @*<div class="col-md-4">
+        <h2>Getting started </h2>
         <p>
             ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
             enables a clean separation of concerns and gives you full control over markup
             for enjoyable, agile development.
         </p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
+    </div>*@
+    @*<div class="col-md-4">
         <h2>Get more libraries</h2>
         <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
+    </div>*@
+    @*<div class="col-md-4">
         <h2>Web Hosting</h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    </div>*@
 </div>
