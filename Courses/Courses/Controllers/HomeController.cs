@@ -26,12 +26,7 @@ namespace Courses.Controllers
 
             return View();
         }
-        public ActionResult newIndex()
-        {
-            ViewBag.Message = "Your HOME PAGE";
-
-            return View();
-        }
+        
         public ActionResult USER()
         {
             ViewBag.Message = "Your User PAGE";
@@ -45,10 +40,21 @@ namespace Courses.Controllers
 
             return View();
         }
-        public ActionResult Login()
+        
+        public ActionResult Course()
         {
-            ViewBag.Message = "Your Login PAGE";
+            ViewBag.Message = "Your Courses Page";
             return View();
+        }
+        public ActionResult Module()
+        {
+            ViewBag.Message = "Your Module Page";
+            return View();
+        }
+        public ActionResult AddUser()
+        {
+            ViewBag.Messgae = "Your User Page";
+                return View();
         }
     }
 }

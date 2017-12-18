@@ -365,10 +365,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Course_Layout.cshtml" />
-    <Content Include="Views\Home\newIndex.cshtml" />
     <Content Include="Views\Home\USER.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Course.cshtml" />
+    <Content Include="Views\Home\Module.cshtml" />
+    <Content Include="Views\Home\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

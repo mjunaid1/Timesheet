@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/Course_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/newIndex">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Add Users</li>
+        </ol>
+        <div class="row">
+            <div class="col-12">
+                <h1>ADD USERS</h1>
+
+                <form id="myform">
+
+                    <div class="form-group col-3">
+                        <label>Email address</label>
+                        <input type="email" class="form-control" placeholder="Enter E-Mail" required>
+                    </div>
+                    <div class="form-group col-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" placeholder="Enter Password" required>
+                    </div>
+                    <div class="form-group col-3">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Enter Confirm Password" required>
+                    </div>
+
+                    <div class="form-group col-3">
+                        <label>Role By</label>
+                        <select class="form-control" required>
+                            <option>ADMIN</option>
+                            <option>USER</option>
+                            
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">ADD USER</button>
+
+                </form>
+
+
+                    @*<form>
+
+                <div class="form-group" >
+                    <div class="col-md-3">
+                        <label >Email address</label>
+                        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <label >Password</label>
+                            <input class="form-control" type="password" placeholder="Password">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="exampleConfirmPassword">Confirm password</label>
+                            <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">ADD USER</button>
+            </form>*@
+
+
+
+
+
+
+
+</div>
+        </div>
+    </div>
+</div>
