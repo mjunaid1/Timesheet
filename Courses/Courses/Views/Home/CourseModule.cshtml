@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "CourseModule";
+    Layout = "~/Views/Shared/Course_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/newIndex">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Course Module</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-12">
+
+                <H1>Course Module</H1>
+                <br />
+                <label> COURSE NAME: </label>
+                <select class="selectpicker col-3">
+
+                    <optgroup label="COURSE NAME">
+                        <option>PHP</option>
+                        <option>.NET</option>
+                        <option>C#</option>
+                        <option>MVC</option>
+                        <option>ANGULAR</option>
+                        <option>JAVA</option>
+                        <option>PHP</option>
+                        <option>.NET</option>
+                        <option>C#</option>
+                        <option>MVC</option>
+                        <option>ANGULAR</option>
+                        <option>JAVA</option>
+                        <option>PHP</option>
+                        <option>.NET</option>
+                        <option>C#</option>
+                        <option>MVC</option>
+                        <option>ANGULAR</option>
+                        <option>JAVA</option>
+                    </optgroup>
+                </select>
+                <br />
+
+                <div class="col-6">
+                    <div class="widget-box">
+                        <div class="widget-title">
+
+                            <h5>MODULE NAME</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form id="myform" action="#" class="form-horizontal">
+
+                                <div class="control-group">
+                                    <label class="control-label"></label>
+                                    <div class="controls">
+                                        <select multiple>
+                                            <option>HTML/CSS</option>
+                                            <option>PHOTOSHOP</option>
+                                            <option>ASP.NET</option>
+                                            <option>MS-OFFICE</option>
+                                            <option>BASIC INTERNET</option>
+                                            <option>EBOOK</option>
+                                            <option>HTML/CSS</option>
+                                            <option>PHOTOSHOP</option>
+                                            <option>ASP.NET</option>
+                                            <option>MS-OFFICE</option>
+                                            <option>BASIC INTERNET</option>
+                                            <option>EBOOK</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-actions">
+                                    <input type="button" onclick="myFun()" value="SAVE" class="btn btn-success">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function myFun() {
+        document.getElementById("myform").reset();
+        alert("Save Success");
+    }
+</script>
+
+
+
+

@@ -56,5 +56,17 @@ namespace Courses.Controllers
             ViewBag.Messgae = "Your User Page";
                 return View();
         }
+
+        public ActionResult UserCourses()
+        {
+            ViewBag.Messgae = "Your User Page";
+            return View();
+        }
+        public ActionResult CourseModule()
+        {
+            ViewBag.Messgae = "Your User Page";
+            return View();
+        }
+
     }
 }

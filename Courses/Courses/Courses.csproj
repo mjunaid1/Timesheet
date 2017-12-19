@@ -364,12 +364,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\Course_Layout.cshtml" />
     <Content Include="Views\Home\USER.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Course.cshtml" />
     <Content Include="Views\Home\Module.cshtml" />
     <Content Include="Views\Home\AddUser.cshtml" />
+    <Content Include="Views\Shared\Login_PartialNew.cshtml" />
+    <Content Include="Views\Shared\_Logout.cshtml" />
+    <Content Include="Views\Shared\Course_Layout.cshtml" />
+    <Content Include="Views\Home\UserCourses.cshtml" />
+    <Content Include="Views\Home\CourseModule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

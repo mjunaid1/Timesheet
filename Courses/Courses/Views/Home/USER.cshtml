@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "USER";
-    Layout = "~/Views/Shared/Course_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="content-wrapper">
@@ -13,66 +13,71 @@
             </li>
             <li class="breadcrumb-item active">USER</li>
         </ol>
-        <div class="row">
-            <div class="col-12">
-                
 
 
-                <div class="col-6">
-                    <div class="widget-box">
-                        <div class="widget-title">
-                         
-                            <h5>STUDENT COURSES</h5>
-                        </div>
-                        <div class="widget-content nopadding">
-                            <form id="myform" action="#" method="get" class="form-horizontal">
-                                <div class="control-group">
-                                    <label class="control-label">Select Programe</label>
-                                    <div class="controls">
-                                        <select>
-                                            <option>Web-Designing</option>
-                                            <option>Graphic-Designing</option>
-                                            <option>Web-Development</option>
-                                            <option>Computer Introduction</option>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">Multiple Select Courses</label>
-                                    <div class="controls">
-                                        <select multiple>
-                                            <option>HTML/CSS</option>
-                                            <option>PHOTOSHOP</option>
-                                            <option>ASP.NET</option>
-                                            <option>MS-OFFICE</option>
-                                            <option>BASIC INTERNET</option>
-                                            <option>EBOOK</option>
-                                           
-                                        </select>
-                                    </div>
-                                </div>
-<br />
-                                <div class="form-actions">
-                                    <input type="button" onclick="myFun()" value="SAVE" class="btn btn-success">
+       
 
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-12">
+
+                     <H1>EMPTY USER</H1>
+
+                        @*<div class="col-6">
+                            <div class="widget-box">
+                                <div class="widget-title">
+
+                                    <h5>STUDENT COURSES</h5>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="widget-content nopadding">
+                                    <form id="myform" action="#" method="get" class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">Select Programe</label>
+                                            <div class="controls">
+                                                <select>
+                                                    <option>Web-Designing</option>
+                                                    <option>Graphic-Designing</option>
+                                                    <option>Web-Development</option>
+                                                    <option>Computer Introduction</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Multiple Select Courses</label>
+                                            <div class="controls">
+                                                <select multiple>
+                                                    <option>HTML/CSS</option>
+                                                    <option>PHOTOSHOP</option>
+                                                    <option>ASP.NET</option>
+                                                    <option>MS-OFFICE</option>
+                                                    <option>BASIC INTERNET</option>
+                                                    <option>EBOOK</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+        <br />
+                                        <div class="form-actions">
+                                            <input type="button" onclick="myFun()" value="SAVE" class="btn btn-success">
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>*@
+
+
                     </div>
                 </div>
 
 
-            </div>
-        </div>
-
-
     </div>
 </div>
-<script>
-    function myFun() {
-        document.getElementById("myform").reset();
-        alert("Save Success");
-    }
-</script>
+
 
