@@ -1,47 +1,46 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    
 }
-
 @using Microsoft.AspNet.Identity
 
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/Home/Index">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">ILF COURSES</li>
-        </ol>
 
-        <div class="row">
-            <div class="col-12">
-                @if (Request.IsAuthenticated)
-                {
-                    <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
-                    <div ng-controller="courseController">
+<div class="container-fluid">
 
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+    </ol>
+    <!-- Icon Cards-->
 
+    @if (Request.IsAuthenticated)
+    {
+        <input type="hidden" id="UserName" value="@User.Identity.GetUserName()"></input>
+        <div ng-controller="courseController">
 
-                        <!--style = "display: none;" -->
-                        <h1>Islamic Learning Foundation Courses</h1>
+            @*<video controls="controls" height="480" width="640">
+                    <source src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1"  type="video/mp4"/>
+                </video>*@
 
-
-                        <p class="lead">Welcome {{UserName}} to the ILF Learning platform </p>
-                        <p>You are enrolled in the following courses...</p>
-                    </div>
-                }
-
-                else
-                {
-
-                    <h1>You need to be logged in to View your courses</h1>
-                }
+            @*<iframe src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1">
+                    <p>Your browser does not support iframes.</p>
+                </iframe>*@
+            <!--style = "display: none;" -->
+            <h1>Islamic Learning Foundation Courses</h1>
 
 
-
-                </div>
-            </div>
+            <p class="lead">Welcomeeeee {{UserName}} to the ILF Learning platform </p>
+            <p>You are enrolled in the following courses...</p>
         </div>
-    </div>
+    }
+
+    else
+    {
+
+        <h1>You need to be logged in to View your courses</h1>
+    }
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->

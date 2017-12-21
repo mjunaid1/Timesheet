@@ -10,62 +10,232 @@ namespace Courses.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+          //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
         
         public ActionResult USER()
         {
             ViewBag.Message = "Your User PAGE";
 
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
 
         public ActionResult Admin()
         {
             ViewBag.Message = "Your Admin PAGE";
 
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
         
         public ActionResult Course()
         {
             ViewBag.Message = "Your Courses Page";
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
         public ActionResult Module()
         {
             ViewBag.Message = "Your Module Page";
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
         public ActionResult AddUser()
         {
             ViewBag.Messgae = "Your User Page";
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
                 return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
 
         public ActionResult UserCourses()
         {
             ViewBag.Messgae = "Your User Page";
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
         public ActionResult CourseModule()
         {
             ViewBag.Messgae = "Your User Page";
-            return View();
+            //  CoursesRepository c = new CoursesRepository();
+            //     c.InsertStudent();
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+                //var task = Task.Run((Func<Task>)HomeController.Run);
+                //task.Wait();
+
+                //Task.Run(Run);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
         }
 
     }
