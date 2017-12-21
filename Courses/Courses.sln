@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Courses", "Courses\Courses.csproj", "{DF295370-3DF6-49FE-88B0-9F32B66183E6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Courses.DataAccess", "..\..\Courses - Copy\Courses\Courses.DataAccess\Courses.DataAccess.csproj", "{48120D75-AA7B-430B-8A82-335DE86EE70E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Courses.Entities", "..\..\Courses - Copy\Courses\Courses.Entities\Courses.Entities.csproj", "{CE5A9578-A323-4A1F-87E3-CC47426CF548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{DF295370-3DF6-49FE-88B0-9F32B66183E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF295370-3DF6-49FE-88B0-9F32B66183E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF295370-3DF6-49FE-88B0-9F32B66183E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48120D75-AA7B-430B-8A82-335DE86EE70E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48120D75-AA7B-430B-8A82-335DE86EE70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48120D75-AA7B-430B-8A82-335DE86EE70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48120D75-AA7B-430B-8A82-335DE86EE70E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE5A9578-A323-4A1F-87E3-CC47426CF548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE5A9578-A323-4A1F-87E3-CC47426CF548}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE5A9578-A323-4A1F-87E3-CC47426CF548}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE5A9578-A323-4A1F-87E3-CC47426CF548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

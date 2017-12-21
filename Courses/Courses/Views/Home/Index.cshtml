@@ -17,7 +17,7 @@
 
     @if (Request.IsAuthenticated)
     {
-        <input type="hidden" id="UserName" value="@User.Identity.GetUserName()"></input>
+        <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
         <div ng-controller="courseController">
 
             @*<video controls="controls" height="480" width="640">
