@@ -1,4 +1,5 @@
-﻿using Dropbox.Api;
+﻿using Courses.DataAccess;
+using Dropbox.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace Courses.Controllers
     {
         public ActionResult Index()
         {
-          //  CoursesRepository c = new CoursesRepository();
-            //     c.InsertStudent();
+            //CoursesRepository c = new CoursesRepository();
+            //    c.InsertStudent();
 
             if (Request.IsAuthenticated)
             {
