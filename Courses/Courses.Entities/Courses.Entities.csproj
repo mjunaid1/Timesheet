@@ -45,7 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoursesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Extensions.cs" />
+    <Compile Include="Utility\StateController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

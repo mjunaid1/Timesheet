@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Courses.Entities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -28,6 +29,23 @@ namespace Courses.DataAccess
             {
                 conn.Open();
                 string qry = "insert into [Courses] (CourseName, CourseDuration , CourseStartDate) values ('xyz','1 month','2018-01-01')";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+        }
+
+
+
+        public bool AddCourse(CoursesModel Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "insert into [Courses] (CourseName, CourseDuration , CourseStartDate) values ('"+ Model.CourseName+ "','"+ Model.CourseDuration + "','"+ Model.CourseStartDate + "')";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;

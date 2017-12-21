@@ -4,50 +4,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<div ng-controller="courseController">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/Home/newIndex">Dashboard</a>
+                <a href="/Home/Index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Courses</li>
         </ol>
         <div class="row">
             <div class="col-12">
                 <h1>COURSES</h1>
-                
+
                 <form id="myform">
                     <div class="form-row">
                         <div class="form-group col-3">
                             <label>Course Name</label>
-                            <input type="text" class="form-control" id="inputEmail4" placeholder="Course Name" required>
+                            <input type="text" ng-model="CourseName" class="form-control" id="inputEmail4" placeholder="Course Name" >
                         </div>
                         <div class="form-group col-3">
                             <label>Course Duration</label>
-                            <input type="text" class="form-control" id="inputPassword4" placeholder="Course Duration" required>
+                            <input type="text" ng-model="CourseDuration" class="form-control" id="inputPassword4" placeholder="Course Duration" >
                         </div>
 
                         <div class="form-group col-3">
                             <label>Date</label>
                             <div>
-                                <input class="form-control" type="date" value="//-//-//" required>
+                                <input  ng-model="CourseStartDate" class="form-control" type="date" value="//-//-//" >
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" onclick="myFun()" class="btn btn-success">SUBMIT</button>
+                    <button type="submit" ng-click="AddCourses()"  class="btn btn-success">SUBMIT</button>
                 </form>
 
             </div>
         </div>
     </div>
+</div>
 
-
-<script>
-    function myFun() {
-        document.getElementById("myform").reset();
-        alert("Save Success");
-    }
-</script>
+    @*<script>
+        function myFun() {
+            document.getElementById("myform").reset();
+            alert("Save Success");
+        }
+    </script>*@
 
