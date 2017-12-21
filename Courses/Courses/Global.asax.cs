@@ -14,12 +14,19 @@ namespace Courses
         protected void Application_Start()
         {
 
-          //  WebApiConfig.Register(GlobalConfiguration.Configuration);
-            //  GlobalConfiguration.Configure(WebApiConfig.Register);
+            ////  GlobalConfiguration.Configure(WebApiConfig.Register);
+            //AreaRegistration.RegisterAllAreas();
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
     }
 }
