@@ -220,6 +220,7 @@
     <Content Include="Content\8.jpg" />
     <Content Include="Content\9.jpg" />
     <Content Include="Content\Angular\angular.min.js" />
+    <Content Include="Content\Angular\angular2.min.js" />
     <Content Include="Content\Angular\app.js" />
     <Content Include="Content\Angular\CourseController.js" />
     <Content Include="Content\board-784355_960_720.jpg" />

@@ -4,99 +4,76 @@
 
 }
 
+<div ng-controller="courseController">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Course Module</li>
+        </ol>
+        <form id="myform" class="form-horizontal">
+            <div class="row">
+                <div class="col-12">
 
-<div class="container-fluid">
-    <!-- Breadcrumbs-->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="/Home/Index">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Course Module</li>
-    </ol>
+                    <H1>Course Module</H1>
+                    <br />
+                    <label> COURSE NAME: </label>
 
-    <div class="row">
-        <div class="col-12">
-
-            <H1>Course Module</H1>
-            <br />
-            <label> COURSE NAME: </label>
-            <select class="selectpicker col-3">
-
-                <optgroup label="COURSE NAME">
-                    <option>PHP</option>
-                    <option>.NET</option>
-                    <option>C#</option>
-                    <option>MVC</option>
-                    <option>ANGULAR</option>
-                    <option>JAVA</option>
-                    <option>PHP</option>
-                    <option>.NET</option>
-                    <option>C#</option>
-                    <option>MVC</option>
-                    <option>ANGULAR</option>
-                    <option>JAVA</option>
-                    <option>PHP</option>
-                    <option>.NET</option>
-                    <option>C#</option>
-                    <option>MVC</option>
-                    <option>ANGULAR</option>
-                    <option>JAVA</option>
-                </optgroup>
-            </select>
-            <br />
+                    <select  id="selectedCourses" ng-model="selectedCourses" class="selectpicker col-3">
 
 
-            <div class="widget-box">
-                <div class="widget-title">
 
-                    <h5>MODULE NAME</h5>
-                </div>
-                <div class="widget-content nopadding">
-                    <form id="myform" action="#" class="form-horizontal">
+                        <option ng-repeat="x in getAllCourses" value="{{x.CourseID}}">{{x.CourseName}}</option>
 
-                        <div class="control-group">
-                            <label class="control-label"></label>
-                            <div class="controls">
-                                <select multiple>
-                                    <option>HTML/CSS</option>
-                                    <option>PHOTOSHOP</option>
-                                    <option>ASP.NET</option>
-                                    <option>MS-OFFICE</option>
-                                    <option>BASIC INTERNET</option>
-                                    <option>EBOOK</option>
-                                    <option>HTML/CSS</option>
-                                    <option>PHOTOSHOP</option>
-                                    <option>ASP.NET</option>
-                                    <option>MS-OFFICE</option>
-                                    <option>BASIC INTERNET</option>
-                                    <option>EBOOK</option>
 
-                                </select>
+                    </select>
+                    <br />
+
+
+                    <div class="widget-box">
+                        <div class="widget-title">
+
+                            <h5>MODULE NAME</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+
+
+                            <div class="control-group">
+                                <label class="control-label"></label>
+                                <div class="controls" >
+                                    <select ng-model="selectedModules" id="selectedModules" multiple>
+                                        <option ng-repeat="x in getAllModules" value="{{x.ModuleId}}">{{x.ModuleName}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-actions">
+                                <input type="submit" ng-click="InsertCourseModule()" value="SAVE" class="btn btn-success">
+
+                            </div>
+                            <br />
+                            <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                                <h6 class="alert-heading">{{successMessage}}</h6>
+                            </div>
+                            <div class="alert alert-danger alert-block" ng-show="isError">
+                                <h6 class="alert-heading">{{errormessage}}</h6>
                             </div>
                         </div>
-                        <br />
-                        <div class="form-actions">
-                            <input type="button" onclick="myFun()" value="SAVE" class="btn btn-success">
-
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
 
+            </div>
+        </form>
     </div>
 
 </div>
 
 
-
-
-<script>
-    function myFun() {
-        document.getElementById("myform").reset();
-        alert("Save Success");
-    }
-</script>
+   
 
 
 

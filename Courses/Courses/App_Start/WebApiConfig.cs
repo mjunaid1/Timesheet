@@ -25,10 +25,41 @@ namespace Courses
               );
 
 
-             
-      
+            config.Routes.MapHttpRoute(
+                 name: "AddModules",
+                  routeTemplate: "api/Search/AddModules",
+                      defaults: new { controller = "Courses", action = "AddModules" }
+             );
+
+            config.Routes.MapHttpRoute(
+                name: "GetCourses",
+                 routeTemplate: "api/Search/GetCourses",
+                     defaults: new { controller = "Courses", action = "GetCourses" }
+            );
+
+            config.Routes.MapHttpRoute(
+               name: "GetModules",
+                routeTemplate: "api/Search/GetModules",
+                    defaults: new { controller = "Courses", action = "GetModules" }
+           );
+
+            config.Routes.MapHttpRoute(
+               name: "AddCourseModules",
+                routeTemplate: "api/Search/AddCourseModules",
+                    defaults: new { controller = "Courses", action = "AddCourseModules" }
+           );
 
 
+            config.Routes.MapHttpRoute(
+               name: "GetStudents",
+                routeTemplate: "api/Search/GetStudents",
+                    defaults: new { controller = "Courses", action = "GetStudents" }
+           );
+            //config.Routes.MapHttpRoute(
+            //  name: "getCourses",
+            //   routeTemplate: "api/Search/getCourses",
+            //       defaults: new { controller = "Courses", action = "getCourses" }
+            // );
 
         }
     }

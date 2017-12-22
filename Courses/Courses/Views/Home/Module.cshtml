@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<div ng-controller="courseController">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
@@ -19,14 +19,22 @@
                 <form id="myform">
                     <div class="form-group col-3">
                         <label>Module Name</label>
-                        <input type="text" class="form-control"  placeholder="MODULE NAME" required>
+                        <input type="text" ng-model="ModuleName" class="form-control" placeholder="MODULE NAME" >
                     </div>
-                    <button type="submit" class="btn btn-success">SUBMIT</button>
+                    <button type="submit" ng-click="AddModules()"  class="btn btn-success">SUBMIT</button>
                 </form>
+                <br />
+                <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                    <h6 class="alert-heading">{{successMessage}}</h6>
+                </div>
+                <div class="alert alert-danger alert-block" ng-show="isError">
+                    <h6 class="alert-heading">{{errormessage}}</h6>
+                </div>
             </div>
         </div>
     </div>
 
-
+</div>
 
 

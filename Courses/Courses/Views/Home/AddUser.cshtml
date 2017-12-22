@@ -1,4 +1,4 @@
-﻿
+﻿@model Courses.Models.RegisterViewModel
 @{
     ViewBag.Title = "AddUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,8 +6,10 @@
 
 
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
+
+
+      
+        @*<ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/Home/Index">Dashboard</a>
             </li>
@@ -46,36 +48,82 @@
                 </form>
 
 
-                    @*<form>
-
-                <div class="form-group" >
-                    <div class="col-md-3">
-                        <label >Email address</label>
-                        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                    </div>
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <label >Password</label>
-                            <input class="form-control" type="password" placeholder="Password">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="exampleConfirmPassword">Confirm password</label>
-                            <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success">ADD USER</button>
-            </form>*@
-
-
 
 
 
 
 
 </div>
+        </div>*@
+
+      
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Create a new account.</div>
+            <div class="card-body">
+
+                @using (Html.BeginForm("AddUser", "Home", FormMethod.Post, new { @class = "form-group", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @*<h4>Create a new account.</h4>
+                    <hr />*@
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password)
+
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword)
+
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Role)
+
+                        @*@Html.TextBoxFor(m => m.Role, new { @class = "form-control" })*@
+                        <select name="Role" class="form-control">
+                            <option value="1">Admin</option>
+                            <option value="2">Student</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="submit" class="btn btn-success btn-block" value="Register" />
+
+                    </div>
+                    <br />
+
+                    if(ViewBag.msg == "Account Successfully Created..")
+                    {
+                        <div class="alert alert-success alert-block">
+
+                            <h6 class="alert-heading">@ViewBag.msg</h6>
+                        </div>
+
+                    }
+
+
+
+
+                }
+
+             
+            </div>
+
+
+
         </div>
+
+
     </div>
 

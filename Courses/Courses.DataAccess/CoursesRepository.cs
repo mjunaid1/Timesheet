@@ -23,12 +23,12 @@ namespace Courses.DataAccess
             CoursesConnectionString = connection;
         }
 
-        public bool InsertStudent()
+        public bool UpdateRole(string role, string email)
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "insert into [Courses] (CourseName, CourseDuration , CourseStartDate) values ('xyz','1 month','2018-01-01')";
+                string qry = "  update [AspNetUsers] set role = "+role+" where Email =  '"+email+"'";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -50,9 +50,162 @@ namespace Courses.DataAccess
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
-                    return true;
+                    
+                }
+
+                return true;
+            }
+        }
+
+        public bool AddModules(Modules Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "insert into [Modules] (ModuleName) values ('" + Model.ModuleName +  "')";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
+
+       
+        public List<CoursesModel> GetCourses()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [Courses]";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<CoursesModel> data = new List<CoursesModel>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new CoursesModel(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
                 }
             }
         }
+
+        public List<Modules> GetModules()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [Modules]";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Modules> data = new List<Modules>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Modules(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+        public bool AddCourseModules(CourseModules Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                string s = Model.ModuleId;
+                String[] words = s.Split(',');
+
+                foreach (var a in words)
+                {
+
+                  
+
+                    string qry = "insert into [CourseModules] ([CourseId] ,[ModuleId] )values (" + Model.CourseId + ", " +  a + ")";
+                    using (var cmd = new SqlCommand(qry, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+
+                    }
+
+
+                }
+
+               
+
+                return true;
+            }
+        }
+
+
+        public List<Students> GetStudents()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [AspNetUsers] where role = 2";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Students> data = new List<Students>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Students(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
     }
 }

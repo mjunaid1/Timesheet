@@ -20,8 +20,8 @@ namespace Courses.Controllers
             try
             {
                 CoursesRepository _searchRepository = new CoursesRepository();
-                var propertySearchResult = _searchRepository.AddCourse(CoursesModel);
-                return propertySearchResult;// propertySearchResult;
+                var Result = _searchRepository.AddCourse(CoursesModel);
+                return Result;
             }
             catch (Exception ex)
             {
@@ -29,6 +29,87 @@ namespace Courses.Controllers
             }
         }
 
+
+        [HttpPost]
+        public bool AddModules([FromBody]Modules Model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.AddModules(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+
+        [HttpGet]
+        public List<CoursesModel> GetCourses()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetCourses();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public List<Modules> GetModules()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetModules();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost]
+        public bool AddCourseModules([FromBody]CourseModules Model)
+        {
+            try
+            {
+               
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.AddCourseModules(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet]
+        public List<Students> GetStudents()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetStudents();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         // GET: api/Courses2
         public IEnumerable<string> Get()
