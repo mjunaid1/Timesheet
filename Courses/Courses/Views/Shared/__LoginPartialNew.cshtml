@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Courses</title>
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -13,9 +13,24 @@
     <!-- Custom styles for this template-->
 
     <link href="~/Content/sb-admin.css" rel="stylesheet" />
+
+    <style>
+        body {
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        </style>>
+    
+
 </head>
 
-<body class="bg-dark" ng-app="courses">
+<body background="~/Content/5.jpeg" ng-app="courses">
+
+ 
+    
     @*<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">

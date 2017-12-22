@@ -6,11 +6,12 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right ">
-            <li style="font-size:large;">
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <li style="font-size:large;" >
+
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" , style = "color: white;" })
             </li>
 
-            <li style="font-size:large;"><a href="javascript:document.getElementById('logoutForm').submit()" style="color:white;">      <i class="fa fa-fw fa-sign-out badge-dark"></i> Log Out </a></li>
+            <li style="font-size:large;"><a href="javascript:document.getElementById('logoutForm').submit()" style="color:white;"> <i class="fa fa-fw fa-sign-out badge-dark"></i> Log Out </a></li>
         </ul>
     }
 }
@@ -21,3 +22,9 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+
+@*<style>
+    a:link, a:visited, a:active, a:link {
+        color: cadetblue;
+    }
+</style>*@
