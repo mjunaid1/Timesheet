@@ -55,6 +55,20 @@ namespace Courses
                 routeTemplate: "api/Search/GetStudents",
                     defaults: new { controller = "Courses", action = "GetStudents" }
            );
+
+
+            config.Routes.MapHttpRoute(
+              name: "CheckUser",
+               routeTemplate: "api/Search/CheckUser",
+                   defaults: new { controller = "Courses", action = "CheckUser" }
+          );
+
+            config.Routes.MapHttpRoute(
+             name: "GetCourseModules",
+              routeTemplate: "api/Search/GetCourseModules",
+                  defaults: new { controller = "Courses", action = "GetCourseModules" }
+         );
+            
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",

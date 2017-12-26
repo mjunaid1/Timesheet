@@ -26,6 +26,7 @@ $scope.UserName = $('#UserName').val();
                 $scope.CourseName = '';
                 $scope.CourseDuration = '';
                 $scope.CourseStartDate = '';
+                $scope.getCourses();
                 //$scope.onPropertySearch();
             }
         });
@@ -49,7 +50,7 @@ $scope.UserName = $('#UserName').val();
                 $scope.isSuccess = true;
                 $scope.successMessage = "Modules Successfully Added...";
                 $scope.ModuleName = '';
-              
+                $scope.getModules();
                 //$scope.onPropertySearch();
             }
         });
@@ -178,9 +179,56 @@ $scope.UserName = $('#UserName').val();
 
 
 
+    $scope.getUsersRole = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/CheckUser";
+        var user = $('#UserName').val();
+      
+        var data = {
+            UserName: user
+        };
+        
+
+        $http.post(resource, data).success(function (data, status) {
+            if (data.Role == 1) {
+                $scope.isAdmin = true;
+            }
+
+
+            
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+    $scope.getUsersRole();
 
 
 
 
+
+
+
+    $scope.getAllCourseModules = [];
+
+    $scope.getCourseModules = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetCourseModules";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.getAllCourseModules = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+    $scope.getCourseModules();
 
 });

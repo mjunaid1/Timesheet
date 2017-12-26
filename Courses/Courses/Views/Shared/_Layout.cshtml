@@ -19,7 +19,7 @@
 
 
 </head>
-
+@using Microsoft.AspNet.Identity
 <body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="courses">
     @*<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -41,86 +41,88 @@
                 </div>
             </div>
         </div>*@
-
-    <div class="content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <a class="navbar-brand" href="/Home/Index">Welcome To ILF COURSES</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                        <a class="nav-link" href="/Home/Index">
-                            <i class="fa fa-fw fa-dashboard"></i>
-                            <span class="nav-link-text">Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="ADMIN">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-sitemap"></i>
-                            <span class="nav-link-text">ADMIN</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseMulti">
-                            <li>
-                                <a href="/Home/Admin">Admin</a>
+    @*<div ng-controller="courseController">*@
+    <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
+        <div class="content-wrapper">
+            <div ng-controller="courseController">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+                    <a class="navbar-brand" href="/Home/Index">Welcome To ILF COURSES</a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                                <a class="nav-link" href="/Home/Index">
+                                    <i class="fa fa-fw fa-dashboard"></i>
+                                    <span class="nav-link-text">Dashboard</span>
+                                </a>
                             </li>
 
-                            <li>
-                                <a href="/Home/Course">Courses</a>
+                            <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="ADMIN">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-sitemap"></i>
+                                    <span class="nav-link-text">ADMIN</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="collapseMulti">
+                                    <li>
+                                        <a href="/Home/Admin">Admin</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/Home/Course">Courses</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/Module">Modules</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/AddUser">Add Users</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/UserCourses">User Courses</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/CourseModule">Course Module</a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li>
-                                <a href="/Home/Module">Modules</a>
-                            </li>
-                            <li>
-                                <a href="/Home/AddUser">Add Users</a>
-                            </li>
-                            <li>
-                                <a href="/Home/UserCourses">User Courses</a>
-                            </li>
-                            <li>
-                                <a href="/Home/CourseModule">Course Module</a>
+                            <li  ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                                <a class="nav-link" href="/Home/USER">
+                                    <i class="fa fa-fw fa-table"></i>
+                                    <span class="nav-link-text">USERS</span>
+                                </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                        <a class="nav-link" href="/Home/USER">
-                            <i class="fa fa-fw fa-table"></i>
-                            <span class="nav-link-text">USERS</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                    </li>
-                    <li class="nav-item">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                            </li>
+                            <li class="nav-item">
 
-                        @Html.Partial("_LoginPartial")
-                    </li>
-                </ul>
+                                @Html.Partial("_LoginPartial")
+                            </li>
+                        </ul>
 
-              
 
+
+
+                    </div>
+                </nav>
+            </div>
+                @RenderBody()
+                <footer class="sticky-footer">
+                    <div class="container">
+                        <div class="text-center">
+                            <small>Copyright © Your Website 2017</small>
+                        </div>
+                    </div>
+                </footer>
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
 
             </div>
-        </nav>
-
-        @RenderBody()
-        <footer class="sticky-footer">
-            <div class="container">
-                <div class="text-center">
-                    <small>Copyright © Your Website 2017</small>
-                </div>
-            </div>
-        </footer>
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fa fa-angle-up"></i>
-        </a>
-
-    </div>
-
+    @*</div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 using Microsoft.Owin.Security;
 
 namespace Courses.Controllers

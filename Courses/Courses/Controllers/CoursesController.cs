@@ -111,6 +111,38 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost]
+        public Students CheckUser([FromBody]Students s)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.CheckUser(s);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        //[HttpGet]
+        //public List<CourseModules> GetCourseModules()
+        //{
+        //    try
+        //    {
+        //        CoursesRepository _searchRepository = new CoursesRepository();
+        //        var result = _searchRepository.GetCourseModules();
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

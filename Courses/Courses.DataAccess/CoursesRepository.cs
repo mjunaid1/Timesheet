@@ -148,7 +148,7 @@ namespace Courses.DataAccess
             {
                 conn.Open();
 
-                string s = Model.ModuleId;
+                string s = Model.ModuleId.ToString();
                 String[] words = s.Split(',');
 
                 foreach (var a in words)
@@ -206,6 +206,127 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+        public Students CheckUser(Students s)
+        {
+            Students data = null;
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [AspNetUsers] where Email = '" + s.Username + "'";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                  
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                data = new Students(myReader);
+                                
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+        //public List<CourseModules> GetCourseModules()
+        //{
+        //    using (var conn = new SqlConnection(CoursesConnectionString))
+        //    {
+        //        conn.Open();
+        //        string qry = "select * from [Courses]";
+        //        using (var cmd = new SqlCommand(qry, conn))
+        //        {
+        //            cmd.CommandType = CommandType.Text;
+
+        //            List<CourseModules> data = new List<CourseModules>();
+        //            var data1 = new List<CourseModules>();
+        //            List<CoursesModel> c = new List<CoursesModel>();
+        //            List<Modules> m = new List<Modules>();
+
+        //            //var myReader = cmd.ExecuteReader();
+        //            using (var myReader = cmd.ExecuteReader())
+        //            {
+        //                try
+        //                {
+        //                    while (myReader.Read())
+        //                    {
+        //                        var get = new CoursesModel(myReader);
+
+                                 
+        //                       string  data3 = GetCourseModules1(get.CourseID);
+
+        //                        Console.WriteLine(data3);
+        //                            // data.Add(get);
+        //                    }
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    // LOG ERROR
+        //                    throw ex;
+        //                }
+        //            }
+        //            return data;
+        //        }
+        //    }
+        //}
+
+
+        public  string GetCourseModules1(int c )
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                string data = null;
+                conn.Open();
+                string qry = "select  Modules.ModuleId, Modules.ModuleName  from CourseModules left join  Modules on CourseModules.ModuleId = Modules.ModuleId where CourseModules.CourseId = " + c;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                  
+                    List<CoursesModel> c1 = new List<CoursesModel>();
+                    List<Modules> m = new List<Modules>();
+
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Modules(myReader);
+                                data += get.ModuleName + ",";
+
+
+                                // data.Add(get);
+                            }
+                        
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
 
     }
 }
