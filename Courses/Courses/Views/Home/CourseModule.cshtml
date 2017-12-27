@@ -42,7 +42,7 @@
 
                             <div class="control-group">
                                 <label class="control-label"></label>
-                                <div class="controls" >
+                                <div class="controls">
                                     <select ng-model="selectedModules" id="selectedModules" multiple>
                                         <option ng-repeat="x in getAllModules" value="{{x.ModuleId}}">{{x.ModuleName}}</option>
 
@@ -74,27 +74,22 @@
                                         <table class="table table-bordered table-striped" cellspacing="0">
                                             <thead class="table-info">
                                                 <tr>
+                                                    <th>COURSE ID</th>
                                                     <th>COURSE NAME</th>
+                                                    <th>MODULE ID</th>
                                                     <th>MODULE NAME</th>
 
 
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>Tiger Nixon</td>
+                                                <tr ng-repeat="x in getAllCourseModules | filter:query | orderBy:['CourseName','orderProp']  ">
 
+                                                    <td>{{x.CourseId}}</td>
+                                                    <td>{{x.CourseName}}</td>
+                                                    <td>{{x.GetModuleId}}</td>
+                                                    <td>{{x.ModuleName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>Tiger Nixon</td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>Tiger Nixon</td>
 
                                                 </tr>
 
@@ -109,46 +104,7 @@
                      
 
 
-                        <!-- Example DataTables Card-->
-                        <div class="card mb-3 ">
-                            <div class="card-header">
-                                <i class="fa fa-table "></i><span style="color:#868e96; font-weight:bold;"> Corse-Module </span> Table
-                            </div>
-                            <div class="card-body " >
-                                <div class="table-responsive table-sm">
-                                    <table class="table table-bordered table-striped" cellspacing="0">
-                                        <thead class="table-info">
-                                            <tr>
-                                                <th>COURSE NAME</th>
-                                                <th>MODULE NAME</th>
-
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
+                      
 
                     </div>
                 </div>

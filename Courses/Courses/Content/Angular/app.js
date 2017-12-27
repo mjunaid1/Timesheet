@@ -1,3 +1,3 @@
 ﻿'use strict';
 
-var courseApp = angular.module("courses", []);
+var courseApp = angular.module("courses", ['ui.directives', 'ui.filters']);

@@ -123,7 +123,7 @@ $scope.UserName = $('#UserName').val();
 
 
     $scope.InsertCourseModule = function () {
-
+       
         var C_id = $("#selectedCourses").val();
         var M_id = $("#selectedModules").val().toString();
 
@@ -132,7 +132,7 @@ $scope.UserName = $('#UserName').val();
             ModuleId: M_id
         }
 
-      //  alert(C_id + " " + M_id);
+        alert(C_id + " " + M_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModules";
         $http.post(resource, data1).success(function (data, status) {
             if (data === "true") {
@@ -144,16 +144,36 @@ $scope.UserName = $('#UserName').val();
             }
         });
 
-      //  $scope.selectedCourses = 0;
-
-      //  document.getElementById("#myform").reset();
-
-    //    $("#selectedCourses").rest();
+     
 
     }
 
 
+    $scope.InsertUserCourses = function () {
 
+        var S_id = $("#selectedStudents").val();
+        var C_id = $("#selectedCourses").val().toString();
+
+        var data1 = {
+            StudentId: S_id,
+            CourseId: C_id
+        }
+
+       alert(S_id + " dgjk'" + C_id);
+        var resource = location.protocol + "//" + location.host + "/api/Search/AddUserCourses";
+        $http.post(resource, data1).success(function (data, status) {
+            if (data === "true") {
+                $scope.isSuccess = true;
+                $scope.successMessage = "Successfully Assigned Course...";
+                $scope.ModuleName = '';
+
+                //$scope.onPropertySearch();
+            }
+        });
+
+        
+
+    }
 
 
 
@@ -230,5 +250,31 @@ $scope.UserName = $('#UserName').val();
     }
 
     $scope.getCourseModules();
+
+
+    $scope.GetAllSingleUserCourses = [];
+
+        $scope.GetSingleUserCourses = function () {
+
+            var Email = $('#UserName').val();
+        var data = {
+            Email: Email
+            
+        }
+
+      //  alert(S_id + " dgjk'" + C_id);
+            var resource = location.protocol + "//" + location.host + "/api/Search/GetCourses_Single_User";
+            $http.post(resource, data).success(function (data, status) {
+          
+              
+                $scope.GetAllSingleUserCourses = data;
+          
+        });
+
+        
+
+    }
+
+        $scope.GetSingleUserCourses();
 
 });

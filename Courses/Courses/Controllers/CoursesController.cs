@@ -1,5 +1,6 @@
 ﻿using Courses.DataAccess;
 using Courses.Entities;
+using Courses.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,6 +97,23 @@ namespace Courses.Controllers
         }
 
 
+        [HttpPost]
+        public bool AddUserCourses([FromBody]UserCourses Model)
+        {
+            try
+            {
+
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.AddUserCourses(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet]
         public List<Students> GetStudents()
         {
@@ -127,20 +145,37 @@ namespace Courses.Controllers
         }
 
 
-        //[HttpGet]
-        //public List<CourseModules> GetCourseModules()
-        //{
-        //    try
-        //    {
-        //        CoursesRepository _searchRepository = new CoursesRepository();
-        //        var result = _searchRepository.GetCourseModules();
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
+        [HttpGet]
+        public List<CourseModules> GetCourseModules()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetCourseModules();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost]
+        public List<CoursesModel> GetCourses_Single_User([FromBody] RegisterViewModel r)
+        {
+            try
+            {
+              //  Username = "0f7520cd-d8e3-4c3f-b4e7-68d9a1a4832f";
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetCourses_Single_User(r.Email);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
 
         // GET: api/Courses2

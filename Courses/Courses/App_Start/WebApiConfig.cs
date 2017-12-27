@@ -68,7 +68,18 @@ namespace Courses
               routeTemplate: "api/Search/GetCourseModules",
                   defaults: new { controller = "Courses", action = "GetCourseModules" }
          );
-            
+
+            config.Routes.MapHttpRoute(
+           name: "AddUserCourses",
+            routeTemplate: "api/Search/AddUserCourses",
+                defaults: new { controller = "Courses", action = "AddUserCourses" }
+       );
+
+            config.Routes.MapHttpRoute(
+         name: "GetCourses_Single_User",
+          routeTemplate: "api/Search/GetCourses_Single_User",
+              defaults: new { controller = "Courses", action = "GetCourses_Single_User" }
+     );
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",
