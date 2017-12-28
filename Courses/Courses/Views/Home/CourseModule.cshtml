@@ -74,9 +74,9 @@
                                         <table class="table table-bordered table-striped" cellspacing="0">
                                             <thead class="table-info">
                                                 <tr>
-                                                    <th>COURSE ID</th>
+                                                    @*<th>COURSE ID</th>*@
                                                     <th>COURSE NAME</th>
-                                                    <th>MODULE ID</th>
+                                                    @*<th>MODULE ID</th>*@
                                                     <th>MODULE NAME</th>
 
 
@@ -85,9 +85,9 @@
                                             <tbody>
                                                 <tr ng-repeat="x in getAllCourseModules | filter:query | orderBy:['CourseName','orderProp']  ">
 
-                                                    <td>{{x.CourseId}}</td>
+                                                    @*<td>{{x.CourseId}}</td>*@
                                                     <td>{{x.CourseName}}</td>
-                                                    <td>{{x.GetModuleId}}</td>
+                                                    @*<td>{{x.GetModuleId}}</td>*@
                                                     <td>{{x.ModuleName}}</td>
 
 

@@ -367,6 +367,7 @@
     <Content Include="Views\Shared\Course_Layout.cshtml" />
     <Content Include="Views\Home\UserCourses.cshtml" />
     <Content Include="Views\Home\CourseModule.cshtml" />
+    <Content Include="Views\Home\Modules.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

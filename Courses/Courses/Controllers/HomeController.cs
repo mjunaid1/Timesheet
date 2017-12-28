@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
+using System.Net;
 
 namespace Courses.Controllers
 {
@@ -265,6 +266,32 @@ namespace Courses.Controllers
 
             }
 
+
+        }
+
+
+        public ActionResult Modules(int? id)
+        {
+
+
+            if (Request.IsAuthenticated)
+            {
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                ViewBag.CourseId = id;
+                return View();
+
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
 
         }
 

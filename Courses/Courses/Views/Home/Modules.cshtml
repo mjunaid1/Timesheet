@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Modules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="coursid" value="@ViewBag.CourseId">
+<div ng-controller="courseController">
+    
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index">Courses</a>
+            </li>
+            <li class="breadcrumb-item active">Course Modules</li>
+        </ol>
+
+
+        <ul>
+            <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="~/Home/Index" ng-click=""> {{x.ModuleName}}</a></li>
+        </ul>
+
+    </div>
+</div>

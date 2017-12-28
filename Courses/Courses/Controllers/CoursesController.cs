@@ -160,6 +160,21 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpGet]
+        public List<UserCourses> GetUserCourses()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetUserCourses();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
 
         [HttpPost]
         public List<CoursesModel> GetCourses_Single_User([FromBody] RegisterViewModel r)
@@ -177,6 +192,23 @@ namespace Courses.Controllers
             }
         }
 
+
+
+        [HttpPost]
+        public List<Modules> GetCourseModules_Single_User([FromBody] CourseModules r)
+        {
+            try
+            {
+                //  Username = "0f7520cd-d8e3-4c3f-b4e7-68d9a1a4832f";
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetCourseModules_Single_User(r.Username,r.CourseId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         // GET: api/Courses2
         public IEnumerable<string> Get()

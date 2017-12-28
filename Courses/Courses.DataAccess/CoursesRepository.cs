@@ -340,27 +340,27 @@ namespace Courses.DataAccess
                             {
                                 var get = new CourseModules(myReader);
 
-                                if (get.CourseId == id)
-                                {
+                                //if (get.CourseId == id)
+                                //{
 
-                                    //        get.CourseId = 0; get.CourseName = ""; get.ModuleId = 0; 
-                                    name = get.ModuleName += "," + name;
+                                //    //        get.CourseId = 0; get.CourseName = ""; get.ModuleId = 0; 
+                                //    name = get.ModuleName += "," + name;
 
-                                    data.Add(get);
-                                }
-                                else
-                                {
+                                //    data.Add(get);
+                                //}
+                                //else
+                                //{
 
-                                    name = get.ModuleName;
-                                    data.Add(get);
-                                }
+                                //    name = get.ModuleName;
+                                //    data.Add(get);
+                                //}
 
                                 //  string data3 = GetCourseModules1(get.CourseID);
                                 //cc.CourseId = (int)myReader["CourseId"];
                                 //cc.ModuleId = (int)myReader["ModuleId"];
                                 //cc.CourseName = (string)myReader["CourseName"];
                                 //cc.ModuleName = (string)myReader["ModuleName"];
-
+                                data.Add(get);
 
                                 id = get.CourseId;
 
@@ -379,6 +379,52 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+
+
+        public List<UserCourses> GetUserCourses()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select UserCourses.CourseId, UserCourses.StudentId, Courses.CourseName, AspNetUsers.Email from UserCourses left join Courses on Courses.CourseId = UserCourses.CourseId left join AspNetUsers on AspNetUsers.id = UserCourses.StudentId order by UserCourses.CourseId";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    // CourseModules cc = new CourseModules();
+                    List<UserCourses> data = new List<UserCourses>();
+
+                 
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new UserCourses(myReader);
+
+                               
+                                data.Add(get);
+
+                              
+
+
+                            
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+
 
         public  string GetCourseModules1(int c )
         {
@@ -428,7 +474,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "select Courses.CourseName from UserCourses left join AspNetUsers on AspNetUsers.Id = UserCourses.StudentId left join Courses on Courses.CourseId = UserCourses.CourseId where AspNetUsers.Email = '" + Username + "'";
+                string qry = "select Courses.CourseId, Courses.CourseName from UserCourses left join AspNetUsers on AspNetUsers.Id = UserCourses.StudentId left join Courses on Courses.CourseId = UserCourses.CourseId where AspNetUsers.Email = '" + Username + "'";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -442,6 +488,41 @@ namespace Courses.DataAccess
                             while (myReader.Read())
                             {
                                 var get = new CoursesModel(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+
+        public List<Modules> GetCourseModules_Single_User(string Username, int CourseId)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = " select m.ModuleId , m.ModuleName from UserCourses uc ,CourseModules cm, courses c , modules m , AspNetUsers a where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+Username+"' and c.CourseId =  "+CourseId;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Modules> data = new List<Modules>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Modules(myReader);
                                 data.Add(get);
                             }
                         }

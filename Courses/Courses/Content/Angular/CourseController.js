@@ -132,14 +132,13 @@ $scope.UserName = $('#UserName').val();
             ModuleId: M_id
         }
 
-        alert(C_id + " " + M_id);
+       // alert(C_id + " " + M_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModules";
         $http.post(resource, data1).success(function (data, status) {
             if (data === "true") {
                 $scope.isSuccess = true;
                 $scope.successMessage = "Successfully Assigned Modules...";
-                $scope.ModuleName = '';
-
+                $scope.getCourseModules();
                 //$scope.onPropertySearch();
             }
         });
@@ -159,13 +158,13 @@ $scope.UserName = $('#UserName').val();
             CourseId: C_id
         }
 
-       alert(S_id + " dgjk'" + C_id);
+     //  alert(S_id + " dgjk'" + C_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddUserCourses";
         $http.post(resource, data1).success(function (data, status) {
             if (data === "true") {
                 $scope.isSuccess = true;
                 $scope.successMessage = "Successfully Assigned Course...";
-                $scope.ModuleName = '';
+                $scope.getUserCourses();
 
                 //$scope.onPropertySearch();
             }
@@ -252,6 +251,28 @@ $scope.UserName = $('#UserName').val();
     $scope.getCourseModules();
 
 
+
+    $scope.getAllUserCourses = [];
+
+    $scope.getUserCourses = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetUserCourses";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.getAllUserCourses = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+    $scope.getUserCourses();
+
+
+
     $scope.GetAllSingleUserCourses = [];
 
         $scope.GetSingleUserCourses = function () {
@@ -276,5 +297,37 @@ $scope.UserName = $('#UserName').val();
     }
 
         $scope.GetSingleUserCourses();
+
+
+        $scope.GetAllSingleUserCourseModules = [];
+
+        $scope.GetSingleUserCourseModules = function () {
+
+            var Email = $('#UserName').val();
+            var C_id = $('#coursid').val();
+            var data = {
+                Username: Email,
+                CourseId: C_id
+
+            }
+
+            //  alert(S_id + " dgjk'" + C_id);
+            var resource = location.protocol + "//" + location.host + "/api/Search/GetCourseModules_Single_User";
+            $http.post(resource, data).success(function (data, status) {
+
+
+                $scope.GetAllSingleUserCourseModules = data;
+
+            });
+
+
+
+        }
+
+        $scope.GetSingleUserCourseModules();
+
+
+
+
 
 });
