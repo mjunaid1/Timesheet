@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using System.Net;
+using Courses.Entities;
 
 namespace Courses.Controllers
 {
@@ -23,13 +24,13 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
+               
+
+                //var task = Task.Run((Func<Task>)HomeController.Run());
+                //task.Wait();
+
+                //Task.Run(Run);
                 return View();
-
-                var task = Task.Run((Func<Task>)HomeController.Run);
-                task.Wait();
-
-                Task.Run(Run);
-
             }
             else
             {
@@ -272,14 +273,29 @@ namespace Courses.Controllers
 
         public ActionResult Modules(int? id)
         {
+            int Id = (int)id;
 
-
+            CoursesRepository Repository = new CoursesRepository();
             if (Request.IsAuthenticated)
             {
 
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                List<Modules> data = Repository.GetCourseModules_Single_User(@User.Identity.GetUserName(), Id);
+
+                foreach(var a in data)
+                {
+                    var path = @"/Courses" + "/" + a.CourseName + "/" + "Modules/" + a.ModuleName;
+
+                    //var task = Task. 
+                    //    ((Func<Task>)HomeController.Run(8));
+                    //task.Wait();
+
+                    //Task.Run(Run(8));
+
                 }
 
                 ViewBag.CourseId = id;
@@ -296,32 +312,56 @@ namespace Courses.Controllers
         }
 
 
-        static async Task Run()
+        //static async Task Run()
+        //{
+        //    using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
+        //    {
+             
+        //        var full = await dbx.Users.GetCurrentAccountAsync();
+
+        //        Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
+
+
+        //        //    await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
+
+        //        //  await p.UploadDoc();
+
+        //        using (var abc1 = await dbx.Files.DownloadAsync(@"/Courses/xyz/Modules/Lesson 2/bbc.txt"))
+        //        {
+        //            //foreach (var a in abc1.Entries)
+        //            //{
+        //            Console.WriteLine(await abc1.GetContentAsStringAsync() + "  "  );
+        //        }
+        //        //}
+
+        //        var abc12 = await dbx.Files.ListFolderAsync(@"/Courses/");
+
+        //        //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
+        //        Console.ReadLine();
+        //    }
+        //}
+
+
+        static async Task Run(int id)
         {
             using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
             {
-             
-                var full = await dbx.Users.GetCurrentAccountAsync();
+                string data = null;
 
-                Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
+     //           var list = await dbx.Files.ListFolderAsync();
 
-
-                //    await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
-
-                //  await p.UploadDoc();
-
-                using (var abc1 = await dbx.Files.DownloadAsync(@"/Courses/xyz/Modules/Lesson 2/bbc.txt"))
-                {
-                    //foreach (var a in abc1.Entries)
-                    //{
-                    Console.WriteLine(await abc1.GetContentAsStringAsync() + "  "  );
-                }
+                // show folders then files
+                //foreach (var item in list.Entries)
+                //{
+                    
+                //    data = item.Name;
+                 
                 //}
 
+              
 
-                //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
-                Console.ReadLine();
             }
         }
+
     }
 }

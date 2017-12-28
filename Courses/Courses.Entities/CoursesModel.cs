@@ -32,13 +32,14 @@ namespace Courses.Entities
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
 
+        public string CourseName { get; set; }
 
         public Modules(IDataReader dbReader)
         {
             if (dbReader == null) return;
             if (dbReader.HasColumn("ModuleId") && dbReader["ModuleId"] != DBNull.Value) ModuleId = (int)dbReader["ModuleId"];
             if (dbReader.HasColumn("ModuleName") && dbReader["ModuleName"] != DBNull.Value) ModuleName = (string)dbReader["ModuleName"];
-           
+            if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
 
         }
 

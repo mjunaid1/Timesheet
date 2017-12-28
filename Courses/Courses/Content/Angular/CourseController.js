@@ -16,20 +16,27 @@ $scope.UserName = $('#UserName').val();
             CourseDuration: $scope.CourseDuration,
             CourseStartDate: $scope.CourseStartDate
         };
-       
-      
-        var resource = location.protocol + "//" + location.host + "/api/Search/AddCourse";
-        $http.post(resource, data1).success(function (data, status) {
-            if (data === "true") {
-                $scope.isSuccess = true;
-                $scope.successMessage = "Course Successfully Added...";
-                $scope.CourseName = '';
-                $scope.CourseDuration = '';
-                $scope.CourseStartDate = '';
-                $scope.getCourses();
-                //$scope.onPropertySearch();
-            }
-        });
+
+        if ($scope.CourseName != null && $scope.CourseDuration != null && $scope.CourseStartDate != null) {
+
+            var resource = location.protocol + "//" + location.host + "/api/Search/AddCourse";
+            $http.post(resource, data1).success(function (data, status) {
+                if (data === "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Course Successfully Added...";
+                    $scope.CourseName = '';
+                    $scope.CourseDuration = '';
+                    $scope.CourseStartDate = '';
+                    $scope.getCourses();
+                    //$scope.onPropertySearch();
+                }
+            });
+        } else {
+
+            $scope.isError = true;
+            $scope.errormessage = "All Fields Are Required..";
+        }
     }
 
    

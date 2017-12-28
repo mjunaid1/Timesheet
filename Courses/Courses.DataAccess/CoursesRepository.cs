@@ -1,4 +1,5 @@
 ﻿using Courses.Entities;
+using Dropbox.Api;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,11 +50,20 @@ namespace Courses.DataAccess
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
+                    var task = Task.Run((Func<Task>)CoursesRepository.Run);
+                    task.Wait();
+
+                    Task.Run(Run);
                     cmd.ExecuteNonQuery();
                     
+
                 }
 
+              
+
                 return true;
+
+              
             }
         }
 
@@ -509,7 +519,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = " select m.ModuleId , m.ModuleName from UserCourses uc ,CourseModules cm, courses c , modules m , AspNetUsers a where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+Username+"' and c.CourseId =  "+CourseId;
+                string qry = " select m.ModuleId , m.ModuleName, c.courseName from UserCourses uc ,CourseModules cm, courses c , modules m , AspNetUsers a where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+Username+"' and c.CourseId =  "+CourseId;
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -534,6 +544,37 @@ namespace Courses.DataAccess
                     }
                     return data;
                 }
+            }
+        }
+
+
+        static async Task Run()
+        {
+            using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
+            {
+
+                var full = await dbx.Users.GetCurrentAccountAsync();
+
+                Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
+
+
+                //    await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
+
+                //  await p.UploadDoc();
+
+                //using (var abc1 = await dbx.Files.DownloadAsync(@"/Courses/xyz/Modules/Lesson 2/bbc.txt"))
+                //{
+                //    //foreach (var a in abc1.Entries)
+                //    //{
+                //    Console.WriteLine(await abc1.GetContentAsStringAsync() + "  ");
+                //}
+                //}
+
+
+                //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
+                //Console.ReadLine();
+
+               // await dbx.Files.CreateFolderAsync(@"/Courses/xyx" );
             }
         }
 
