@@ -361,35 +361,35 @@ $scope.UserName = $('#UserName').val();
             $http.post(resource1, data1, config).success(function (data, status) {
 
 
-              //  $scope.GetModuleContentDropboxApi = data.entries;
+                $scope.GetModuleContentDropboxApi = data.entries;
 
 
                 
 
-                angular.forEach(data.entries, function (value, key) {
+                //angular.forEach(data.entries, function (value, key) {
 
-                  //  alert(value.name)
+                //  //  alert(value.name)
 
-                    var path2 = "/Courses/" + CourseName + "/Modules/" + Modulename + "/" + value.name ;
+                //    var path2 = "/Courses/" + CourseName + "/Modules/" + Modulename + "/" + value.name ;
 
-                    var data2 = {
-                        "path": path2
+                //    var data2 = {
+                //        "path": path2
 
 
-                    }
+                //    }
 
-                    var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
-                    $http.post(resource2, data2, config).success(function (data, status) {
+                //    var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
+                //    $http.post(resource2, data2, config).success(function (data, status) {
 
-                        $scope.GetModuleContentDropboxApi = data;
+                //        $scope.GetModuleContentDropboxApi = data;
 
-                        alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
+                //        alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
 
-                        $window.location.href = 'https://api.dropboxapi.com/2/files/get_temporary_link';
+                //     //   $window.location.href = 'https://api.dropboxapi.com/2/files/get_temporary_link';
 
-                    });
+                //    });
 
-                    });
+                //    });
             });
             //});
 

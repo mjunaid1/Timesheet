@@ -21,9 +21,25 @@
             <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName)"> {{x.ModuleName}}</a></li>
         </ul>
 
-        <ul>
-            <li ng-repeat="x in GetModuleContentDropboxApi"><a href="{{x.link}}" ng-click=""> {{x.link}}</a></li>
-        </ul>
+        @*<ul>
+            <li ng-repeat="x in GetModuleContentDropboxApi"><a href="{{x.link}}" ng-click=""> {{x.name}}</a></li>
+        </ul>*@
 
+
+        <div ng-repeat="x in GetModuleContentDropboxApi">
+
+           <ul>
+            <li><a href="{{x.link}}" ng-click=""> {{x.name.split(".").pop()}}</a></li>
+           </ul>
+
+            <div ng-if="x.name.split('.').pop() == 'mp4'">
+
+                {{x.name}}
+
+            <video></video>
+
+            </div>
+
+        </div>
     </div>
 </div>
