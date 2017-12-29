@@ -18,7 +18,11 @@
 
 
         <ul>
-            <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="~/Home/Index" ng-click=""> {{x.ModuleName}}</a></li>
+            <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName)"> {{x.ModuleName}}</a></li>
+        </ul>
+
+        <ul>
+            <li ng-repeat="x in GetModuleContentDropboxApi"><a href="{{x.link}}" ng-click=""> {{x.link}}</a></li>
         </ul>
 
     </div>

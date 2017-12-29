@@ -26,7 +26,7 @@ namespace Courses.Controllers
             }
             catch (Exception ex)
             {
-                throw;
+              throw;
             }
         }
 

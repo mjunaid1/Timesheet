@@ -1,4 +1,4 @@
-﻿courseApp.controller("courseController", function courseController($scope, $http, $filter, $timeout) {
+﻿courseApp.controller("courseController", function courseController($scope, $window, $http, $filter, $timeout) {
     $scope.Author = "Umais Siddiqui";
     $scope.UserName = "";
     $scope.test = function () { alert("Testing"); };
@@ -334,7 +334,67 @@ $scope.UserName = $('#UserName').val();
         $scope.GetSingleUserCourseModules();
 
 
+        $scope.GetModuleContentDropboxApi = [];
 
+        $scope.ShowContentModules = function (CourseName, Modulename) {
+
+
+
+            var config = {
+                headers: {
+                    'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
+                    'Content-Type': 'application/json'
+                }
+            }
+            //angular.forEach($scope.GetAllSingleUserCourseModules, function (value, key) {
+
+
+
+            var path = "/Courses/" + CourseName + "/Modules/" + Modulename + "/";
+
+            var data1 = {
+                "path": path
+
+
+            }
+            var resource1 = "https://api.dropboxapi.com/2/files/list_folder";
+            $http.post(resource1, data1, config).success(function (data, status) {
+
+
+              //  $scope.GetModuleContentDropboxApi = data.entries;
+
+
+                
+
+                angular.forEach(data.entries, function (value, key) {
+
+                  //  alert(value.name)
+
+                    var path2 = "/Courses/" + CourseName + "/Modules/" + Modulename + "/" + value.name ;
+
+                    var data2 = {
+                        "path": path2
+
+
+                    }
+
+                    var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
+                    $http.post(resource2, data2, config).success(function (data, status) {
+
+                        $scope.GetModuleContentDropboxApi = data;
+
+                        alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
+
+                        $window.location.href = 'https://api.dropboxapi.com/2/files/get_temporary_link';
+
+                    });
+
+                    });
+            });
+            //});
+
+
+        }
 
 
 });

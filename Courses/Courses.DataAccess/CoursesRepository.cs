@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Dropbox.Api.Files;
 using System.Threading.Tasks;
 
 namespace Courses.DataAccess
@@ -569,14 +570,28 @@ namespace Courses.DataAccess
                 //    Console.WriteLine(await abc1.GetContentAsStringAsync() + "  ");
                 //}
                 //}
-
+                var list = await dbx.Files.ListFolderAsync(@"/Courses/");
 
                 //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
                 //Console.ReadLine();
 
-               // await dbx.Files.CreateFolderAsync(@"/Courses/xyx" );
+                var a1 = list.Entries.Where(i => i.Name == "xyz").Count();
+                if (a1 == 1)
+                {
+
+
+                    //  await dbx.Files.CreateFolderAsync(@"/Courses" + "/" + data.CourseName + "/" + "Modules/" + data1.ModuleName);
+
+                }
+                else
+                {
+                    await dbx.Files.CreateFolderAsync(@"/Courses/xyz");
+                }
+
             }
         }
+
+       
 
     }
 }
