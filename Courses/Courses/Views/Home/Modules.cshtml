@@ -3,7 +3,47 @@
     ViewBag.Title = "Modules";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*<style>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
 
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .accordion:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+    .active:after {
+        content: "\2212";
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+</style>*@
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <input type="hidden" id="coursid" value="@ViewBag.CourseId">
 <div ng-controller="courseController">
     
@@ -18,29 +58,36 @@
 
 
         <ul>
-            <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName)"> {{x.ModuleName}}</a>
+            <li  ng-repeat="x in GetAllSingleUserCourseModules"><a id="xyz{{abc = $index + 1}}" href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName,'abc'+abc)"> {{x.ModuleName}}</a>
           
-            
+          
+                <ul style="display:none" id="abc{{abc}}" >
+                   
+                    <li ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop() != 'MP4' && x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
+                    <li ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop() == 'mp4' || x.name.split('.').pop() == 'MP4' " ><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
+
+
+                </ul>
             
             </li>
        
         </ul>
 
-        <ul>
-            @*{{var a = x.length}}*@
-            <li ng-show="x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'" ng-repeat="x in GetModuleContentDropboxApi"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
-            <li ng-show="x.name.split('.').pop() == 'mp4'" ng-repeat="x in GetModuleContentDropboxApi"><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
+        @*<ul style="display:none" id="abc">
+
+            <li ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
+            <li ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop() == 'mp4'"><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
 
 
-        </ul>
+        </ul>*@
+      
 
         @*<ul>
             <li ng-show="x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'" ng-repeat="x in GetModuleContentDropboxApi"><a href=" https://dl.dropboxusercontent.com/apitl/1/AAA2DUJRPnX9Q1dBVwvAJjgKfiECeRHKuZgzJ3MNZ7RObKOE1EL9rsbziYnLiVhofSMGR3cFZ5v6bQu3oRYVRij0mhTd_ArBq2mv9Eyjx7trDGOWoGSNuj5IQbcU9fDa5PhdBY0Rlw0HaakWMyg7t_zoapmHz1Whw-xypv4VXl1CqpBHjRZR2mjpaFsxVJxzyUmID17svevzboHFSpkX51nrQqsH-xmSxEBMvCL9OwSCSSIiMor2jD0p0mm9kSfKRj0-b1R8UXnj7sLZyV0A4PmQVMX4D7KpxKrxCrPODNdv1RgN7PLcZDc4bLtuINY1Wep0AcA9AwMSR_S6Sz73Lkan"  ng-click=""> {{x.name}}</a></li>
             <li ng-show="x.name.split('.').pop() == 'mp4'" ng-repeat="x in GetModuleContentDropboxApi"><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
         </ul>*@
 
-        <embed src=" https://dl.dropboxusercontent.com/apitl/1/AAA2DUJRPnX9Q1dBVwvAJjgKfiECeRHKuZgzJ3MNZ7RObKOE1EL9rsbziYnLiVhofSMGR3cFZ5v6bQu3oRYVRij0mhTd_ArBq2mv9Eyjx7trDGOWoGSNuj5IQbcU9fDa5PhdBY0Rlw0HaakWMyg7t_zoapmHz1Whw-xypv4VXl1CqpBHjRZR2mjpaFsxVJxzyUmID17svevzboHFSpkX51nrQqsH-xmSxEBMvCL9OwSCSSIiMor2jD0p0mm9kSfKRj0-b1R8UXnj7sLZyV0A4PmQVMX4D7KpxKrxCrPODNdv1RgN7PLcZDc4bLtuINY1Wep0AcA9AwMSR_S6Sz73Lkan" width="500" height="375" type='application/pdf'>
-     
+   
 
         @*<div ng-repeat="x in GetModuleContentDropboxApi">
 
@@ -81,7 +128,20 @@
 
         </div>*@
 
+        
+        @*<div ng-repeat="x in GetAllSingleUserCourseModules" >
 
+            <a class="accordion">Section 1</a>
+
+
+            <div class="panel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+
+        </div>*@
+
+   
+      
         <script type="text/ng-template" id="myModal.html">
             <div id="my-modal-{{id}}" click-outside="cancel()">
                 <div class="modal-header">
@@ -100,5 +160,42 @@
                 </div>
             </div>
         </script>
+
+         <div ng-repeat="x in GetAllSingleUserCourseModules" >
+
+<script>
+
+    //$(document).ready(function () {
+
+    //    alert();
+    //    $("xyz{{abc = $index + 1 }}").click(function () {
+    //        alert("xfdf");
+         
+    //        $("#abc1").css("display", "block");
+           
+         
+    //    });
+    //});
+</script>
+
+</div>
     </div>
 </div>
+
+
+
+@*<script>
+    $(function () {
+        $('li').has('ul').click(function (event) {
+            if (this == event.target) {
+                $(this).toggleClass('open');
+                $(this).children('ul').toggle();
+                if ($(this).siblings().hasClass('open')) {
+                    $(this).siblings().addClass('closed').removeClass('open').children('ul').hide();
+                }
+            }
+        }).addClass('closed').children('ul').hide();
+    });
+
+</script>*@
+

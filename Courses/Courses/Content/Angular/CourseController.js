@@ -433,9 +433,9 @@ $scope.UserName = $('#UserName').val();
 
         $scope.GetModuleContentDropboxApi = [];
 
-        $scope.ShowContentModules = function (CourseName, Modulename) {
+        $scope.ShowContentModules = function (CourseName, Modulename,id) {
 
-
+           
 
             var config = {
                 headers: {
@@ -460,8 +460,25 @@ $scope.UserName = $('#UserName').val();
 
                 $scope.GetModuleContentDropboxApi = data.entries;
 
+                var count = 0 ;
+                angular.forEach($scope.GetAllSingleUserCourseModules, function (value, key) {
+                    count = count + 1
+                 //   alert();
 
-                
+                   
+
+                   
+
+                    if (value.ModuleName == Modulename) {
+
+                        $("#"+id).css("display", "block");
+                    } else {
+
+
+                        $("#abc" + count).css("display", "none");
+                    }
+
+                });
 
                 //angular.forEach(data.entries, function (value, key) {
 
