@@ -18,15 +18,31 @@
 
 
         <ul>
-            <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName)"> {{x.ModuleName}}</a></li>
+            <li ng-repeat="x in GetAllSingleUserCourseModules"><a href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName)"> {{x.ModuleName}}</a>
+          
+            
+            
+            </li>
+       
+        </ul>
+
+        <ul>
+            @*{{var a = x.length}}*@
+            <li ng-show="x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'" ng-repeat="x in GetModuleContentDropboxApi"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
+            <li ng-show="x.name.split('.').pop() == 'mp4'" ng-repeat="x in GetModuleContentDropboxApi"><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
+
+
         </ul>
 
         @*<ul>
-            <li ng-repeat="x in GetModuleContentDropboxApi"><a href="{{x.link}}" ng-click=""> {{x.name}}</a></li>
+            <li ng-show="x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'" ng-repeat="x in GetModuleContentDropboxApi"><a href=" https://dl.dropboxusercontent.com/apitl/1/AAA2DUJRPnX9Q1dBVwvAJjgKfiECeRHKuZgzJ3MNZ7RObKOE1EL9rsbziYnLiVhofSMGR3cFZ5v6bQu3oRYVRij0mhTd_ArBq2mv9Eyjx7trDGOWoGSNuj5IQbcU9fDa5PhdBY0Rlw0HaakWMyg7t_zoapmHz1Whw-xypv4VXl1CqpBHjRZR2mjpaFsxVJxzyUmID17svevzboHFSpkX51nrQqsH-xmSxEBMvCL9OwSCSSIiMor2jD0p0mm9kSfKRj0-b1R8UXnj7sLZyV0A4PmQVMX4D7KpxKrxCrPODNdv1RgN7PLcZDc4bLtuINY1Wep0AcA9AwMSR_S6Sz73Lkan"  ng-click=""> {{x.name}}</a></li>
+            <li ng-show="x.name.split('.').pop() == 'mp4'" ng-repeat="x in GetModuleContentDropboxApi"><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
         </ul>*@
 
+        <embed src=" https://dl.dropboxusercontent.com/apitl/1/AAA2DUJRPnX9Q1dBVwvAJjgKfiECeRHKuZgzJ3MNZ7RObKOE1EL9rsbziYnLiVhofSMGR3cFZ5v6bQu3oRYVRij0mhTd_ArBq2mv9Eyjx7trDGOWoGSNuj5IQbcU9fDa5PhdBY0Rlw0HaakWMyg7t_zoapmHz1Whw-xypv4VXl1CqpBHjRZR2mjpaFsxVJxzyUmID17svevzboHFSpkX51nrQqsH-xmSxEBMvCL9OwSCSSIiMor2jD0p0mm9kSfKRj0-b1R8UXnj7sLZyV0A4PmQVMX4D7KpxKrxCrPODNdv1RgN7PLcZDc4bLtuINY1Wep0AcA9AwMSR_S6Sz73Lkan" width="500" height="375" type='application/pdf'>
+     
 
-        <div ng-repeat="x in GetModuleContentDropboxApi">
+        @*<div ng-repeat="x in GetModuleContentDropboxApi">
 
            <ul>
             <li><a href="{{x.link}}" ng-click=""> {{x.name.split(".").pop()}}</a></li>
@@ -40,6 +56,49 @@
 
             </div>
 
-        </div>
+        </div>*@
+
+
+        @*<div ng-controller="videocontroller">
+
+
+            <div>
+                <h3><b>Video Segment</b></h3>
+            </div>
+
+            <div ng-show="videoSources.length">
+                <video width=176 height=99 style="margin-left: 70px; margin-right: 10px;"
+                       ng-repeat="videoSource in videoSources " ng-src="{{videoSource | trustUrl}}"
+                       ng-click="videoClick($event, videoSource)"></video>
+
+                <a ng-click="videoClick($event, videoSource)" ng-repeat="videoSource in videoSources">yugdsfgtfu</a>
+            </div>
+            <div ng-hide="videoSources.length">
+                <a href="#" ng-click='loadVideos()'>Load videos</a>
+            </div>
+
+
+
+        </div>*@
+
+
+        <script type="text/ng-template" id="myModal.html">
+            <div id="my-modal-{{id}}" click-outside="cancel()">
+                <div class="modal-header">
+                    <h3 class="modal-title">{{title}}</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="media">
+                        <video style="width:100%;height:100%;" controls autoplay ng-src="{{videoSource | trustUrl}}"></video>
+                    </div>
+
+                    <pre>src = {{videoSource | trustUrl}}</pre>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </div>
+        </script>
     </div>
 </div>

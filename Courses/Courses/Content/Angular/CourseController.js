@@ -1,4 +1,4 @@
-﻿courseApp.controller("courseController", function courseController($scope, $window, $http, $filter, $timeout) {
+﻿courseApp.controller("courseController", function courseController($scope, $window, $http, $filter, $timeout, $log, $uibModal) {
     $scope.Author = "Umais Siddiqui";
     $scope.UserName = "";
     $scope.test = function () { alert("Testing"); };
@@ -6,7 +6,103 @@
 $scope.UserName = $('#UserName').val();
     }, 1000)
 
+    $scope.open = function (size, videoSource) {
+        $log.info("open", videoSource);
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModal.html',
+            controller: 'ModalInstanceCtrl',
+            backdrop: true,
+            size: size,
+            resolve: {
+                videoSource: function () {
+                    return videoSource;
+                }
+            }
+        });
 
+        modalInstance.result.then(function (result) {
+            //
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.videoClick = function ($event, videoSource) {
+
+      //  alert(videoSource);
+        var config = {
+            headers: {
+                'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
+                'Content-Type': 'application/json'
+            }
+        }
+        var data2 = {
+            "path": videoSource
+
+
+                    }
+
+                    var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
+                    $http.post(resource2, data2, config).success(function (data, status) {
+
+                      
+
+                        $log.info("videoClick", data.link)
+                        $scope.open('lg', data.link);
+
+                      //  alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
+
+                     //   $window.location.href = 'https://api.dropboxapi.com/2/files/get_temporary_link';
+
+                    });
+
+               
+
+       
+    }
+
+
+    $scope.fileClick = function ($event, fileSource) {
+
+      
+        var config = {
+            headers: {
+                'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
+                'Content-Type': 'application/json'
+            }
+        }
+        var data2 = {
+            "path": fileSource,
+            "short_url": false
+
+
+        }
+
+        var resource2 = "https://api.dropboxapi.com/2/sharing/create_shared_link";
+        $http.post(resource2, data2, config).success(function (data, status) {
+
+
+
+         //   alert(data.url);
+
+            //  alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
+
+
+
+            $window.open(
+                data.url,
+                '_blank' // <- This is what makes it open in a new window.
+            );
+
+
+
+        });
+
+
+
+
+    }
 
     $scope.AddCourses = function () {
 
@@ -21,7 +117,8 @@ $scope.UserName = $('#UserName').val();
 
             var resource = location.protocol + "//" + location.host + "/api/Search/AddCourse";
             $http.post(resource, data1).success(function (data, status) {
-                if (data === "true") {
+             
+                if (data = "true") {
                     $scope.isError = false;
                     $scope.isSuccess = true;
                     $scope.successMessage = "Course Successfully Added...";
@@ -53,7 +150,7 @@ $scope.UserName = $('#UserName').val();
 
         var resource = location.protocol + "//" + location.host + "/api/Search/AddModules";
         $http.post(resource, data1).success(function (data, status) {
-            if (data === "true") {
+            if (data = "true") {
                 $scope.isSuccess = true;
                 $scope.successMessage = "Modules Successfully Added...";
                 $scope.ModuleName = '';
@@ -142,7 +239,7 @@ $scope.UserName = $('#UserName').val();
        // alert(C_id + " " + M_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModules";
         $http.post(resource, data1).success(function (data, status) {
-            if (data === "true") {
+            if (data = "true") {
                 $scope.isSuccess = true;
                 $scope.successMessage = "Successfully Assigned Modules...";
                 $scope.getCourseModules();
@@ -168,7 +265,7 @@ $scope.UserName = $('#UserName').val();
      //  alert(S_id + " dgjk'" + C_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddUserCourses";
         $http.post(resource, data1).success(function (data, status) {
-            if (data === "true") {
+            if (data = "true") {
                 $scope.isSuccess = true;
                 $scope.successMessage = "Successfully Assigned Course...";
                 $scope.getUserCourses();
@@ -205,32 +302,32 @@ $scope.UserName = $('#UserName').val();
 
 
 
-    $scope.getUsersRole = function () {
-        var resource = location.protocol + "//" + location.host + "/api/Search/CheckUser";
-        var user = $('#UserName').val();
+    //$scope.getUsersRole = function () {
+    //    var resource = location.protocol + "//" + location.host + "/api/Search/CheckUser";
+    //    var user = $('#UserName').val();
       
-        var data = {
-            UserName: user
-        };
+    //    var data = {
+    //        UserName: user
+    //    };
         
 
-        $http.post(resource, data).success(function (data, status) {
-            if (data.Role == 1) {
-                $scope.isAdmin = true;
-            }
+    //    $http.post(resource, data).success(function (data, status) {
+    //        if (data.Role == 1) {
+    //            $scope.isAdmin = true;
+    //        }
 
 
             
-        })
-            .error(function (data, status) {
-                // this isn't happening:
-            })
+    //    })
+    //        .error(function (data, status) {
+    //            // this isn't happening:
+    //        })
 
 
 
-    }
+    //}
 
-    $scope.getUsersRole();
+  //  $scope.getUsersRole();
 
 
 
@@ -398,3 +495,37 @@ $scope.UserName = $('#UserName').val();
 
 
 });
+
+
+courseApp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, videoSource, $log) {
+    $log.info("ModalInstanceCtrl", videoSource);
+
+    $scope.id = Math.floor((Math.random() * 100) + 1);
+    $scope.videoSource = videoSource;
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
+
+courseApp.controller('videocontroller', function ($scope) {
+
+
+    $scope.videoSources = [
+
+        'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4'
+    ];
+
+});
+
+
+courseApp.filter("trustUrl", ['$sce', function ($sce) {
+    return function (recordingUrl) {
+        return $sce.trustAsResourceUrl(recordingUrl);
+    };
+}]);
+
