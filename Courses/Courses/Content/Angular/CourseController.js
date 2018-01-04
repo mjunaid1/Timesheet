@@ -176,17 +176,23 @@ $scope.UserName = $('#UserName').val();
            
         };
        
+        if ($scope.ModuleName != null) {
+            var resource = location.protocol + "//" + location.host + "/api/Search/AddModules";
+            $http.post(resource, data1).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Modules Successfully Added...";
+                    $scope.ModuleName = '';
+                    $scope.getModules();
+                    //$scope.onPropertySearch();
+                }
+            });
+        } else {
+            $scope.isError = true;
+            $scope.errormessage = "All Fields Are Required..";
+        }
 
-        var resource = location.protocol + "//" + location.host + "/api/Search/AddModules";
-        $http.post(resource, data1).success(function (data, status) {
-            if (data = "true") {
-                $scope.isSuccess = true;
-                $scope.successMessage = "Modules Successfully Added...";
-                $scope.ModuleName = '';
-                $scope.getModules();
-                //$scope.onPropertySearch();
-            }
-        });
     }
 
 

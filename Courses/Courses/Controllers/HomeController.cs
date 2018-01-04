@@ -333,8 +333,7 @@ namespace Courses.Controllers
 
 
         public ActionResult Modules(int? id)
-        {
-            int Id = (int)id;
+        {            
 
             CoursesRepository Repository = new CoursesRepository();
             if (Request.IsAuthenticated)
@@ -344,7 +343,7 @@ namespace Courses.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-
+                int Id = (int)id;
                 List<Modules> data = Repository.GetCourseModules_Single_User(@User.Identity.GetUserName(), Id);
 
                 foreach(var a in data)

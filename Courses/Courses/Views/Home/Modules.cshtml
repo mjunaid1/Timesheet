@@ -63,7 +63,7 @@
           
                 <ul style="display:none" id="abc{{abc}}" >
                    
-                    <li ng-repeat="x in GetModuleContentDropboxApi" ng-show=" x.name.split('.').pop().toLowerCase() != 'mp4' && x.name.split('.').pop().toLowerCase() == 'pdf'"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
+                   <li ng-repeat="x in GetModuleContentDropboxApi" ng-show=" x.name.split('.').pop().toLowerCase() != 'mp4' && x.name.split('.').pop().toLowerCase() == 'pdf'"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
                     <li ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop().toLowerCase() == 'mp4' && x.name.split('.').pop().toLowerCase() != 'pdf' "><a href="" ng-click="videoClick($event,x.path_display)"> {{x.name}}</a></li>
 
 
