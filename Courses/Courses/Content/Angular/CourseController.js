@@ -5,7 +5,7 @@
     var promise = $timeout(function () {
 $scope.UserName = $('#UserName').val();
     }, 1000)
-
+    
     $scope.open = function (size, videoSource) {
         $log.info("open", videoSource);
         var modalInstance = $uibModal.open({
@@ -82,13 +82,13 @@ $scope.UserName = $('#UserName').val();
         var resource2 = "https://api.dropboxapi.com/2/sharing/create_shared_link";
         $http.post(resource2, data2, config).success(function (data, status) {
 
-
+           
 
          //   alert(data.url);
 
             //  alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
 
-
+            
 
             $window.open(
                 data.url,
@@ -126,6 +126,7 @@ $scope.UserName = $('#UserName').val();
                     $scope.CourseDuration = '';
                     $scope.CourseStartDate = '';
                     $scope.getCourses();
+                    $scope.AddCourseDirectory("/Courses/"+data1.CourseName);
                     //$scope.onPropertySearch();
                 }
             });
@@ -137,7 +138,35 @@ $scope.UserName = $('#UserName').val();
     }
 
    
+    $scope.AddCourseDirectory = function (foldername) {
 
+        var config = {
+            headers: {
+                'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
+                'Content-Type': 'application/json'
+            }
+        }
+        var data2 = {
+            "title": "CreateFolder",
+            "destination":  foldername,
+            "open": true
+
+
+        }
+
+        var resource2 = "https://api.dropboxapi.com/2/file_requests/create";
+        $http.post(resource2, data2, config).success(function (data, status) {
+
+            if (data = "true") {
+
+                $scope.isError = false;
+                $scope.isSuccess = true;
+                $scope.successMessage = "Successfully Directory Created in Dropbox ...";
+               
+            }
+
+        });
+    }
 
     $scope.AddModules = function () {
 
@@ -188,7 +217,7 @@ $scope.UserName = $('#UserName').val();
         var resource = location.protocol + "//" + location.host + "/api/Search/GetCourses";
 
         $http.get(resource).success(function (data, status) {
-            $scope.getAllCourses = data;
+            $scope.getAllCourses = data;         
 
         })
             .error(function (data, status) {
@@ -201,7 +230,7 @@ $scope.UserName = $('#UserName').val();
 
     $scope.getCourses();
 
-
+    
 
 
     $scope.getAllModules = [];
@@ -220,12 +249,12 @@ $scope.UserName = $('#UserName').val();
 
 
     }
+ 
+        $scope.getModules();
+  
 
-    $scope.getModules();
-
-
-
-
+   
+       
     $scope.InsertCourseModule = function () {
        
         var C_id = $("#selectedCourses").val();
@@ -235,6 +264,25 @@ $scope.UserName = $('#UserName').val();
             CourseId: C_id,
             ModuleId: M_id
         }
+        //angular.forEach($scope.getAllCourses, function (value, key) {
+
+        //    alert(value.CourseName);
+        //});
+        //for (var i in $scope.getAllCourses) {
+
+        //    document.write($scope.getAllCourses[i]);
+        //    document.write("<br/>");
+        //} 
+       
+
+       
+
+        //var ss = data1.ModuleId.split(",");
+        //for (var i in ss) {
+
+        //    document.write(ss[i]);
+        //    document.write("<br/>");
+        //} 
 
        // alert(C_id + " " + M_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModules";

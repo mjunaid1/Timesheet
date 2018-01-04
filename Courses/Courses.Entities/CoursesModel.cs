@@ -97,6 +97,13 @@ namespace Courses.Entities
         public string Username { get; set; }
         public int Role { get; set; }
 
+        public Students()
+        {
+         
+
+        }
+
+
         public Students(IDataReader dbReader)
         {
             if (dbReader == null) return;

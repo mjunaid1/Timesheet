@@ -12,14 +12,19 @@ using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using System.Net;
 using Courses.Entities;
+using System.Data;
 
 namespace Courses.Controllers
 {
     public class HomeController : Controller
     {
+        CoursesRepository Repository = new CoursesRepository();
+        Students s = new Students();
+
+      
         public ActionResult Index()
         {
-            //CoursesRepository c = new CoursesRepository();
+            
             //    c.InsertStudent();
 
             if (Request.IsAuthenticated)
@@ -86,9 +91,17 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
-                return View();
+                s.Username = @User.Identity.GetUserName();
 
-             
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
+
+
             }
             else
             {
@@ -105,9 +118,17 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
-                return View();
 
-              
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
+
 
             }
             else
@@ -120,12 +141,20 @@ namespace Courses.Controllers
         public ActionResult Course()
         {
             ViewBag.Message = "Your Courses Page";
-          
+            
             if (Request.IsAuthenticated)
             {
-                return View();
+                s.Username = @User.Identity.GetUserName();
 
-               
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
+
+
 
             }
             else
@@ -141,7 +170,15 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
-                return View();
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
 
 
             }
@@ -159,9 +196,17 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
-                return View();
+                s.Username = @User.Identity.GetUserName();
 
-       
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
+
+
             }
             else
             {
@@ -241,7 +286,15 @@ namespace Courses.Controllers
            
             if (Request.IsAuthenticated)
             {
-                return View();
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
 
             }
             else
@@ -257,9 +310,17 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
-                return View();
+                s.Username = @User.Identity.GetUserName();
 
-              
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
+
+
             }
             else
             {
