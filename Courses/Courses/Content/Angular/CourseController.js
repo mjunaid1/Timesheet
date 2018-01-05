@@ -270,25 +270,34 @@ $scope.UserName = $('#UserName').val();
             CourseId: C_id,
             ModuleId: M_id
         }
-        //angular.forEach($scope.getAllCourses, function (value, key) {
 
-        //    alert(value.CourseName);
-        //});
+        var CourseName = '';
+        var path = '';
+
+
+           angular.forEach($scope.getAllCourses, function (value, key) {
+
+               if (value.CourseID == C_id) {
+
+                   CourseName =  value.CourseName;
+            }
+        });
+
+         
         //for (var i in $scope.getAllCourses) {
 
-        //    document.write($scope.getAllCourses[i]);
-        //    document.write("<br/>");
+        //    if ($scope.getAllCourses[i].CourseId == CourseId){
+        //        CourseName = $scope.getAllCourses[i].CourseName;
+        //    }
+         
         //} 
        
-
+     
        
 
-        //var ss = data1.ModuleId.split(",");
-        //for (var i in ss) {
+      
 
-        //    document.write(ss[i]);
-        //    document.write("<br/>");
-        //} 
+     
 
        // alert(C_id + " " + M_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModules";
@@ -297,6 +306,25 @@ $scope.UserName = $('#UserName').val();
                 $scope.isSuccess = true;
                 $scope.successMessage = "Successfully Assigned Modules...";
                 $scope.getCourseModules();
+
+                var ss = data1.ModuleId.split(",");
+                for (var i in ss) {
+
+                    angular.forEach($scope.getAllModules, function (value, key) {
+
+                        if (value.ModuleId == ss[i]) {
+
+
+                            path = "/Courses/" + CourseName + "/Modules/" + value.ModuleName;
+                            $scope.AddCourseDirectory(path);
+
+                        }
+                    });
+
+
+                } 
+
+
                 //$scope.onPropertySearch();
             }
         });
