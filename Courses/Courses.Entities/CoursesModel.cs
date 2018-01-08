@@ -14,6 +14,7 @@ namespace Courses.Entities
         public string CourseName { get; set; }
         public string CourseDuration { get; set; }
         public DateTime CourseStartDate { get; set; }
+       
 
 
         public CoursesModel(IDataReader dbReader)
@@ -54,6 +55,7 @@ namespace Courses.Entities
 
         public int GetModuleId { get; set; }
         public string Username { get; set; }
+        public string DirectoryPath { get; set; }
 
         public CourseModules(IDataReader dbReader)
         {
@@ -110,6 +112,34 @@ namespace Courses.Entities
             if (dbReader.HasColumn("UserName") && dbReader["UserName"] != DBNull.Value) Username = (string)dbReader["UserName"];
             if (dbReader.HasColumn("Id") && dbReader["Id"] != DBNull.Value) Id = (string)dbReader["Id"];
             if (dbReader.HasColumn("role") && dbReader["role"] != DBNull.Value) Role = (int)dbReader["role"];
+
+        }
+
+    }
+
+
+
+    public class Exams
+    {
+        public int ExamId { get; set; }
+        public int CourseId { get; set; }
+        public string ExamName { get; set; }
+        public string CourseName { get; set; }
+        public DateTime Created { get; set; }
+
+        public Exams()
+        {
+
+
+        }
+        public Exams(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("ExamId") && dbReader["ExamId"] != DBNull.Value) ExamId = (int)dbReader["ExamId"];
+            if (dbReader.HasColumn("CourseId") && dbReader["CourseId"] != DBNull.Value) CourseId = (int)dbReader["CourseId"];
+            if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
+            if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
+            if (dbReader.HasColumn("Created") && dbReader["Created"] != DBNull.Value) Created = (DateTime)dbReader["Created"];
 
         }
 

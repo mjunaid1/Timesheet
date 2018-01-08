@@ -372,11 +372,40 @@ namespace Courses.Controllers
         }
 
 
+
+        public ActionResult CourseExam()
+        {
+            ViewBag.Messgae = "Course Exam";
+
+
+            if (Request.IsAuthenticated)
+            {
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                    return View();
+                else
+                    return RedirectToAction("Index", "Home");
+
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
+
+
+        }
+
         //static async Task Run()
         //{
         //    using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
         //    {
-             
+
         //        var full = await dbx.Users.GetCurrentAccountAsync();
 
         //        Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);

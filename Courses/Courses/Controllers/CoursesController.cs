@@ -210,6 +210,39 @@ namespace Courses.Controllers
             }
         }
 
+
+        [HttpGet] 
+        public List<Exams> GetExams()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetExams();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost] 
+        public bool InsertExam([FromBody]Exams ExamModel)
+        {
+            try
+            {
+                ExamModel.Created = System.DateTime.Now;
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.InsertExam(ExamModel);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

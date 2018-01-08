@@ -14,6 +14,9 @@ namespace Courses.DataAccess
 {
     public class CoursesRepository
     {
+        static string DirectoryName = "";
+        static string ModuleDirectoryName = "";
+        static string ModuleName = "";
         protected string CoursesConnectionString { get; set; }
         public CoursesRepository()
         {
@@ -51,6 +54,8 @@ namespace Courses.DataAccess
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
+
+                    DirectoryName = Model.CourseName;
                     var task = Task.Run((Func<Task>)CoursesRepository.Run);
                     task.Wait();
 
@@ -161,6 +166,8 @@ namespace Courses.DataAccess
 
                 string s = Model.ModuleId.ToString();
                 String[] words = s.Split(',');
+                String[] words1 = Model.DirectoryPath.Split(',');
+                String[] words2 = Model.ModuleName.Split(',');
 
                 foreach (var a in words)
                 {
@@ -173,12 +180,39 @@ namespace Courses.DataAccess
                         cmd.CommandType = CommandType.Text;
                         cmd.ExecuteNonQuery();
 
+                        
                     }
 
 
                 }
 
-               
+                foreach (var a in words1)
+                {
+                    ModuleDirectoryName = a;
+                    
+
+                    //var task = Task.Run((Func<Task>)CoursesRepository.Run1);
+                    //task.Wait();
+
+                    //Task.Run(Run1);
+
+
+
+                }
+
+
+                foreach (var a in words2)
+                {
+                    ModuleName = a;
+
+
+                    //var task = Task.Run((Func<Task>)CoursesRepository.Run1);
+                    //task.Wait();
+
+                    //Task.Run(Run1);
+
+                }
+
 
                 return true;
             }
@@ -549,6 +583,97 @@ namespace Courses.DataAccess
         }
 
 
+        
+        public List<Exams> GetExams()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select CourseExam.ExamId , Exam.ExamName , Courses.CourseName, Exam.Created from CourseExam , Courses , Exam where CourseExam.CourseId = Courses.CourseId and CourseExam.ExamId = Exam.ExamId";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Exams> data = new List<Exams>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Exams(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+        public bool InsertExam(Exams Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                Exams data = new Exams();
+                conn.Open();
+                string qry = "insert into [Exam] (ExamName,Created) values  ('" + Model.ExamName+"','"+Model.Created+"')";
+                
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                   
+                    cmd.ExecuteNonQuery();
+
+                    string qry2 = "select max(ExamId)as ExamId from [Exam] where ExamName = '" + Model.ExamName + "'";
+
+                    using (var cmd2 = new SqlCommand(qry2, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        var myReader = cmd2.ExecuteReader();
+
+                        myReader.Read();
+                       
+                           
+                            data.ExamId = (int)myReader["ExamId"];
+
+                        myReader.Close();
+
+                            string qry3 = "insert into [CourseExam]  (ExamId,CourseId) values (" + data.ExamId + ", " + Model.CourseId + ")";
+
+                            using (var cmd3 = new SqlCommand(qry3, conn))
+                            {
+                                cmd.CommandType = CommandType.Text;
+
+                                cmd3.ExecuteNonQuery();
+
+                            }
+
+
+                        
+
+                        
+
+                    }
+
+
+                    }
+
+
+
+                return true;
+
+
+            }
+        }
+
         static async Task Run()
         {
             using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
@@ -575,7 +700,7 @@ namespace Courses.DataAccess
                 //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
                 //Console.ReadLine();
 
-                var a1 = list.Entries.Where(i => i.Name == "xyz").Count();
+                var a1 = list.Entries.Where(i => i.Name == CoursesRepository.DirectoryName).Count();
                 if (a1 == 1)
                 {
 
@@ -585,13 +710,55 @@ namespace Courses.DataAccess
                 }
                 else
                 {
-                    await dbx.Files.CreateFolderAsync(@"/Courses/xyz");
+                    await dbx.Files.CreateFolderAsync("/Courses/" + CoursesRepository.DirectoryName);
                 }
 
             }
         }
 
-       
+
+
+        static async Task Run1()
+        {
+            using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
+            {
+
+                var full = await dbx.Users.GetCurrentAccountAsync();
+
+                Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
+
+
+                //    await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
+
+                //  await p.UploadDoc();
+
+                //using (var abc1 = await dbx.Files.DownloadAsync(@"/Courses/xyz/Modules/Lesson 2/bbc.txt"))
+                //{
+                //    //foreach (var a in abc1.Entries)
+                //    //{
+                //    Console.WriteLine(await abc1.GetContentAsStringAsync() + "  ");
+                //}
+                //}
+                var list = await dbx.Files.ListFolderAsync(@"/Courses/"+ ModuleDirectoryName);
+
+                //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
+                //Console.ReadLine();
+
+                var a1 = list.Entries.Where(i => i.Name == CoursesRepository.ModuleName).Count();
+                if (a1 == 1)
+                {
+
+
+                    //  await dbx.Files.CreateFolderAsync(@"/Courses" + "/" + data.CourseName + "/" + "Modules/" + data1.ModuleName);
+
+                }
+                else
+                {
+                    await dbx.Files.CreateFolderAsync("/Courses/" + CoursesRepository.ModuleDirectoryName);
+                }
+
+            }
+        }
 
     }
 }

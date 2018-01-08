@@ -126,7 +126,7 @@ $scope.UserName = $('#UserName').val();
                     $scope.CourseDuration = '';
                     $scope.CourseStartDate = '';
                     $scope.getCourses();
-                    $scope.AddCourseDirectory("/Courses/"+data1.CourseName);
+                 //   $scope.AddCourseDirectory("/Courses/"+data1.CourseName);
                     //$scope.onPropertySearch();
                 }
             });
@@ -266,13 +266,17 @@ $scope.UserName = $('#UserName').val();
         var C_id = $("#selectedCourses").val();
         var M_id = $("#selectedModules").val().toString();
 
-        var data1 = {
-            CourseId: C_id,
-            ModuleId: M_id
-        }
-
         var CourseName = '';
         var path = '';
+        var ModuleName = '';
+
+        var data1 = {
+            CourseId: C_id,
+            ModuleId: M_id,
+            DirectoryPath: path
+        }
+
+        
 
 
            angular.forEach($scope.getAllCourses, function (value, key) {
@@ -284,45 +288,44 @@ $scope.UserName = $('#UserName').val();
         });
 
          
-        //for (var i in $scope.getAllCourses) {
+           var ss = data1.ModuleId.split(",");
+           for (var i in ss) {
 
-        //    if ($scope.getAllCourses[i].CourseId == CourseId){
-        //        CourseName = $scope.getAllCourses[i].CourseName;
-        //    }
-         
-        //} 
-       
+               angular.forEach($scope.getAllModules, function (value, key) {
+
+                   if (value.ModuleId == ss[i]) {
+
+
+                       path += CourseName + "/Modules/" + value.ModuleName + ",";
+                       ModuleName += value.ModuleName + ",";
+                    //   $scope.AddCourseDirectory(path);
+
+                   }
+               });
+
+
+           } 
      
-       
+         //  alert(path);
 
       
-
+           var data = {
+               CourseId: C_id,
+               ModuleId: M_id,
+               DirectoryPath: path,
+               ModuleName: ModuleName,
+           }
      
 
        // alert(C_id + " " + M_id);
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModules";
-        $http.post(resource, data1).success(function (data, status) {
+        $http.post(resource, data).success(function (data, status) {
             if (data = "true") {
                 $scope.isSuccess = true;
                 $scope.successMessage = "Successfully Assigned Modules...";
                 $scope.getCourseModules();
 
-                var ss = data1.ModuleId.split(",");
-                for (var i in ss) {
-
-                    angular.forEach($scope.getAllModules, function (value, key) {
-
-                        if (value.ModuleId == ss[i]) {
-
-
-                            path = "/Courses/" + CourseName + "/Modules/" + value.ModuleName;
-                            $scope.AddCourseDirectory(path);
-
-                        }
-                    });
-
-
-                } 
+               
 
 
                 //$scope.onPropertySearch();
@@ -593,8 +596,155 @@ $scope.UserName = $('#UserName').val();
         }
 
 
+        $scope.getAllExams = [];
+
+        $scope.getExams = function () {
+            var resource = location.protocol + "//" + location.host + "/api/Search/GetExams";
+
+            $http.get(resource).success(function (data, status) {
+                $scope.getAllExams = data;
+
+            })
+                .error(function (data, status) {
+                    // this isn't happening:
+                })
+
+
+
+        }
+
+        $scope.getExams();
+
+
+
+        $scope.AddExam = function () {
+            //   // alert("sdf");
+            var videoSource = "";
+                //$scope.propertyDetail = {};
+                //$scope.propertyDetail.Id = id;
+                //getClientYearSetup1();
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                    templateUrl: 'addExam.html',
+                    
+                    controller: 'addExamModalInstanceCtrl',
+                    windowClass: 'app-modal-window',
+                    size: '',
+                    resolve: {
+                        courses: function () {
+                            return $scope.getAllCourses;
+                        }
+                    }
+                });
+
+                //modalInstance.result.then(function () {
+                //    //$log.info(updatePropertyItemResponse);
+                //    //if (updatePropertyItemResponse.hasOwnProperty('isError') && updatePropertyItemResponse.isError === true) {
+                //    //    //showSucessMessageBox(saveCatalogResponse.message, "failure");
+                //    //}
+                //    //else {
+                //    //    $scope.updatePropertyItem.Id = updatePropertyItemResponse.updatePropertyItem.Id;
+                //    //    //showSucessMessageBox(saveCatalogResponse.message, "success");
+                //    //}
+
+                //}, function (response) {
+                //    if (response == 'saved') {
+                //        alert("dgf");
+                //        $scope.getExams();
+                //    }
+                //});
+           
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                    $scope.getExams();
+                },
+                function handleReject(error) {
+                   // alert("Alert rejected!");
+                }
+            );
+
+
+            //$log.info("open", videoSource);
+            //var modalInstance = $uibModal.open({
+            //    animation: $scope.animationsEnabled,
+            //    templateUrl: 'addExam.html',
+            //    controller: 'addExamModalInstanceCtrl',
+            //    backdrop: true,
+            //    size: 'lg',
+            //    resolve: {
+            //        videoSource: function () {
+            //            return videoSource;
+            //        }
+            //    }
+            //});
+
+            //modalInstance.result.then(function (result) {
+            //    //
+            //}, function () {
+            //    $log.info('Modal dismissed at: ' + new Date());
+            //    });
+
+
+        }
 });
 
+
+courseApp.controller('addExamModalInstanceCtrl', function ($scope, $http, $uibModalInstance, courses) {
+    $scope.modalTitle = "Add Exam";
+
+  //  alert(courses[0].CourseName);
+    $scope.getAllCourses = courses;
+
+
+
+
+    $scope.InsertExam = function () {
+
+        var C_id = $("#selectedCourses").val();
+        var data1 = {
+            ExamName: $scope.ExamName,
+            CourseID: C_id
+            
+        };
+
+        //if ($scope.CourseName != null && $scope.CourseDuration != null && $scope.CourseStartDate != null) {
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/InsertExam";
+            $http.post(resource, data1).success(function (data, status) {
+
+                if (data = "true") {
+                 
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Exam Successfully Added...";
+                    $scope.ExamName = '';
+                    $uibModalInstance.close('saved');
+                   
+                }
+        });
+
+        //} else {
+
+        //    $scope.isError = true;
+        //    $scope.errormessage = "All Fields Are Required..";
+        //}
+    }
+
+   
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+  
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+
+});
 
 courseApp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, videoSource, $log) {
     $log.info("ModalInstanceCtrl", videoSource);

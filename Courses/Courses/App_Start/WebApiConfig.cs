@@ -92,6 +92,19 @@ namespace Courses
          routeTemplate: "api/Search/GetCourseModules_Single_User",
              defaults: new { controller = "Courses", action = "GetCourseModules_Single_User" }
     );
+
+
+            config.Routes.MapHttpRoute(
+      name: "GetExams",
+       routeTemplate: "api/Search/GetExams",
+           defaults: new { controller = "Courses", action = "GetExams" }
+  );
+
+            config.Routes.MapHttpRoute(
+     name: "InsertExam",
+      routeTemplate: "api/Search/InsertExam",
+          defaults: new { controller = "Courses", action = "InsertExam" }
+ );
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",
@@ -99,5 +112,6 @@ namespace Courses
             // );
 
         }
+        
     }
 }
