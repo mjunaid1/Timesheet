@@ -618,11 +618,7 @@ $scope.UserName = $('#UserName').val();
 
 
         $scope.AddExam = function () {
-            //   // alert("sdf");
-            var videoSource = "";
-                //$scope.propertyDetail = {};
-                //$scope.propertyDetail.Id = id;
-                //getClientYearSetup1();
+                       
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                     templateUrl: 'addExam.html',
@@ -637,24 +633,7 @@ $scope.UserName = $('#UserName').val();
                     }
                 });
 
-                //modalInstance.result.then(function () {
-                //    //$log.info(updatePropertyItemResponse);
-                //    //if (updatePropertyItemResponse.hasOwnProperty('isError') && updatePropertyItemResponse.isError === true) {
-                //    //    //showSucessMessageBox(saveCatalogResponse.message, "failure");
-                //    //}
-                //    //else {
-                //    //    $scope.updatePropertyItem.Id = updatePropertyItemResponse.updatePropertyItem.Id;
-                //    //    //showSucessMessageBox(saveCatalogResponse.message, "success");
-                //    //}
-
-                //}, function (response) {
-                //    if (response == 'saved') {
-                //        alert("dgf");
-                //        $scope.getExams();
-                //    }
-                //});
-           
-
+          
 
             modalInstance.result.then(
                 function handleResolve(response) {
@@ -665,29 +644,101 @@ $scope.UserName = $('#UserName').val();
                 }
             );
 
+        }
 
-            //$log.info("open", videoSource);
-            //var modalInstance = $uibModal.open({
-            //    animation: $scope.animationsEnabled,
-            //    templateUrl: 'addExam.html',
-            //    controller: 'addExamModalInstanceCtrl',
-            //    backdrop: true,
-            //    size: 'lg',
-            //    resolve: {
-            //        videoSource: function () {
-            //            return videoSource;
-            //        }
-            //    }
-            //});
+        $scope.AddQues = function (Examid) {
+            
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'addQues.html',
 
-            //modalInstance.result.then(function (result) {
-            //    //
-            //}, function () {
-            //    $log.info('Modal dismissed at: ' + new Date());
-            //    });
+                controller: 'addQuesModalInstanceCtrl',
+                windowClass: 'app-modal-window',
+                size: 'lg',
+                resolve: {
+                    ExamId: function () {
+                        return Examid;
+                    }
+                }
+            });
 
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                  //  $scope.getExams();
+                },
+                function handleReject(error) {
+                    // alert("Alert rejected!");
+                }
+            );
 
         }
+
+       
+});
+
+courseApp.controller('addQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, ExamId) {
+    $scope.modalTitle = "Add Question";
+
+    
+   // $scope.getAllCourses = courses;
+    $scope.ans1 = false;
+
+  
+
+    $scope.InsertQues = function () {
+
+        var answerType = $("#answerType").val();
+
+        
+        alert($scope.ans1 + "");
+
+
+        //var data1 = {
+        //    ExamName: $scope.ExamName,
+        //    CourseID: C_id
+
+        //};
+
+
+
+
+        //if ($scope.CourseName != null && $scope.CourseDuration != null && $scope.CourseStartDate != null) {
+
+        //var resource = location.protocol + "//" + location.host + "/api/Search/InsertExam";
+        //$http.post(resource, data1).success(function (data, status) {
+
+        //    if (data = "true") {
+
+        //        $scope.isError = false;
+        //        $scope.isSuccess = true;
+        //        $scope.successMessage = "Exam Successfully Added...";
+        //        $scope.ExamName = '';
+        //        $uibModalInstance.close('saved');
+
+        //    }
+        //});
+
+        //} else {
+
+        //    $scope.isError = true;
+        //    $scope.errormessage = "All Fields Are Required..";
+        //}
+    }
+
+
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+
 });
 
 

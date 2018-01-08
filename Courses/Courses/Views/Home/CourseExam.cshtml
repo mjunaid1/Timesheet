@@ -18,7 +18,7 @@
                 @*<h1 style="color:#868e96; font-weight:bold;">COURSE EXAMS</h1>*@
                 <a href="" ng-click="AddExam()" class="btn btn-success">Add Exam</a>
 
-                <br /> <br /> 
+                <br /> <br />
                 <div class="widget-box">
                     @*<div class="widget-title">
 
@@ -48,11 +48,11 @@
                                         <tbody>
                                             <tr ng-repeat="x in getAllExams  ">
 
-                                              
+
                                                 <td>{{x.ExamName}}</td>
                                                 <td>{{x.Created | date:'MM/dd/yyyy'}}</td>
                                                 <td>{{x.CourseName}}</td>
-                                                <td></td>
+                                                <td><a href="" ng-click="AddQues(x.ExamId)">Add Ques</a></td>
 
                                             </tr>
 
@@ -109,6 +109,104 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" ng-click="InsertExam()">Save</button>
+                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                    </div>
+
+                </script>
+
+
+                <script type="text/ng-template" id="addQues.html">
+
+                    <div class="modal-header">
+
+                        <h4 class="modal-title">{{modalTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-horizontal" name="client">
+                            @*<div class="col-12">*@
+
+
+                            <div class="col-sm-12">
+                                <label class="">Question</label>
+
+                                <textarea ng-model="question" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <label>Answer Type</label>
+                                <select class="form-control" id="answerType" ng-model="answerType">
+                                    <option value="1">Single</option>
+                                    <option value="2">Multiple</option>
+
+                                </select>
+                                <br />
+
+                            </div>
+                           
+                         
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <label class="">Option 1</label>
+
+
+                                        <textarea ng-model="ans1Option" class="form-control" cols="2" rows="1"></textarea>
+                                    </div>
+                                    <div style="top:25%;" class="col-1">
+                                        <label class=""></label>
+
+                                        <br /><br />
+                                        <input value="sdf"  ng-model="ans1" type="checkbox" class="form-control" />
+                                    </div>
+                                    <div class="col-5">
+                                        <label class="">Option 2</label>
+
+
+                                        <textarea ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
+                                    </div>
+                                    <div style="top:25%;" class="col-1">
+                                        <label class=""></label>
+                                        <br /><br />
+                                        <input type="checkbox"  ng-model="ans2" class="form-control" />
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <label class="">Option 3</label>
+
+
+                                        <textarea   ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
+                                    </div>
+                                    <div style="top:25%;" class="col-1">
+
+                                        <label class=""></label>
+                                        <br /><br />
+                                        <input type="checkbox"  ng-model="ans3" class="form-control" />
+                                    </div>
+                                    <div class="col-5">
+                                        <label class="">Option 4</label>
+
+
+                                        <textarea ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
+                                    </div>
+                                    <div style="top:25%;" class="col-1">
+                                        <label class=""></label>
+                                        <br /><br />
+                                        <input type="checkbox" ng-model="ans4" class="form-control" />
+                                    </div>
+                                    </div>
+                                </div>
+
+                                @*</div>*@
+
+</form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" ng-click="InsertQues()">Save</button>
                         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
                     </div>
 
