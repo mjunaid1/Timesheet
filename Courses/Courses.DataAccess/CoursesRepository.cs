@@ -618,6 +618,9 @@ namespace Courses.DataAccess
         }
 
 
+
+
+
         public bool InsertExam(Exams Model)
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
@@ -671,6 +674,123 @@ namespace Courses.DataAccess
                 return true;
 
 
+            }
+        }
+
+
+        
+        public bool InsertQues(Questions Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                Questions data = new Questions();
+                var ansCount = 0;
+                var option = "";
+                var answer = "";
+                string s = Model.AnswerText;
+                String[] words = s.Split('‡');
+
+
+                string qry = "INSERT INTO [ExamQuestions] ([ExamId] ,[Question], [AnswerType]) VALUES  (" + Model.ExamId + ",'" + Model.QuestionText + "','"+ Model.AnswerType + "')";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+
+
+                    string qry2 = "select max(QuestionId)as QuestionId from [ExamQuestions] where Question = '" + Model.QuestionText + "'";
+
+                    using (var cmd2 = new SqlCommand(qry2, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        var myReader = cmd2.ExecuteReader();
+
+                        myReader.Read();
+
+
+                        data.QuesId = (int)myReader["QuestionId"];
+
+                        myReader.Close();
+
+
+                        foreach (var a in words)
+                        {
+
+                            var abc = a;
+
+
+
+                            String[] words1 = abc.Split('‰');
+                            foreach (var a1 in words1)
+                            {
+                                ansCount++;
+                                if (ansCount == 1)
+                                    option = a1;
+                                if (ansCount == 2)
+                                {
+                                    answer = a1;
+
+
+                                    if (option != "")
+                                    {
+
+
+
+                                        var x = option;
+                                        var y = answer;
+
+
+                                        string qry3 = "insert into [ExamAnswers]  ([QuestionId],[AnswerText],CorrectAnswer) values (" + data.QuesId + ", '" + x + "','"+y+"')";
+
+                                        using (var cmd3 = new SqlCommand(qry3, conn))
+                                        {
+                                            cmd.CommandType = CommandType.Text;
+
+                                            cmd3.ExecuteNonQuery();
+
+                                        }
+
+
+
+
+
+                                    }
+
+                                    ansCount = 0;
+                                }
+
+
+                            }
+
+
+
+
+                        }
+
+                        
+
+
+
+
+
+
+                    }
+
+
+
+
+
+
+                }
+
+
+
+                
+
+
+
+                    return true;
             }
         }
 

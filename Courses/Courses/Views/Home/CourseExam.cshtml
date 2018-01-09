@@ -52,8 +52,8 @@
                                                 <td>{{x.ExamName}}</td>
                                                 <td>{{x.Created | date:'MM/dd/yyyy'}}</td>
                                                 <td>{{x.CourseName}}</td>
-                                                <td><a href="" ng-click="AddQues(x.ExamId)">Add Ques</a></td>
-
+                                                @*<td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)">Add Ques</a></td>*@
+                                                <td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)" style="font-size:large;"><i class="fa fa-plus-square" title="Add Qustions"></i></a> &nbsp; <a href="#" style="font-size:large;"><i class="fa fa-window-maximize"></i></a> &nbsp; <a href="#" style="font-size:large;"><i class="fa fa-pencil-square-o"></i></a> </td>
                                             </tr>
 
                                         </tbody>
@@ -152,24 +152,24 @@
                                         <label class="">Option 1</label>
 
 
-                                        <textarea ng-model="ans1Option" class="form-control" cols="2" rows="1"></textarea>
+                                        <textarea ng-model="ans1Option" ng-style="option1style" class="form-control" cols="2" rows="1"></textarea>
                                     </div>
                                     <div style="top:25%;" class="col-1">
                                         <label class=""></label>
 
                                         <br /><br />
-                                        <input value="sdf"  ng-model="ans1" type="checkbox" class="form-control" />
+                                        <input value="sdf" ng-change="OnCheck()"  ng-model="ans1" type="checkbox" class="form-control" />
                                     </div>
                                     <div class="col-5">
                                         <label class="">Option 2</label>
 
 
-                                        <textarea ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
+                                        <textarea ng-style="option2style" ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
                                     </div>
                                     <div style="top:25%;" class="col-1">
                                         <label class=""></label>
                                         <br /><br />
-                                        <input type="checkbox"  ng-model="ans2" class="form-control" />
+                                        <input ng-change="OnCheck()" type="checkbox"  ng-model="ans2" class="form-control" />
 
                                     </div>
                                 </div>
@@ -178,26 +178,34 @@
                                         <label class="">Option 3</label>
 
 
-                                        <textarea   ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
+                                        <textarea ng-style="option3style"  ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
                                     </div>
                                     <div style="top:25%;" class="col-1">
 
                                         <label class=""></label>
                                         <br /><br />
-                                        <input type="checkbox"  ng-model="ans3" class="form-control" />
+                                        <input ng-change="OnCheck()" type="checkbox"  ng-model="ans3" class="form-control" />
                                     </div>
                                     <div class="col-5">
                                         <label class="">Option 4</label>
 
 
-                                        <textarea ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
+                                        <textarea ng-style="option4style" ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
                                     </div>
                                     <div style="top:25%;" class="col-1">
                                         <label class=""></label>
                                         <br /><br />
-                                        <input type="checkbox" ng-model="ans4" class="form-control" />
+                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans4" class="form-control" />
                                     </div>
                                     </div>
+                                <br />
+                                <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                                    <h6 class="alert-heading">{{successMessage}}</h6>
+                                </div>
+                                <div class="alert alert-danger alert-block" ng-show="isError">
+                                    <h6 class="alert-heading">{{errormessage}}</h6>
+                                </div>
                                 </div>
 
                                 @*</div>*@

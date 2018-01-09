@@ -646,7 +646,7 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.AddQues = function (Examid) {
+        $scope.AddQues = function (Examid, examName) {
             
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -658,6 +658,9 @@ $scope.UserName = $('#UserName').val();
                 resolve: {
                     ExamId: function () {
                         return Examid;
+                    },
+                    ExamName: function () {
+                        return examName;
                     }
                 }
             });
@@ -678,53 +681,107 @@ $scope.UserName = $('#UserName').val();
        
 });
 
-courseApp.controller('addQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, ExamId) {
-    $scope.modalTitle = "Add Question";
+courseApp.controller('addQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, ExamId, ExamName) {
+    $scope.modalTitle = "Add Question (" + ExamName + ")"  ;
 
     
    // $scope.getAllCourses = courses;
     $scope.ans1 = false;
+    $scope.ans2 = false;
+    $scope.ans3 = false;
+    $scope.ans4 = false;
 
+    $scope.ans1Option = "";
+    $scope.ans2Option = "";
+    $scope.ans3Option = "";
+    $scope.ans4Option = "";
+    $scope.question = "";
+
+
+    $scope.OnCheck = function () {
+
+        if ($scope.ans1 == true) 
+            $scope.option1style = { 'border-color': 'green' };
+        else
+            $scope.option1style = { 'border-color': 'red' };
+
+
+        if ($scope.ans2 == true)
+            $scope.option2style = { 'border-color': 'green' };
+        else
+            $scope.option2style = { 'border-color': 'red' };
+
+
+        if ($scope.ans3 == true)
+            $scope.option3style = { 'border-color': 'green' };
+        else
+            $scope.option3style = { 'border-color': 'red' };
+
+        if ($scope.ans4 == true)
+            $scope.option4style = { 'border-color': 'green' };
+        else
+            $scope.option4style = { 'border-color': 'red' };
+    }
   
 
     $scope.InsertQues = function () {
 
         var answerType = $("#answerType").val();
 
+       
+      //  alert($scope.answerType + "");
+
+        var op1_ans1 = $scope.ans1Option + "‰" + $scope.ans1;
+        var op2_ans2 = $scope.ans2Option + "‰" + $scope.ans2;
+        var op3_ans3 = $scope.ans3Option + "‰" + $scope.ans3;
+        var op4_ans4 = $scope.ans4Option + "‰" + $scope.ans4;
+
         
-        alert($scope.ans1 + "");
 
 
-        //var data1 = {
-        //    ExamName: $scope.ExamName,
-        //    CourseID: C_id
+        var data1 = {
+            QuestionText: $scope.question,
+            AnswerType: $scope.answerType,
+            AnswerText: op1_ans1 + "‡" + op2_ans2 + "‡" + op3_ans3 + "‡" + op4_ans4,
+            ExamId: ExamId
+        };
 
-        //};
+       
+        //alert($scope.answerType);
 
-
-
-
-        //if ($scope.CourseName != null && $scope.CourseDuration != null && $scope.CourseStartDate != null) {
-
-        //var resource = location.protocol + "//" + location.host + "/api/Search/InsertExam";
-        //$http.post(resource, data1).success(function (data, status) {
-
-        //    if (data = "true") {
-
-        //        $scope.isError = false;
-        //        $scope.isSuccess = true;
-        //        $scope.successMessage = "Exam Successfully Added...";
-        //        $scope.ExamName = '';
-        //        $uibModalInstance.close('saved');
-
-        //    }
-        //});
-
+        //if ($scope.answerType != undefined) {
+        //    alert("sadf");
         //} else {
-
-        //    $scope.isError = true;
-        //    $scope.errormessage = "All Fields Are Required..";
+        //    alert("dsadfff");
         //}
+
+         if ($scope.question != "" && $scope.answerType != undefined && ($scope.ans1Option != "" || $scope.ans2Option != "" || $scope.ans3Option != "" || $scope.ans4Option != "")) {
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/InsertQues";
+        $http.post(resource, data1).success(function (data, status) {
+
+            if (data = "true") {
+
+                $scope.isError = false;
+                $scope.isSuccess = true;
+                $scope.successMessage = "Questions Successfully Added...";
+                $scope.question = "";
+                $scope.answerType = undefined;
+                $scope.ans1Option = "";
+                $scope.ans2Option = "";
+                $scope.ans3Option = "";
+                $scope.ans4Option = "";
+              //$scope.ExamName = '';
+              //$uibModalInstance.close('saved');
+
+            }
+        });
+
+        } else {
+            $scope.isSuccess = false;
+            $scope.isError = true;
+            $scope.errormessage = "All Fields Are Required And Atleast 1 Option Required..";
+        }
     }
 
 

@@ -243,6 +243,25 @@ namespace Courses.Controllers
             }
         }
 
+
+        
+       [HttpPost]
+        public bool InsertQues([FromBody]Questions Model)
+        {
+            try
+            {
+
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.InsertQues(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

@@ -144,4 +144,32 @@ namespace Courses.Entities
         }
 
     }
+
+
+    public class Questions
+    {
+        public int QuesId { get; set; }
+        public string QuestionText { get; set; }
+        public string AnswerType { get; set; }
+        public string AnswerText { get; set; }
+        public int ExamId { get; set; }
+        
+
+        public Questions()
+        {
+
+
+        }
+        //public Exams(IDataReader dbReader)
+        //{
+        //    if (dbReader == null) return;
+        //    if (dbReader.HasColumn("ExamId") && dbReader["ExamId"] != DBNull.Value) ExamId = (int)dbReader["ExamId"];
+        //    if (dbReader.HasColumn("CourseId") && dbReader["CourseId"] != DBNull.Value) CourseId = (int)dbReader["CourseId"];
+        //    if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
+        //    if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
+        //    if (dbReader.HasColumn("Created") && dbReader["Created"] != DBNull.Value) Created = (DateTime)dbReader["Created"];
+
+        //}
+
+    }
 }
