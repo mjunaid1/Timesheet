@@ -741,7 +741,7 @@ namespace Courses.DataAccess
                                         var y = answer;
 
 
-                                        string qry3 = "insert into [ExamAnswers]  ([QuestionId],[AnswerText],CorrectAnswer) values (" + data.QuesId + ", '" + x + "','"+y+"')";
+                                        string qry3 = "insert into [ExamAnswers]  ([QuestionId],[AnswerText],CorrectAnswer,Examid) values (" + data.QuesId + ", '" + x + "','"+y+"',"+ Model.ExamId + ")";
 
                                         using (var cmd3 = new SqlCommand(qry3, conn))
                                         {
@@ -793,6 +793,61 @@ namespace Courses.DataAccess
                     return true;
             }
         }
+
+
+
+        public QuestionsAndAnswers ViewQuestionAndAnswers(int ExamId)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                using (var cmd = new SqlCommand("ExamQuestionAndAnswers", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Examid", SqlDbType.BigInt).Value = ExamId;
+                    QuestionsAndAnswers data = null;
+                  
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                data = new QuestionsAndAnswers(myReader);
+                            }
+                            myReader.NextResult();
+                            while (myReader.Read())
+                            {
+
+
+                                data.Questions.Add(new Questions1(myReader));
+                              
+
+                            }
+
+                            myReader.NextResult();
+                            while (myReader.Read())
+                            {
+                                data.Answers.Add(new Answers(myReader));
+                            }
+
+                            
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
 
         static async Task Run()
         {

@@ -53,7 +53,7 @@
                                                 <td>{{x.Created | date:'MM/dd/yyyy'}}</td>
                                                 <td>{{x.CourseName}}</td>
                                                 @*<td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)">Add Ques</a></td>*@
-                                                <td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)" style="font-size:large;"><i class="fa fa-plus-square" title="Add Qustions"></i></a> &nbsp; <a href="#" style="font-size:large;"><i class="fa fa-window-maximize"></i></a> &nbsp; <a href="#" style="font-size:large;"><i class="fa fa-pencil-square-o"></i></a> </td>
+                                                <td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)" style="font-size:large;"><i class="fa fa-plus-square" title="Add Qustions"></i></a> &nbsp; <a href="" title="View Qustions" ng-click="ViewQues(x.ExamId)" style="font-size:large;"><i class="fa fa-window-maximize"></i></a> &nbsp; <a href="#" style="font-size:large;"><i class="fa fa-pencil-square-o"></i></a> </td>
                                             </tr>
 
                                         </tbody>
@@ -73,6 +73,43 @@
 
 
 
+
+                <script type="text/ng-template" id="viewQues.html">
+
+                    <div class="modal-header">
+
+                        <h4 class="modal-title">{{modalTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <ul>
+                            <li ng-repeat="x1 in ViewQuestionAndAnswers.Questions">
+                                <a href="">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}}</a>  &nbsp;  &nbsp;  &nbsp;  &nbsp; <span  ng-if="x1.AnswerType === '2' ">(Multiple)</span> <span ng-if="x1.AnswerType === '1' ">(Single)</span>
+
+
+                                <ul  ng-repeat="x in ViewQuestionAndAnswers.Answers" >
+
+
+                                    <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}} &nbsp;  &nbsp;  &nbsp;  &nbsp; {{x.CorrectAnswer}} </li>
+                                   
+
+
+                                </ul>
+                                <br />
+                                
+                            </li>
+
+                        </ul>
+                       
+
+
+                    </div>
+                    <div class="modal-footer">
+                        @*<button class="btn btn-primary" type="button" ng-click="">Save</button>*@
+                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                    </div>
+
+                </script>
 
 
 
@@ -143,8 +180,8 @@
                                 <br />
 
                             </div>
-                           
-                         
+
+
 
                             <div class="container">
                                 <div class="row">
@@ -158,7 +195,7 @@
                                         <label class=""></label>
 
                                         <br /><br />
-                                        <input value="sdf" ng-change="OnCheck()"  ng-model="ans1" type="checkbox" class="form-control" />
+                                        <input value="sdf" ng-change="OnCheck()" ng-model="ans1" type="checkbox" class="form-control" />
                                     </div>
                                     <div class="col-5">
                                         <label class="">Option 2</label>
@@ -169,7 +206,7 @@
                                     <div style="top:25%;" class="col-1">
                                         <label class=""></label>
                                         <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox"  ng-model="ans2" class="form-control" />
+                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans2" class="form-control" />
 
                                     </div>
                                 </div>
@@ -178,13 +215,13 @@
                                         <label class="">Option 3</label>
 
 
-                                        <textarea ng-style="option3style"  ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
+                                        <textarea ng-style="option3style" ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
                                     </div>
                                     <div style="top:25%;" class="col-1">
 
                                         <label class=""></label>
                                         <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox"  ng-model="ans3" class="form-control" />
+                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans3" class="form-control" />
                                     </div>
                                     <div class="col-5">
                                         <label class="">Option 4</label>
@@ -197,7 +234,7 @@
                                         <br /><br />
                                         <input ng-change="OnCheck()" type="checkbox" ng-model="ans4" class="form-control" />
                                     </div>
-                                    </div>
+                                </div>
                                 <br />
                                 <div class="alert alert-success alert-block" ng-show="isSuccess">
 
@@ -206,11 +243,11 @@
                                 <div class="alert alert-danger alert-block" ng-show="isError">
                                     <h6 class="alert-heading">{{errormessage}}</h6>
                                 </div>
-                                </div>
+                            </div>
 
-                                @*</div>*@
+                            @*</div>*@
 
-</form>
+                        </form>
 
                     </div>
                     <div class="modal-footer">

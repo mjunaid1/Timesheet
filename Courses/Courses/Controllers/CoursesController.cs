@@ -262,6 +262,24 @@ namespace Courses.Controllers
             }
         }
 
+
+        [HttpPost]
+        public QuestionsAndAnswers ViewQuestionAndAnswers([FromBody]int ExamId)
+        {
+            try
+            {
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var propertySearchResult = _searchRepository.ViewQuestionAndAnswers(ExamId);
+                return propertySearchResult;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

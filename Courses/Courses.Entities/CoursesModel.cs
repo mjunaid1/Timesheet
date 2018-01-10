@@ -160,16 +160,86 @@ namespace Courses.Entities
 
 
         }
-        //public Exams(IDataReader dbReader)
-        //{
-        //    if (dbReader == null) return;
-        //    if (dbReader.HasColumn("ExamId") && dbReader["ExamId"] != DBNull.Value) ExamId = (int)dbReader["ExamId"];
-        //    if (dbReader.HasColumn("CourseId") && dbReader["CourseId"] != DBNull.Value) CourseId = (int)dbReader["CourseId"];
-        //    if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
-        //    if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
-        //    if (dbReader.HasColumn("Created") && dbReader["Created"] != DBNull.Value) Created = (DateTime)dbReader["Created"];
+        public Questions(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("QuesId") && dbReader["QuesId"] != DBNull.Value) QuesId = (int)dbReader["QuesId"];
+            if (dbReader.HasColumn("Question") && dbReader["Question"] != DBNull.Value) QuestionText = (string)dbReader["Question"];
+            if (dbReader.HasColumn("AnswerType") && dbReader["AnswerType"] != DBNull.Value) AnswerType = (string)dbReader["AnswerType"];
+            if (dbReader.HasColumn("AnswerText") && dbReader["AnswerText"] != DBNull.Value) AnswerText = (string)dbReader["AnswerText"];
+            if (dbReader.HasColumn("ExamId") && dbReader["ExamId"] != DBNull.Value) ExamId = (int)dbReader["ExamId"];
+           
 
-        //}
+        }
 
     }
+
+
+    public class Answers
+    {
+        public int QuesId { get; set; }
+        public string AnswerText { get; set; }
+        public bool CorrectAnswer { get; set; }
+        public int ExamId { get; set; }
+
+        public Answers(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("QuestionId") && dbReader["QuestionId"] != DBNull.Value) QuesId = (int)dbReader["QuestionId"];
+            if (dbReader.HasColumn("AnswerText") && dbReader["AnswerText"] != DBNull.Value) AnswerText = (string)dbReader["AnswerText"];
+            if (dbReader.HasColumn("CorrectAnswer") && dbReader["CorrectAnswer"] != DBNull.Value) CorrectAnswer = (bool)dbReader["CorrectAnswer"];
+            if (dbReader.HasColumn("ExamId") && dbReader["ExamId"] != DBNull.Value) ExamId = (int)dbReader["ExamId"];
+
+        }
+
+    }
+
+
+
+    public class Questions1
+    {
+        public int QuesId { get; set; }
+        public int ExamId { get; set; }
+        public string Question{ get; set; }
+        public string AnswerType { get; set; }
+
+
+        public Questions1(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("QuestionId") && dbReader["QuestionId"] != DBNull.Value) QuesId = (int)dbReader["QuestionId"];
+            if (dbReader.HasColumn("ExamId") && dbReader["ExamId"] != DBNull.Value) ExamId = (int)dbReader["ExamId"];
+            if (dbReader.HasColumn("Question") && dbReader["Question"] != DBNull.Value) Question = (string)dbReader["Question"];
+            if (dbReader.HasColumn("AnswerType") && dbReader["AnswerType"] != DBNull.Value) AnswerType = (string)dbReader["AnswerType"];
+
+
+        }
+
+    }
+
+
+    public class QuestionsAndAnswers
+    {
+
+
+        public List<Questions1> Questions { get; set; }
+        public List<Answers> Answers { get; set; }
+
+        public QuestionsAndAnswers()
+        {
+
+
+        }
+
+        public QuestionsAndAnswers(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            Questions = new List<Questions1>();
+            Answers = new List<Answers>();
+
+        }
+       
+    }
+
+
 }

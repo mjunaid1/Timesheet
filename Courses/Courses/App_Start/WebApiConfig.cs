@@ -112,6 +112,13 @@ namespace Courses
               routeTemplate: "api/Search/InsertQues",
                   defaults: new { controller = "Courses", action = "InsertQues" }
          );
+
+
+            config.Routes.MapHttpRoute(
+          name: "ViewQuestionAndAnswers",
+           routeTemplate: "api/Search/ViewQuestionAndAnswers",
+               defaults: new { controller = "Courses", action = "ViewQuestionAndAnswers" }
+      );
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",

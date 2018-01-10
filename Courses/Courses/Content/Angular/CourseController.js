@@ -678,8 +678,120 @@ $scope.UserName = $('#UserName').val();
 
         }
 
+
+        $scope.ViewQues = function (Examid) {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'viewQues.html',
+
+                controller: 'viewQuesModalInstanceCtrl',
+                windowClass: 'app-modal-window',
+                size: 'lg',
+                resolve: {
+                    ExamId: function () {
+                        return Examid;
+                    }
+                   
+                }
+            });
+
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                    //  $scope.getExams();
+                },
+                function handleReject(error) {
+                    // alert("Alert rejected!");
+                }
+            );
+
+        }
        
 });
+
+courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, ExamId) {
+    $scope.modalTitle = "View Questions";
+
+   
+
+
+
+
+    $scope.ViewQuestionAndAnswers = function () {
+
+    
+        $scope.ViewAllQuestionAndAnswers = [];
+        
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
+        $http.post(resource, ExamId).success(function (data, status) {
+
+
+            $scope.ViewQuestionAndAnswers = data;
+
+            var data1 = {
+
+                Questions: { Question: [] },
+                Answers: { Answer: []}
+            }
+
+            angular.forEach(data.Questions, function (value, key) {
+              
+                var QId = value.QuesId;
+
+             //   alert(value.Question);
+
+               
+                data1.Question = value.Question;
+                angular.forEach(data.Answers, function (value1, key) {
+
+                
+                    if (value1.QuesId == QId) {
+
+
+                        data1.Answers = value1.AnswerText;
+
+                       // alert(value1.AnswerText + "" + value1.CorrectAnswer);
+
+
+                    }
+
+
+                  
+
+
+
+                });
+
+
+             //   alert(data1.Question + " Ans:" + data1.Answers);
+              
+
+            });
+
+          
+            
+        });
+
+      
+    }
+
+
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.ViewQuestionAndAnswers();
+});
+
 
 courseApp.controller('addQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, ExamId, ExamName) {
     $scope.modalTitle = "Add Question (" + ExamName + ")"  ;
