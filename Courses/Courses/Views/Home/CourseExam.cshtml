@@ -80,18 +80,18 @@
 
                         <h4 class="modal-title">{{modalTitle}}</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" >
 
-                        <ul>
+                        <ul style="list-style:none;" class="col col-md-12">
                             <li ng-repeat="x1 in ViewQuestionAndAnswers.Questions">
-                                <a href="">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}}</a>  &nbsp;  &nbsp;  &nbsp;  &nbsp; <span  ng-if="x1.AnswerType === '2' ">(Multiple)</span> <span ng-if="x1.AnswerType === '1' ">(Single)</span>
+                                <h2 style="font-size: large;font-weight:bold; color:black;">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}} &nbsp;  &nbsp; <span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '2' ">(Multiple)</span><span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '1' ">(Single)</span>  <i class="fa fa-trash" aria-hidden="true" style="float:right;color:red;"></i> <i class="fa fa-pencil-square-o" aria-hidden="true" style="float:right;margin-right:5px;color:cornflowerblue;"></i> </h2> 
 
 
-                                <ul  ng-repeat="x in ViewQuestionAndAnswers.Answers" >
+                                <ul   ng-repeat="x in ViewQuestionAndAnswers.Answers" >
 
 
-                                    <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}} &nbsp;  &nbsp;  &nbsp;  &nbsp; {{x.CorrectAnswer}} </li>
-                                   
+                                    <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}} &nbsp;  &nbsp;  &nbsp;  &nbsp; {{x.CorrectAnswer}} &nbsp;  &nbsp; <i class="fa fa-check-square-o" aria-hidden="true" style="font-size:large;color:green;" ></i> </li>
+                                    
 
 
                                 </ul>
