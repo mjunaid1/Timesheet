@@ -153,7 +153,10 @@ namespace Courses.Entities
         public string AnswerType { get; set; }
         public string AnswerText { get; set; }
         public int ExamId { get; set; }
-        
+        public int OPID1 { get; set; }
+        public int OPID2 { get; set; }
+        public int OPID3 { get; set; }
+        public int OPID4 { get; set; }
 
         public Questions()
         {
@@ -177,6 +180,7 @@ namespace Courses.Entities
 
     public class Answers
     {
+        public int AnswerID { get; set; }
         public int QuesId { get; set; }
         public string AnswerText { get; set; }
         public bool CorrectAnswer { get; set; }
@@ -185,6 +189,7 @@ namespace Courses.Entities
         public Answers(IDataReader dbReader)
         {
             if (dbReader == null) return;
+            if (dbReader.HasColumn("AnswerID") && dbReader["AnswerID"] != DBNull.Value) AnswerID = (int)dbReader["AnswerID"];
             if (dbReader.HasColumn("QuestionId") && dbReader["QuestionId"] != DBNull.Value) QuesId = (int)dbReader["QuestionId"];
             if (dbReader.HasColumn("AnswerText") && dbReader["AnswerText"] != DBNull.Value) AnswerText = (string)dbReader["AnswerText"];
             if (dbReader.HasColumn("CorrectAnswer") && dbReader["CorrectAnswer"] != DBNull.Value) CorrectAnswer = (bool)dbReader["CorrectAnswer"];

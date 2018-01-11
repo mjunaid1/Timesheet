@@ -679,7 +679,7 @@ $scope.UserName = $('#UserName').val();
         }
 
 
-        $scope.ViewQues = function (Examid) {
+        $scope.ViewQues = function (Examid,ExamName) {
 
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -691,6 +691,9 @@ $scope.UserName = $('#UserName').val();
                 resolve: {
                     ExamId: function () {
                         return Examid;
+                    },
+                    ExamName: function () {
+                        return ExamName;
                     }
                    
                 }
@@ -711,71 +714,402 @@ $scope.UserName = $('#UserName').val();
        
 });
 
-courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, ExamId) {
-    $scope.modalTitle = "View Questions";
+courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, ExamId, ExamName) {
+    $scope.modalTitle = "View Questions (" + ExamName + ")";
 
    
 
 
 
-
+    $scope.ViewAllQuestionAndAnswers = [];
     $scope.ViewQuestionAndAnswers = function () {
 
     
-        $scope.ViewAllQuestionAndAnswers = [];
+       
         
-
         var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
         $http.post(resource, ExamId).success(function (data, status) {
 
 
-            $scope.ViewQuestionAndAnswers = data;
+           
 
-            var data1 = {
-
-                Questions: { Question: [] },
-                Answers: { Answer: []}
+            if (data == null) {
+                $scope.isError = true;
+                $scope.errormessage = "No Questions Found...";
+            } else {
+                $scope.isError = false;
+                $scope.ViewQuestionAndAnswers = data;
             }
 
-            angular.forEach(data.Questions, function (value, key) {
-              
-                var QId = value.QuesId;
+            //var data1 = {
 
-             //   alert(value.Question);
+            //    Questions: { Question: [] },
+            //    Answers: { Answer: []}
+            //}
+
+            //angular.forEach(data.Questions, function (value, key) {
+              
+            //    var QId = value.QuesId;
+
+            // //   alert(value.Question);
 
                
-                data1.Question = value.Question;
-                angular.forEach(data.Answers, function (value1, key) {
+            //    data1.Question = value.Question;
+            //    angular.forEach(data.Answers, function (value1, key) {
 
                 
-                    if (value1.QuesId == QId) {
+            //        if (value1.QuesId == QId) {
 
 
-                        data1.Answers = value1.AnswerText;
+            //            data1.Answers = value1.AnswerText;
 
-                       // alert(value1.AnswerText + "" + value1.CorrectAnswer);
+            //           // alert(value1.AnswerText + "" + value1.CorrectAnswer);
 
 
-                    }
+            //        }
 
 
                   
 
 
 
-                });
+            //    });
 
 
-             //   alert(data1.Question + " Ans:" + data1.Answers);
+            // //   alert(data1.Question + " Ans:" + data1.Answers);
               
 
-            });
+            //});
 
           
             
         });
 
       
+    }
+
+
+    $scope.ViewQuestionAndAnswers();
+
+    $scope.deleteQues = function (QuesId) {
+
+     //   alert(ExamId);
+        
+            if (window.confirm("Are you sure to Delete Question ?")) {
+                var resource = location.protocol + "//" + location.host + "/api/Search/deleteQues";
+                $http.post(resource, QuesId).success(function (data, status) {
+                   
+                    if (data = "true") {
+                     //   alert("fghf");
+
+
+                        var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
+                        $http.post(resource, ExamId).success(function (data, status) {
+
+
+
+
+                            if (data == null) {
+                                $scope.isError = true;
+                                $scope.errormessage = "No Questions Found...";
+                                $scope.ViewQuestionAndAnswers = data;
+                            } else {
+                                $scope.isError = false;
+                                $scope.ViewQuestionAndAnswers = data;
+                            }
+                        });
+                       
+                      //  $scope.successMessage = "The customer has been removed from Direct mail.";
+                     //   $scope.onPropertySearch();
+                    }
+                })
+            }
+        
+    }
+
+
+
+    $scope.EditQues = function (QuesId) {
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'editQues.html',
+
+            controller: 'editQuesModalInstanceCtrl',
+            windowClass: 'app-modal-window',
+            size: 'lg',
+            resolve: {
+                QuesId: function () {
+                    return QuesId;
+                },
+                ViewAllQuestionAndAnswersObj: function () {
+                    return $scope.ViewQuestionAndAnswers;
+                }
+
+            }
+        });
+
+
+
+        modalInstance.result.then(
+            function handleResolve(response) {
+             //   $scope.ViewQuestionAndAnswers;
+                //  $scope.getExams();
+            },
+            function handleReject(error) {
+                // alert("Alert rejected!");
+            }
+        );
+
+    }
+
+
+
+
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+});
+
+
+courseApp.controller('editQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, QuesId, ViewAllQuestionAndAnswersObj) {
+    $scope.modalTitle = "Update Question";
+
+    $scope.ans1 = false;
+    $scope.ans2 = false;
+    $scope.ans3 = false;
+    $scope.ans4 = false;
+
+    $scope.ans1Option = "";
+    $scope.ans2Option = "";
+    $scope.ans3Option = "";
+    $scope.ans4Option = "";
+    $scope.question = "";
+   
+    var answerCount = 0;
+    var opid1 = -1;
+    var opid2 = -1;
+    var opid3 = -1;
+    var opid4 = -1;
+    var ExamId = 0;
+
+
+
+
+    angular.forEach(ViewAllQuestionAndAnswersObj.Questions, function (value, key) {
+        
+
+        if (value.QuesId == QuesId) {
+
+        //    alert(value.Question);
+
+            $scope.question = value.Question;
+            ExamId = value.ExamId;
+           
+            $scope.answerType = value.AnswerType;
+
+            angular.forEach(ViewAllQuestionAndAnswersObj.Answers, function (value1, key) {
+               
+
+                if (value1.QuesId == QuesId) {
+                    answerCount++;
+                  //  $scope.ans+answerCount+Option == value1.AnswerText;
+                 //   $scope.ans+answerCount == value1.CorrectAnswer;
+
+                  //  alert(answerCount + " "+value1.AnswerText);
+
+                    if (answerCount == 1) {
+                        $scope.ans1Option = value1.AnswerText;
+                        $scope.ans1 = value1.CorrectAnswer;
+                        opid1 = value1.AnswerID;
+
+                        if ($scope.ans1 == true)
+                            $scope.option1style = { 'border-color': 'green' };
+                        else
+                            $scope.option1style = { 'border-color': 'red' };
+
+                    }
+                       
+                    if (answerCount == 2) {
+                        $scope.ans2Option = value1.AnswerText;
+                        $scope.ans2 = value1.CorrectAnswer;
+                        opid2 = value1.AnswerID;
+
+                        if ($scope.ans2 == true)
+                            $scope.option2style = { 'border-color': 'green' };
+                        else
+                            $scope.option2style = { 'border-color': 'red' };
+
+                    }
+
+                    if (answerCount == 3) {
+                        $scope.ans3Option = value1.AnswerText;
+                        $scope.ans3 = value1.CorrectAnswer;
+                        opid3 = value1.AnswerID;
+
+                        if ($scope.ans3 == true)
+                            $scope.option3style = { 'border-color': 'green' };
+                        else
+                            $scope.option3style = { 'border-color': 'red' };
+                        
+
+                    }
+                    if (answerCount == 4) {
+                        $scope.ans4Option = value1.AnswerText;
+                        $scope.ans4 = value1.CorrectAnswer;
+                        opid4 = value1.AnswerID;
+
+                        if ($scope.ans4 == true)
+                            $scope.option4style = { 'border-color': 'green' };
+                        else
+                            $scope.option4style = { 'border-color': 'red' };
+
+                    }
+
+                  
+                        
+
+                ///         alert(value1.AnswerText + " " + value1.CorrectAnswer);
+
+
+                    }
+
+                });
+
+
+        }
+
+
+             //   var QId = value.QuesId;
+
+             ////   alert(value.Question);
+
+
+             //   data1.Question = value.Question;
+             //   angular.forEach(data.Answers, function (value1, key) {
+
+
+             //       if (value1.QuesId == QId) {
+
+
+             //           data1.Answers = value1.AnswerText;
+
+             //           // alert(value1.AnswerText + "" + value1.CorrectAnswer);
+
+
+             //       }
+
+             //   });
+
+
+             ////   alert(data1.Question + " Ans:" + data1.Answers);
+
+
+            });
+
+
+
+
+
+
+
+    $scope.OnCheck = function () {
+
+        if ($scope.ans1 == true)
+            $scope.option1style = { 'border-color': 'green' };
+        else
+            $scope.option1style = { 'border-color': 'red' };
+
+
+        if ($scope.ans2 == true)
+            $scope.option2style = { 'border-color': 'green' };
+        else
+            $scope.option2style = { 'border-color': 'red' };
+
+
+        if ($scope.ans3 == true)
+            $scope.option3style = { 'border-color': 'green' };
+        else
+            $scope.option3style = { 'border-color': 'red' };
+
+        if ($scope.ans4 == true)
+            $scope.option4style = { 'border-color': 'green' };
+        else
+            $scope.option4style = { 'border-color': 'red' };
+    }
+
+
+    $scope.EditQues = function () {
+
+        var answerType = $("#answerType").val();
+
+
+        //  alert($scope.answerType + "");
+
+        var op1_ans1 = $scope.ans1Option + "‰" + $scope.ans1 + "œ" + opid1;
+        var op2_ans2 = $scope.ans2Option + "‰" + $scope.ans2 + "œ" + opid2;
+        var op3_ans3 = $scope.ans3Option + "‰" + $scope.ans3 + "œ" + opid3;
+        var op4_ans4 = $scope.ans4Option + "‰" + $scope.ans4 + "œ" + opid4;
+
+
+
+
+        var data1 = {
+            QuestionText: $scope.question,
+            AnswerType: $scope.answerType,
+            AnswerText: op1_ans1 + "‡" + op2_ans2 + "‡" + op3_ans3 + "‡" + op4_ans4,
+            QuesId: QuesId,
+            ExamId: ExamId
+        };
+
+
+        if ($scope.question != "" && $scope.answerType != undefined && ($scope.ans1Option != "" || $scope.ans2Option != "" || $scope.ans3Option != "" || $scope.ans4Option != "")) {
+
+         //   alert("true" + opid1 + " " + opid2 + " " + opid3 + " " + opid4);
+
+
+          
+            var resource = location.protocol + "//" + location.host + "/api/Search/EditQues";
+            $http.post(resource, data1).success(function (data, status) {
+
+                if (data = "true") {
+
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Questions Successfully Updated...";
+                  
+                    
+                    $uibModalInstance.close('saved');
+
+                    var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
+                    $http.post(resource, ExamId).success(function (data, status) {
+
+
+
+
+                        if (data == null) {
+                            $scope.isError = true;
+                            $scope.errormessage = "No Questions Found...";
+                        } else {
+                            $scope.isError = false;
+                            $scope.ViewQuestionAndAnswers = data;
+                        }
+                    });
+                }
+            });
+
+        } else {
+            $scope.isSuccess = false;
+            $scope.isError = true;
+            $scope.errormessage = "All Fields Are Required And Atleast 1 Option Required..";
+        }
     }
 
 
@@ -789,7 +1123,7 @@ courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibM
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.ViewQuestionAndAnswers();
+
 });
 
 

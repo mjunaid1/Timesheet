@@ -847,6 +847,224 @@ namespace Courses.DataAccess
             }
         }
 
+        public bool deleteQues(int Qid)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                
+
+
+
+                string qry = "delete [ExamAnswers] where QuestionId = "+ Qid;
+             
+
+                using (var cmd = new SqlCommand(qry, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+
+                    string qry2 = "delete [ExamQuestions] where QuestionId = " + Qid;
+                    using (var cmd2 = new SqlCommand(qry2, conn))
+                    {
+                        cmd2.CommandType = CommandType.Text;
+                        cmd2.ExecuteNonQuery();
+                    }
+
+
+                    }
+
+
+
+
+
+                return true;
+            }
+        }
+
+
+        
+        public bool EditQues(Questions Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                Questions data = new Questions();
+                var ansCount = 0;
+                var option = "";
+                var answer = "";
+                var answerid = "";
+                string s = Model.AnswerText;
+                String[] words = s.Split('‡');
+
+
+                string qry = "update [ExamQuestions] set Question = '"+Model.QuestionText+"' , AnswerType = '"+Model.AnswerType+"' where QuestionId = "+ Model.QuesId;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+
+                        foreach (var a in words)
+                        {
+
+                            var abc = a;
+
+
+
+                            String[] words1 = abc.Split('‰');
+                            foreach (var a1 in words1)
+                            {
+                           //   ansCount++;
+                            //if (ansCount == 1)
+                            //    option = a1;
+                            //if (ansCount == 2)
+                            //{
+                            //    answer = a1;
+
+                            var xyz = a1;
+
+                            //if(ansCount == 1)
+                            //{
+                            //    option = a1;
+                              
+                            //}
+                                
+
+                            String[] words2 = xyz.Split('œ');
+
+                            foreach (var a2 in words2)
+                            {
+                                ansCount++;
+
+                                var jun = a2;
+                                if (ansCount == 1)
+                                {
+                                    option = jun;
+
+                                }
+                                if (ansCount == 2)
+                                {
+                                    answer = jun;
+
+                                }
+                                if (ansCount == 3)
+                                {
+                                    answerid = jun;
+
+
+
+                                    if (option != "" && answerid != "-1" )
+                                    {
+
+                                        // up 
+                                        string qry1 = "update [ExamAnswers] set QuestionId = "+Model.QuesId+" , AnswerText = '"+ option + "' , CorrectAnswer = '"+ answer + "' , ExamId = "+Model.ExamId+" where [AnswerID] =  " + answerid;
+                                        using (var cmd1 = new SqlCommand(qry1, conn))
+                                        {
+                                            cmd1.CommandType = CommandType.Text;
+                                            cmd1.ExecuteNonQuery();
+                                        }
+
+                                    }
+                                    else if ((option == "" && answerid == "-1") || (option == "" && answerid != "-1"))
+                                    {
+                                        // up 
+
+                                        string qry1 = "delete [ExamAnswers] where [AnswerID] = " + answerid;
+                                        using (var cmd1 = new SqlCommand(qry1, conn))
+                                        {
+                                            cmd1.CommandType = CommandType.Text;
+                                            cmd1.ExecuteNonQuery();
+                                        }
+
+                                        //   return true;
+
+                                    }
+                                    else
+                                    {
+                                        // In 
+
+
+                                        string qry1 = "insert into [ExamAnswers]  ([QuestionId],[AnswerText],CorrectAnswer,Examid) values (" + Model.QuesId + ", '" + option + "','" + answer + "'," + Model.ExamId + ")";
+                                        using (var cmd1 = new SqlCommand(qry1, conn))
+                                        {
+                                            cmd1.CommandType = CommandType.Text;
+                                            cmd1.ExecuteNonQuery();
+                                        }
+
+                                    }
+
+
+
+
+
+
+                                    ansCount = 0;
+                                }
+
+
+
+                            }
+
+
+                                //if (option != "")
+                                //{
+
+
+
+                                //    var x = option;
+                                //    var y = answer;
+
+
+                                //    string qry3 = "insert into [ExamAnswers]  ([QuestionId],[AnswerText],CorrectAnswer,Examid) values (" + data.QuesId + ", '" + x + "','" + y + "'," + Model.ExamId + ")";
+
+                                //    using (var cmd3 = new SqlCommand(qry3, conn))
+                                //    {
+                                //        cmd.CommandType = CommandType.Text;
+
+                                //        cmd3.ExecuteNonQuery();
+
+                                //    }
+
+
+                                //}
+
+                                //ansCount = 0;
+                                //}
+
+
+                            }
+
+
+
+
+                        }
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+                return true;
+            }
+        }
 
 
         static async Task Run()

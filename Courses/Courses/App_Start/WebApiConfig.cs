@@ -119,6 +119,20 @@ namespace Courses
            routeTemplate: "api/Search/ViewQuestionAndAnswers",
                defaults: new { controller = "Courses", action = "ViewQuestionAndAnswers" }
       );
+
+
+             config.Routes.MapHttpRoute(
+             name: "deleteQues",
+             routeTemplate: "api/Search/deleteQues",
+               defaults: new { controller = "Courses", action = "deleteQues" }
+      );
+
+            config.Routes.MapHttpRoute(
+            name: "EditQues",
+            routeTemplate: "api/Search/EditQues",
+              defaults: new { controller = "Courses", action = "EditQues" }
+     );
+            
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",

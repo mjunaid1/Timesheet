@@ -270,8 +270,8 @@ namespace Courses.Controllers
             {
 
                 CoursesRepository _searchRepository = new CoursesRepository();
-                var propertySearchResult = _searchRepository.ViewQuestionAndAnswers(ExamId);
-                return propertySearchResult;
+                var Result = _searchRepository.ViewQuestionAndAnswers(ExamId);
+                return Result;
             }
             catch (Exception ex)
             {
@@ -279,6 +279,37 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost]
+        public bool deleteQues([FromBody]int QuesId)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.deleteQues(QuesId);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        
+
+        [HttpPost]
+        public bool EditQues([FromBody]Questions model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.EditQues(model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         // GET: api/Courses2
         public IEnumerable<string> Get()
