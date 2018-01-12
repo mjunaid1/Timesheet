@@ -215,14 +215,7 @@ namespace Courses.DataAccess
                             count = 0;
                         }
                     }
-
-                        //var task = Task.Run((Func<Task>)CoursesRepository.Run1);
-                        //task.Wait();
-
-                        //Task.Run(Run1);
-
-
-
+                                         
                     }
 
 
@@ -1136,9 +1129,9 @@ namespace Courses.DataAccess
             using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
             {
 
-                var full = await dbx.Users.GetCurrentAccountAsync();
+        //        var full = await dbx.Users.GetCurrentAccountAsync();
 
-                Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
+      //          Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
 
 
                 //    await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
@@ -1152,24 +1145,27 @@ namespace Courses.DataAccess
                 //    Console.WriteLine(await abc1.GetContentAsStringAsync() + "  ");
                 //}
                 //}
-                var list = await dbx.Files.ListFolderAsync(@"/Courses/"+ CoursesRepository.CourseName + "/Modules/");
+              
 
                 //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
                 //Console.ReadLine();
+                if (CoursesRepository.ModuleDirectoryName != "") {
 
-                var a1 = list.Entries.Where(i => i.Name == CoursesRepository.ModuleName).Count();
-                if (a1 == 1)
+                    var list = await dbx.Files.ListFolderAsync(@"/Courses/" + CoursesRepository.CourseName + "/Modules/");
+                    var a1 = list.Entries.Where(i => i.Name == CoursesRepository.ModuleName).Count();
+
+                if (a1 != 1)
                 {
-
-
+                    //  CoursesRepository.ModuleName = "";
+                    //       CoursesRepository.CourseName = "";
+                    await dbx.Files.CreateFolderAsync("/Courses/" + CoursesRepository.ModuleDirectoryName);
+                    CoursesRepository.ModuleDirectoryName = "";
+                    //     CoursesRepository.ModuleDirectoryName = "";
                     //  await dbx.Files.CreateFolderAsync(@"/Courses" + "/" + data.CourseName + "/" + "Modules/" + data1.ModuleName);
 
                 }
-                else
-                {
-                    await dbx.Files.CreateFolderAsync("/Courses/" + CoursesRepository.ModuleDirectoryName);
-                }
 
+                }
             }
         }
 
