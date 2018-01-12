@@ -17,6 +17,7 @@ namespace Courses.DataAccess
         static string DirectoryName = "";
         static string ModuleDirectoryName = "";
         static string ModuleName = "";
+        static string CourseName = "";
         protected string CoursesConnectionString { get; set; }
         public CoursesRepository()
         {
@@ -172,46 +173,65 @@ namespace Courses.DataAccess
                 foreach (var a in words)
                 {
 
-                  
 
-                    string qry = "insert into [CourseModules] ([CourseId] ,[ModuleId] )values (" + Model.CourseId + ", " +  a + ")";
+
+                    string qry = "insert into [CourseModules] ([CourseId] ,[ModuleId] )values (" + Model.CourseId + ", " + a + ")";
                     using (var cmd = new SqlCommand(qry, conn))
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.ExecuteNonQuery();
 
-                        
+
                     }
 
 
                 }
 
+                var count = 0;
                 foreach (var a in words1)
                 {
                     ModuleDirectoryName = a;
-                    
 
-                    //var task = Task.Run((Func<Task>)CoursesRepository.Run1);
-                    //task.Wait();
+                    String[] words11 = a.Split('/');
+                    foreach (var ab in words11)
+                    {
+                        count++;
 
-                    //Task.Run(Run1);
+                        if (count == 1)
+                        {
+                            CourseName = ab;
+
+                        }
+
+                        if (count == 3)
+                        {
+                            ModuleName = ab;
+
+                            var task = Task.Run((Func<Task>)CoursesRepository.Run1);
+                            task.Wait();
+
+                            Task.Run(Run1);
+
+                            count = 0;
+                        }
+                    }
+
+                        //var task = Task.Run((Func<Task>)CoursesRepository.Run1);
+                        //task.Wait();
+
+                        //Task.Run(Run1);
 
 
 
-                }
+                    }
 
 
-                foreach (var a in words2)
-                {
-                    ModuleName = a;
+              
 
 
-                    //var task = Task.Run((Func<Task>)CoursesRepository.Run1);
-                    //task.Wait();
+                  
 
-                    //Task.Run(Run1);
-
-                }
+            
 
 
                 return true;
@@ -1103,7 +1123,7 @@ namespace Courses.DataAccess
                 }
                 else
                 {
-                    await dbx.Files.CreateFolderAsync("/Courses/" + CoursesRepository.DirectoryName);
+                    await dbx.Files.CreateFolderAsync("/Courses/" + CoursesRepository.DirectoryName+"/Modules");
                 }
 
             }
@@ -1132,7 +1152,7 @@ namespace Courses.DataAccess
                 //    Console.WriteLine(await abc1.GetContentAsStringAsync() + "  ");
                 //}
                 //}
-                var list = await dbx.Files.ListFolderAsync(@"/Courses/"+ ModuleDirectoryName);
+                var list = await dbx.Files.ListFolderAsync(@"/Courses/"+ CoursesRepository.CourseName + "/Modules/");
 
                 //await Upload(dbx, @"/MyApp/test", "test.txt", "Testing!");
                 //Console.ReadLine();

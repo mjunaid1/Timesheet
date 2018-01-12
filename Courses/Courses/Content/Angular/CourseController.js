@@ -855,6 +855,21 @@ courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibM
             function handleResolve(response) {
              //   $scope.ViewQuestionAndAnswers;
                 //  $scope.getExams();
+
+                var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
+                $http.post(resource, ExamId).success(function (data, status) {
+
+
+
+
+                    if (data == null) {
+                        $scope.isError = true;
+                        $scope.errormessage = "No Questions Found...";
+                    } else {
+                        $scope.isError = false;
+                        $scope.ViewQuestionAndAnswers = data;
+                    }
+                });
             },
             function handleReject(error) {
                 // alert("Alert rejected!");
@@ -1088,20 +1103,7 @@ courseApp.controller('editQuesModalInstanceCtrl', function ($scope, $http, $uibM
                     
                     $uibModalInstance.close('saved');
 
-                    var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
-                    $http.post(resource, ExamId).success(function (data, status) {
-
-
-
-
-                        if (data == null) {
-                            $scope.isError = true;
-                            $scope.errormessage = "No Questions Found...";
-                        } else {
-                            $scope.isError = false;
-                            $scope.ViewQuestionAndAnswers = data;
-                        }
-                    });
+                  
                 }
             });
 
