@@ -711,8 +711,139 @@ $scope.UserName = $('#UserName').val();
             );
 
         }
-       
+
+        $scope.StartExam = function () {
+
+            var CourseId = $('#coursid').val();
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'StartExam.html',
+
+                controller: 'StartExamModalInstanceCtrl',
+                windowClass: 'app-modal-window',
+                size: 'lg',
+                resolve: {
+                    CourseId: function () {
+                        return CourseId;
+                    }
+
+                }
+            });
+
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                    //  $scope.getExams();
+                },
+                function handleReject(error) {
+                    // alert("Alert rejected!");
+                }
+            );
+
+        }
+
 });
+
+
+courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, CourseId) {
+    $scope.modalTitle = "Exam Questions";
+
+    var next = 3;
+    var previous = 2;
+  
+
+    var data = {
+        CourseId: CourseId,
+        Next: next,
+        Previous: previous
+    }
+
+    $scope.ViewAllQuestionAndAnswers = [];
+    $scope.ViewQuestionAndAnswers = function () {
+
+
+
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/ViewExamQuestion";
+        $http.post(resource, data).success(function (data, status) {
+
+
+
+
+            if (data == null) {
+                $scope.isError = true;
+                $scope.errormessage = "No Questions Found...";
+            } else {
+                $scope.isError = false;
+                $scope.ViewQuestionAndAnswers = data;
+            }
+
+            //var data1 = {
+
+            //    Questions: { Question: [] },
+            //    Answers: { Answer: []}
+            //}
+
+            //angular.forEach(data.Questions, function (value, key) {
+
+            //    var QId = value.QuesId;
+
+            // //   alert(value.Question);
+
+
+            //    data1.Question = value.Question;
+            //    angular.forEach(data.Answers, function (value1, key) {
+
+
+            //        if (value1.QuesId == QId) {
+
+
+            //            data1.Answers = value1.AnswerText;
+
+            //           // alert(value1.AnswerText + "" + value1.CorrectAnswer);
+
+
+            //        }
+
+
+
+
+
+
+            //    });
+
+
+            // //   alert(data1.Question + " Ans:" + data1.Answers);
+
+
+            //});
+
+
+
+        });
+
+
+    }
+
+
+    $scope.ViewQuestionAndAnswers();
+
+ 
+
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+});
+
+
 
 courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, ExamId, ExamName) {
     $scope.modalTitle = "View Questions (" + ExamName + ")";

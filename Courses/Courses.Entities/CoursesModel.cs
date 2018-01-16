@@ -246,5 +246,18 @@ namespace Courses.Entities
        
     }
 
+    public class QuestionPaginations
+    {
+
+        
+        public int CourseId { get; set; }
+        public int Next { get; set; }
+        public int Previous { get; set; }
+
+
+
+    }
+
+
 
 }

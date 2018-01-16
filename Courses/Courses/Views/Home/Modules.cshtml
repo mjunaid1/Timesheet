@@ -73,6 +73,12 @@
        
         </ul>
 
+        <br />
+        <br />
+
+        <a href="" ng-click="StartExam()" class="btn btn-success">Start Exam</a>
+
+
         @*<ul style="display:none" id="abc">
 
             <li ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop() != 'mp4' && x.name.split('.').pop() == 'pdf'"><a href="" ng-click="fileClick($event,x.path_display)"> {{x.name}}</a></li>
@@ -162,24 +168,54 @@
             </div>
         </script>
 
-         <div ng-repeat="x in GetAllSingleUserCourseModules" >
 
-<script>
+        <script type="text/ng-template" id="StartExam.html">
 
-    //$(document).ready(function () {
+            <div class="modal-header">
 
-    //    alert();
-    //    $("xyz{{abc = $index + 1 }}").click(function () {
-    //        alert("xfdf");
-         
-    //        $("#abc1").css("display", "block");
-           
-         
-    //    });
-    //});
-</script>
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
 
-</div>
+                <div class="alert alert-danger alert-block" ng-show="isError">
+                    <h6 class="alert-heading">{{errormessage}}</h6>
+                </div>
+                <ul style="list-style:none;" class="col col-md-12">
+                    <li ng-repeat="x1 in ViewQuestionAndAnswers.Questions">
+                        <h2 style="font-size: large;font-weight:bold; color:black;">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}} &nbsp;  &nbsp; <span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '2' ">(Multiple)</span><span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '1' ">(Single)</span>  </h2>
+
+
+                        @*<ul ng-repeat="x in ViewQuestionAndAnswers.Answers">
+
+
+                            <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}}  &nbsp; <i ng-if="x.CorrectAnswer === true" class="fa fa-check-square-o" style="font-size:large;color:green;"></i> </li>
+
+                           
+
+                        </ul>*@
+
+                        <div ng-repeat="x in ViewQuestionAndAnswers.Answers">
+
+                            <label ng-if="x1.AnswerType === '2' " ><input type="checkbox" value="" /> &nbsp; {{x.AnswerText}}</label>
+                            <label ng-if="x1.AnswerType === '1' "><input type="radio" name="radiobtn" value="" /> &nbsp; {{x.AnswerText}}</label>
+                        </div>
+
+                        <br />
+
+                    </li>
+
+                </ul>
+
+
+
+            </div>
+            <div class="modal-footer">
+                @*<button class="btn btn-primary" type="button" ng-click="">Save</button>*@
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </script>
+
     </div>
 </div>
 

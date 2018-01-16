@@ -60,7 +60,7 @@ namespace Courses.DataAccess
                     var task = Task.Run((Func<Task>)CoursesRepository.Run);
                     task.Wait();
 
-                    Task.Run(Run);
+                //    Task.Run(Run);
                     cmd.ExecuteNonQuery();
                     
 
@@ -210,7 +210,7 @@ namespace Courses.DataAccess
                             var task = Task.Run((Func<Task>)CoursesRepository.Run1);
                             task.Wait();
 
-                            Task.Run(Run1);
+                      //      Task.Run(Run1);
 
                             count = 0;
                         }
@@ -567,7 +567,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = " select m.ModuleId , m.ModuleName, c.courseName from UserCourses uc ,CourseModules cm, courses c , modules m , AspNetUsers a where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+Username+"' and c.CourseId =  "+CourseId;
+                string qry = " select m.ModuleId , m.ModuleName, c.courseName from UserCourses uc ,CourseModules cm, courses c , modules m , AspNetUsers a where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+Username+"' and c.CourseId =  "+CourseId + " group by m.ModuleId , m.ModuleName, c.courseName";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -1076,6 +1076,60 @@ namespace Courses.DataAccess
 
 
                 return true;
+            }
+        }
+
+        public QuestionsAndAnswers ViewExamQuestion(QuestionPaginations Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                using (var cmd = new SqlCommand("ExamQuestions_single", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@CourseId", SqlDbType.BigInt).Value = Model.CourseId;
+                    cmd.Parameters.Add("@previous", SqlDbType.BigInt).Value = Model.Previous;
+                    cmd.Parameters.Add("@next", SqlDbType.BigInt).Value = Model.Next;
+
+                    QuestionsAndAnswers data = null;
+
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                data = new QuestionsAndAnswers(myReader);
+                            }
+                            myReader.NextResult();
+                            while (myReader.Read())
+                            {
+
+
+                                data.Questions.Add(new Questions1(myReader));
+
+
+                            }
+
+                            myReader.NextResult();
+                            while (myReader.Read())
+                            {
+                                data.Answers.Add(new Answers(myReader));
+                            }
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
             }
         }
 

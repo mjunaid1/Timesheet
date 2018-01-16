@@ -311,6 +311,23 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost]
+        public QuestionsAndAnswers ViewExamQuestion([FromBody]QuestionPaginations Model)
+        {
+            try
+            {
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.ViewExamQuestion(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {
