@@ -230,7 +230,10 @@
     <Content Include="Content\js\sb-admin-datatables.min.js" />
     <Content Include="Content\js\sb-admin.js" />
     <Content Include="Content\js\sb-admin.min.js" />
+    <Content Include="Content\Logo\14.png" />
+    <Content Include="Content\Logo\33.png" />
     <Content Include="Content\Logo\ilf_logo4.png" />
+    <Content Include="Content\Logo\11.jpeg" />
     <Content Include="Content\n1.png" />
     <Content Include="Content\newJS\jquery.min.js" />
     <Content Include="Content\newJS\jquery.uniform.js" />

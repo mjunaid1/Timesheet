@@ -5,80 +5,86 @@
 
 
 <div class="container-fluid">
+    
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">My Dashboard</li>
+        </ol>
+        <!-- Icon Cards-->
 
-    <!-- Breadcrumbs-->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="/Home/Index">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
-    </ol>
-    <!-- Icon Cards-->
+        @if (Request.IsAuthenticated)
+        {
+            <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
+            <div ng-controller="courseController">
 
-    @if (Request.IsAuthenticated)
-    {
-        <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
-        <div ng-controller="courseController">
+                @*<video controls="controls" height="480" width="640">
+                            <source src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1"  type="video/mp4"/>
+                        </video>
 
-            @*<video controls="controls" height="480" width="640">
-                    <source src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1"  type="video/mp4"/>
-                </video>
-
-            <iframe src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1">
-                    <p>Your browser does not support iframes.</p>
-                </iframe>*@
-            <!--style = "display: none;" -->
-            <h1 style="color:#868e96; font-weight:bold;"> Islamic Learning Foundation Courses</h1>
-
-
-            <p class="lead">Welcome {{UserName}} to the ILF LEARNING platform </p>
-            <p>You are enrolled in the following courses...</p>
-
-            <ul>
-                <li ng-repeat="x in GetAllSingleUserCourses"><a href="~/Home/Modules/{{x.CourseID}}"  ng-click="" > {{x.CourseName}}</a></li>
-            </ul>
-           
-
-            <div  ng-controller="Rolecontroller" ng-show="isAdmin" class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table "></i><span style="color:#868e96; font-weight:bold;"> Courses </span> Table
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive table-sm ">
-                        <table class="table table-striped table-bordered" cellspacing="0">
-                            <thead class="table-info">
-                                <tr>
-                                    <th>Exam NAME</th>
-                                    <th>UserName</th>
-                                    <th>Result</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="x in getAllViewsResults">
+                    <iframe src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1">
+                            <p>Your browser does not support iframes.</p>
+                        </iframe>*@
+                <!--style = "display: none;" -->
+                <h1 style="color:#868e96; font-weight:bold;"> Islamic Learning Foundation Courses</h1>
 
 
-                                    <td>{{x.ExamName}}</td>
-                                    <td>{{x.UserName}}</td>
-                                    <td>{{x.Result}}</td>
+                <p class="lead">Welcome {{UserName}} to the ILF LEARNING platform </p>
+                <p>You are enrolled in the following courses...</p>
 
-                                </tr>
+                <ul>
+                    <li ng-repeat="x in GetAllSingleUserCourses"><a href="~/Home/Modules/{{x.CourseID}}" ng-click=""> {{x.CourseName}}</a></li>
+                </ul>
 
-                            </tbody>
-                        </table>
+
+                <div ng-controller="Rolecontroller" ng-show="isAdmin" class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-table "></i><span style="color:#868e96; font-weight:bold;"> Courses </span> Table
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-sm ">
+                            <table class="table table-striped table-bordered" cellspacing="0">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th>Exam NAME</th>
+                                        <th>UserName</th>
+                                        <th>Result</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in getAllViewsResults">
+
+
+                                        <td>{{x.ExamName}}</td>
+                                        <td>{{x.UserName}}</td>
+                                        <td>{{x.Result}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
+        }
+
+        else
+        {
+
+            <h1>You need to be logged in to View your courses</h1>
+        }
 
 
-        </div>
-    }
+        <img src="@Url.Content("~/Content/Logo/")11.jpeg" class="" width="100%" style="opacity:0.4">
 
-    else
-    {
 
-        <h1>You need to be logged in to View your courses</h1>
-    }
+
 </div>
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
