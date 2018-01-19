@@ -617,6 +617,53 @@ $scope.UserName = $('#UserName').val();
 
 
 
+        $scope.getAllExamsPerCourse = [];
+
+        $scope.getExamsPerCourse = function () {
+
+            var CourseId = $('#coursid').val();
+       //     alert(CourseId);
+            if (CourseId != undefined) {
+                var resource = location.protocol + "//" + location.host + "/api/Search/getExamsPerCourse";
+
+                $http.post(resource, CourseId).success(function (data, status) {
+                    $scope.getAllExamsPerCourse = data;
+
+                })
+                    .error(function (data, status) {
+                        // this isn't happening:
+                    })
+
+
+            } else {
+      //          alert("fs");
+            }
+        }
+
+        $scope.getExamsPerCourse();
+
+
+
+        $scope.getAllViewsResults = [];
+
+        $scope.GetViewsResults = function () {
+            var resource = location.protocol + "//" + location.host + "/api/Search/ViewsResults";
+
+            $http.get(resource).success(function (data, status) {
+                $scope.getAllViewsResults = data;
+
+            })
+                .error(function (data, status) {
+                    // this isn't happening:
+                })
+
+
+
+        }
+
+        $scope.GetViewsResults();
+
+
         $scope.AddExam = function () {
                        
             var modalInstance = $uibModal.open({
@@ -712,7 +759,7 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.StartExam = function () {
+        $scope.StartExam = function (Examid) {
 
             var CourseId = $('#coursid').val();
             var modalInstance = $uibModal.open({
@@ -723,8 +770,11 @@ $scope.UserName = $('#UserName').val();
                 windowClass: 'app-modal-window',
                 size: 'lg',
                 resolve: {
-                    CourseId: function () {
-                        return CourseId;
+                    ExamId: function () {
+                        return Examid;
+                    },
+                    Username: function () {
+                        return $scope.UserName;
                     }
 
                 }
@@ -746,27 +796,65 @@ $scope.UserName = $('#UserName').val();
 });
 
 
-courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, CourseId) {
+courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, ExamId, Username) {
     $scope.modalTitle = "Exam Questions";
+    var totalQuestions = 0;
+    var next = 0;
+    var previous = 0;
+    $scope.ViewAllQuestionAndAnswers = [];
+    $scope.Correct = [];
+    
+    $scope.previous_show = false;
+    $scope.submitbtn = false;
+    $scope.next_show = true;
+    $scope.Isresults = false;
+    var count = 0;
+    //$scope.AnswerID = true;
+    //$scope.CorrectAnswer = false;
 
-    var next = 3;
-    var previous = 2;
-  
+    //$scope.junv = false;
 
-    var data = {
-        CourseId: CourseId,
-        Next: next,
-        Previous: previous
+    //$scope.jun = function (event,ab) {
+    //    alert(ab);
+
+    //    if ($scope.junv == event.target.value) $scope.junv = false
+
+
+    //    $scope.junv = ab;
+    //}
+
+
+    $scope.jun = function (position, entities, qid) {
+
+     //   alert(position);
+        angular.forEach(entities, function (subscription, index) {
+            
+            if (qid == subscription.QuesId && position != subscription.AnswerID) {
+            //if (position != index) {
+          //      alert(subscription.CorrectAnswer);
+               
+                subscription.CorrectAnswer = false;
+             //   $('#y' + qid).val(false);
+                //}
+            }
+        });
     }
 
-    $scope.ViewAllQuestionAndAnswers = [];
-    $scope.ViewQuestionAndAnswers = function () {
+
+    $scope.submit = function () {
+
+        var Correct1 = []
+        var Iscorrect = 0;
+        var IsWrong = 0;
 
 
 
+       
 
-        var resource = location.protocol + "//" + location.host + "/api/Search/ViewExamQuestion";
-        $http.post(resource, data).success(function (data, status) {
+       
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
+        $http.post(resource, ExamId).success(function (data, status) {
 
 
 
@@ -776,7 +864,370 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
                 $scope.errormessage = "No Questions Found...";
             } else {
                 $scope.isError = false;
-                $scope.ViewQuestionAndAnswers = data;
+  
+                $scope.Correct1 = data;
+
+                
+
+              
+
+                angular.forEach($scope.Correct1.Questions, function (value, key) {
+                    var u_op1 = false;
+                    var u_op2 = false;
+                    var u_op3 = false;
+                    var u_op4 = false;
+
+                    var _op1 = false;
+                    var _op2 = false;
+                    var _op3 = false;
+                    var _op4 = false;
+                    var Qid = value.QuesId;
+                  
+                 //   alert(Qid);
+                    var count = 0;
+                    for (var i in $scope.Correct1.Answers) {
+                       
+                        if (Qid == $scope.Correct1.Answers[i].QuesId && Qid == $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId){
+
+                        count++;
+
+                            var r = $scope.Correct1.Answers[i].CorrectAnswer;
+                            var r1 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
+
+                       //     alert(Qid + ":  Api " + $scope.Correct1.Answers[i].CorrectAnswer + " User:" + $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer);
+                        //    alert($scope.Correct1.Answers[i].CorrectAnswer);
+                         //   alert($scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer);
+
+                            if (count == 1){
+                                u_op1 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
+                                _op1 = $scope.Correct1.Answers[i].CorrectAnswer;
+                              //  alert(Qid + " c1")
+                              
+                            }
+
+                            if (count == 2) {
+                                u_op2 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
+                                _op2 = $scope.Correct1.Answers[i].CorrectAnswer;
+                            //    alert(Qid + " c2")
+                            }
+                            if (count == 3) {
+                                u_op3 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
+                                _op3 = $scope.Correct1.Answers[i].CorrectAnswer;
+                             //   alert(Qid + " c3")
+                            }
+                            if (count == 4) {
+                                u_op4 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
+                                _op4 = $scope.Correct1.Answers[i].CorrectAnswer;
+                             //   alert(Qid + " c4")
+                            }
+
+                            
+
+
+                            //if (r == r1) {
+
+                            //    alert(QuesId + " Right Answer");
+                            //} else {
+
+                            //    alert(QuesId + " Wrong Answer");
+                            //}
+
+                        }
+
+                       
+
+
+
+                        //if (u_op1 == _op1 && u_op2 == _op2 && u_op3 == _op3 && u_op4 == _op4) {
+
+                        //    alert(Qid + " Right Answer");
+                        //} else {
+
+                        //    alert(Qid + " Wrong Answer");
+                        //}
+
+
+                     //   total += count;
+
+
+                    }
+
+                    if (u_op1 == _op1 && u_op2 == _op2 && u_op3 == _op3 && u_op4 == _op4) {
+
+                        Iscorrect++;
+                //        alert(Qid + " Right Answer");
+                    //    alert(Qid + ":\n1 API:" + _op1 + "::User:" + u_op1 + "\n" + "2 API:" + _op2 + "::User:" + u_op2 + "\n" + "3 API:" + _op3 + "::User:" + u_op3 + "\n" + "4 API:" + _op4 + "::User:" + u_op4 + "\n");
+                        
+
+
+
+                    } else {
+
+                        IsWrong++;
+                 //       alert(Qid + " Wrong Answer");
+
+                  //      alert(Qid + ":\n1 API:" + _op1 + "::User:" + u_op1 + "\n" + "2 API:" + _op2 + "::User:" + u_op2 + "\n" + "3 API:" + _op3 + "::User:" + u_op3 + "\n" + "4 API:" + _op4 + "::User:" + u_op4 + "\n");
+                     
+                    }
+                  
+
+                  
+
+                });
+
+                var result = Iscorrect / totalQuestions * 100;
+
+            //    alert("Wrong is: " + IsWrong + " and Right is: " + Iscorrect + ", Total:" + totalQuestions + " % is " + result + "%");
+
+
+                var data1 = {
+                    Username: Username,
+                    ExamId: ExamId,
+                    TotalWrongAnswers: IsWrong,
+                    TotalCorrectAnswers: Iscorrect,
+                    Result: result+"%"
+
+                }
+
+
+     //   $scope.ViewQuestionAndAnswers = function () {
+
+            var resource = location.protocol + "//" + location.host + "/api/Search/InsertResult";
+            $http.post(resource, data1).success(function (data, status) {
+
+
+                if (data = "true") {
+
+                 //   alert("true");
+
+                    $scope.show = false;
+                    $scope.submitbtn = false;
+                    $scope.next_show = false;
+                    $scope.previous_show = false;
+                 
+                    $scope.TotalQues = totalQuestions;
+                    $scope.WrongAns = IsWrong;
+                    $scope.CorrectAns = Iscorrect;
+                    $scope.per = result;
+
+                    $scope.Isresults = true;
+                   
+                }
+
+
+            });
+
+
+    //    }
+
+
+
+
+
+                }
+
+
+
+
+           
+
+
+        });
+
+
+       
+
+        //angular.forEach($scope.ViewAllQuestionAndAnswers.Answers, function (value, key) {
+
+
+        //    alert(value.CorrectAnswer);
+
+        //});
+
+        //var jun = $scope.ViewAllQuestionAndAnswers.Answers[0].CorrectAnswer;
+        //alert(jun);
+
+        //alert(jun);
+
+        //alert($('#Q1128').val());
+
+        //if ($('#abc1128').attr('checked')) {
+        //    alert("fs");
+        //}
+       
+
+        //$('#abc1128').change(function () {
+        //    if ($(this).attr('checked')) {
+        //        alert($(this).val('TRUE'));
+        //    } else {
+        //        alert($(this).val('FALSE'));
+        //    }
+        //});
+    }
+
+  
+    $scope.next = function () {
+       
+        next++;
+      
+        $scope.show = 'index' + next;
+      //  alert(totalQuestions);
+        if (next != 1) {
+            $scope.previous_show = true;
+            $scope.submitbtn = false;
+
+
+
+
+
+
+
+
+        }
+        if (totalQuestions == next) {
+            $scope.next_show = false;
+            $scope.submitbtn = true;
+        }
+        //$scope.previous_show = true;
+        //previous++;
+        
+        //var data = {
+        //    CourseId: CourseId,
+        //    Next: next,
+        //    Previous: previous
+        //}
+
+
+        //$scope.ViewQuestionAndAnswers = function () {
+
+        //    var resource = location.protocol + "//" + location.host + "/api/Search/ViewExamQuestion";
+        //    $http.post(resource, data).success(function (data, status) {
+
+        //        if (data == null) {
+        //            $scope.isError = true;
+        //            $scope.errormessage = "No Questions Found...";
+        //        } else {
+        //            $scope.isError = false;
+        //            $scope.ViewQuestionAndAnswers = data;
+        //        } 
+
+
+        //    });
+
+
+        //}
+        //$scope.ViewQuestionAndAnswers();
+
+
+        angular.forEach($scope.ViewAllQuestionAndAnswers.Questions, function (value, key) {
+
+        //    alert(value.Question);
+
+
+        });
+
+
+    }
+
+    $scope.next();
+
+
+
+    $scope.previous = function () {
+
+        next--;
+        $scope.show = 'index' + next;
+
+        if (next == 1)
+            $scope.previous_show = false;
+
+        $scope.next_show = true;
+        $scope.submitbtn = false;
+        //var data = {
+        //    CourseId: CourseId,
+        //    Next: next,
+        //    Previous: previous
+        //}
+
+
+        //$scope.ViewQuestionAndAnswers = function () {
+
+        //    var resource = location.protocol + "//" + location.host + "/api/Search/ViewExamQuestion";
+        //    $http.post(resource, data).success(function (data, status) {
+
+        //        if (data == null) {
+        //            $scope.isError = true;
+        //            $scope.errormessage = "No Questions Found...";
+        //        } else {
+        //            $scope.isError = false;
+        //            $scope.ViewQuestionAndAnswers = data;
+        //        }
+
+
+        //    });
+
+
+        //}
+        //$scope.ViewQuestionAndAnswers();
+
+    }
+
+
+  
+
+  
+    $scope.ViewQuestionAndAnswers = function () {
+
+      
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/ViewQuestionAndAnswers";
+        $http.post(resource, ExamId).success(function (data, status) {
+
+
+
+
+            if (data == null) {
+                $scope.isError = true;
+                $scope.errormessage = "No Questions Found...";
+            } else {
+                $scope.isError = false;
+                $scope.Correct = data;
+                $scope.ViewAllQuestionAndAnswers = data;
+               
+                totalQuestions = $scope.ViewAllQuestionAndAnswers.Questions.length;
+           //     alert($scope.ViewAllQuestionAndAnswers.Questions.length);
+
+                //$scope.ViewAllQuestionAndAnswers.Answers[0].CorrectAnswer = false;
+
+
+                for (var i in $scope.ViewAllQuestionAndAnswers.Answers) {
+
+                    $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer = false;
+
+                    //angular.forEach($scope.getAllModules, function (value, key) {
+
+                    //    if (value.ModuleId == ss[i]) {
+
+
+                    //        path += CourseName + "/Modules/" + value.ModuleName + ",";
+                    //        ModuleName += value.ModuleName + ",";
+                    //        //   $scope.AddCourseDirectory(path);
+
+                    //    }
+                    //});
+
+
+                }
+
+
+                //angular.forEach(data.Answers, function (value, key) {
+
+
+                //    $scope.ViewAllQuestionAndAnswers.Answers.CorrectAnswer = false;
+
+                //});
+               
+
             }
 
             //var data1 = {
@@ -829,8 +1280,10 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
 
     $scope.ViewQuestionAndAnswers();
 
- 
+  
 
+ 
+   
 
     $scope.ok = function () {
         $uibModalInstance.close('ok');

@@ -328,6 +328,53 @@ namespace Courses.Controllers
         }
 
 
+        [HttpPost] 
+        public List<Exams> getExamsPerCourse([FromBody]int CourseId)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.getExamsPerCourse(CourseId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost]
+        public bool InsertResult([FromBody] Results model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.InsertResult(model);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet]
+        public List<ViewsResults> ViewsResults()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.ViewsResults();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

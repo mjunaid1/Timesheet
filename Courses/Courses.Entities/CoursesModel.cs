@@ -258,6 +258,43 @@ namespace Courses.Entities
 
     }
 
+    public class Results
+    {
 
+
+    
+        public int ExamId { get; set; }
+        public int TotalWrongAnswers { get; set; }
+        public int TotalCorrectAnswers { get; set; }
+        public string UserName { get; set; }
+        public string Result { get; set; }
+
+
+
+    }
+
+
+    public class ViewsResults
+    {
+
+
+
+       
+        public string UserName { get; set; }
+        public string Result { get; set; }
+        public string ExamName { get; set; }
+
+        public ViewsResults(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("StudentUserName") && dbReader["StudentUserName"] != DBNull.Value) UserName = (string)dbReader["StudentUserName"];
+            if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
+            if (dbReader.HasColumn("result") && dbReader["result"] != DBNull.Value) Result = (string)dbReader["result"];
+           
+
+
+        }
+
+    }
 
 }

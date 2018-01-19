@@ -140,6 +140,27 @@ namespace Courses
               defaults: new { controller = "Courses", action = "ViewExamQuestion" }
      );
 
+            config.Routes.MapHttpRoute(
+         name: "getExamsPerCourse",
+         routeTemplate: "api/Search/getExamsPerCourse",
+           defaults: new { controller = "Courses", action = "getExamsPerCourse" }
+  );
+
+            
+            config.Routes.MapHttpRoute(
+         name: "InsertResult",
+         routeTemplate: "api/Search/InsertResult",
+           defaults: new { controller = "Courses", action = "InsertResult" }
+  );
+
+
+
+            
+            config.Routes.MapHttpRoute(
+         name: "ViewsResults",
+         routeTemplate: "api/Search/ViewsResults",
+           defaults: new { controller = "Courses", action = "ViewsResults" }
+  );
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",

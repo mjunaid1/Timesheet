@@ -1134,6 +1134,94 @@ namespace Courses.DataAccess
         }
 
 
+
+        public List<Exams> getExamsPerCourse(int CourseId)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select [CourseExam].ExamId , Exam.ExamName, [CourseExam].CourseId , Courses.CourseName from [CourseExam] , Exam , Courses where Exam.Examid = [CourseExam].Examid and [CourseExam].CourseId =  Courses.CourseID and  [CourseExam].CourseId = "+CourseId;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Exams> data = new List<Exams>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Exams(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+        
+        public bool InsertResult(Results Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "INSERT INTO [StudentExamResults] ([StudentUserName],[ExamId],[Result],[TotalWrongAnswers],[TotalCorrectAnswers]) VALUES ('"+Model.UserName+"',"+Model.ExamId+",'"+Model.Result + "',"+Model.TotalWrongAnswers+","+Model.TotalCorrectAnswers+")";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
+
+           
+        public List<ViewsResults> ViewsResults()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select [StudentExamResults].StudentUserName, Exam.ExamName , [StudentExamResults].result from [StudentExamResults] , Exam where Exam.Examid = [StudentExamResults].ExamId ";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<ViewsResults> data = new List<ViewsResults>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new ViewsResults(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
         static async Task Run()
         {
             using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))

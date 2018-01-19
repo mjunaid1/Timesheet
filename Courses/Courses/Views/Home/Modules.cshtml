@@ -76,8 +76,10 @@
         <br />
         <br />
 
-        <a href="" ng-click="StartExam()" class="btn btn-success">Start Exam</a>
+   
 
+            <a  ng-repeat="x in getAllExamsPerCourse" href="" ng-click="StartExam(x.ExamId)" class="btn btn-success">Start {{x.ExamName}}</a>
+       
 
         @*<ul style="display:none" id="abc">
 
@@ -180,34 +182,49 @@
                 <div class="alert alert-danger alert-block" ng-show="isError">
                     <h6 class="alert-heading">{{errormessage}}</h6>
                 </div>
+                <form>
                 <ul style="list-style:none;" class="col col-md-12">
-                    <li ng-repeat="x1 in ViewQuestionAndAnswers.Questions">
+                    <li ng-repeat="x1 in ViewAllQuestionAndAnswers.Questions" ng-show="show=='index'+{{abc =$index + 1}}">
                         <h2 style="font-size: large;font-weight:bold; color:black;">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}} &nbsp;  &nbsp; <span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '2' ">(Multiple)</span><span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '1' ">(Single)</span>  </h2>
 
 
                         @*<ul ng-repeat="x in ViewQuestionAndAnswers.Answers">
 
 
-                            <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}}  &nbsp; <i ng-if="x.CorrectAnswer === true" class="fa fa-check-square-o" style="font-size:large;color:green;"></i> </li>
+                    <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}}  &nbsp; <i ng-if="x.CorrectAnswer === true" class="fa fa-check-square-o" style="font-size:large;color:green;"></i> </li>
 
-                           
 
-                        </ul>*@
 
-                        <div ng-repeat="x in ViewQuestionAndAnswers.Answers">
+                </ul>*@
 
-                            <label ng-if="x1.AnswerType === '2' " ><input type="checkbox" value="" /> &nbsp; {{x.AnswerText}}</label>
-                            <label ng-if="x1.AnswerType === '1' "><input type="radio" name="radiobtn" value="" /> &nbsp; {{x.AnswerText}}</label>
+                        <div ng-repeat="x in ViewAllQuestionAndAnswers.Answers">
+                            {{xyz}}
+                            
+                            <input type="hidden" id="{{x.AnswerID}}" value="{{xyz}}" />
+                            <label ng-if="x1.AnswerType === '2' && x1.QuesId === x.QuesId "><input  ng-model="x.CorrectAnswer"  type="checkbox" /> &nbsp; {{x.AnswerText}}</label>
+                            <label ng-if="x1.AnswerType === '1'  && x1.QuesId === x.QuesId  "><input id="y{{x.QuesId}}"  ng-model="x.CorrectAnswer" ng-click="jun(x.AnswerID,ViewAllQuestionAndAnswers.Answers,x.QuesId)"  type="checkbox" name="radio{{x.QuesId}}"  /> &nbsp; {{x.AnswerText}}</label>
+                          
                         </div>
 
                         <br />
 
                     </li>
-
+                    
                 </ul>
+                 @*<input ng-model="Q1128" type="checkbox" value="" />*@
+                <a class="btn btn-success" ng-show="previous_show" ng-click="previous()">Previous</a> <a ng-show="next_show" class="btn btn-success" ng-click="next()">Next</a>
+                <a ng-show="submitbtn" class="btn btn-warning" ng-click="submit()">Submit</a>
+</form>
+
+                <div ng-show="Isresults">
+                    <h3>Submit Your Exam</h3>
+                    <h3>Total Questions Is: {{TotalQues}}</h3>
+                    <h3>Wrong Answer Is: {{WrongAns}}</h3>
+                    <h3>Correct Answer Is: {{CorrectAns}}</h3>
+                    <h3>Your Percentage Is: {{per}}%</h3>
 
 
-
+                </div>
             </div>
             <div class="modal-footer">
                 @*<button class="btn btn-primary" type="button" ng-click="">Save</button>*@
