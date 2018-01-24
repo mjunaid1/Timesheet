@@ -236,6 +236,8 @@
     <Content Include="Content\Logo\ilf_logo1.png" />
     <Content Include="Content\Logo\ilf_logo4.png" />
     <Content Include="Content\Logo\11.jpeg" />
+    <Content Include="Content\Logo\new.png" />
+    <Content Include="Content\Logo\y1.png" />
     <Content Include="Content\n1.png" />
     <Content Include="Content\newJS\jquery.min.js" />
     <Content Include="Content\newJS\jquery.uniform.js" />
