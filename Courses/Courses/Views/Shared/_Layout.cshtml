@@ -47,11 +47,11 @@
     <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
         <div class="content-wrapper">
             <div ng-controller="Rolecontroller">
-                <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/Logo/")33.png" alt="LOGO" style="width:100%;height:7%"></a>
+                <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/Logo/")2.png" width="100%" style="margin-bottom:10px;" alt="LOGO" ></a>
 
 
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-                    <a class="navbar-brand" href="/Home/Index">Welcome To ILF COURSES</a>
+                    <a class="navbar-brand" href="/Home/Index" style="font-weight:bold;color:black;font-size:x-large ; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.1);text-transform:uppercase">Welcome To ILF COURSES</a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -60,45 +60,50 @@
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                                 <a class="nav-link" href="/Home/Index">
                                     <i class="fa fa-fw fa-dashboard"></i>
-                                    <span class="nav-link-text">Dashboard</span>
+                                    <span class="nav-link-text" style="font-weight:300 ;  font-family:Gill-Sans, Arial, sans-serif;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">Dashboard</span>
                                 </a>
                             </li>
 
                             <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="ADMIN">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-sitemap"></i>
-                                    <span class="nav-link-text">ADMIN</span>
+                                    <span class="nav-link-text" style="font-weight:300 ;  font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2)">ADMIN</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="collapseMulti">
-                                    <li>
+                                    @*<li style="font-weight:300; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/Admin">Admin</a>
-                                    </li>
+                                    </li>*@
 
-                                    <li>
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/Course">Courses</a>
                                     </li>
-                                    <li>
+
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/Module">Modules</a>
                                     </li>
-                                    <li>
-                                        <a href="/Home/AddUser">Add Users</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Home/UserCourses">User Courses</a>
-                                    </li>
-                                    <li>
+
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/CourseModule">Course Module</a>
                                     </li>
-                                    <li>
+
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/CourseExam">Course Exam</a>
                                     </li>
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
+                                        <a href="/Home/AddUser">Add Users</a>
+                                    </li> 
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
+                                        <a href="/Home/UserCourses">User Courses</a>
+                                    </li>
+                                    
+                                    
                                 </ul>
                             </li>
                             <li  ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                <a class="nav-link" href="/Home/USER">
+                                @*<a class="nav-link" href="/Home/USER">
                                     <i class="fa fa-fw fa-table"></i>
-                                    <span class="nav-link-text">USERS</span>
-                                </a>
+                                    <span class="nav-link-text" style="font-weight:bold ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">USERS</span>
+                                </a>*@
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
