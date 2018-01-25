@@ -28,14 +28,13 @@
                             <p>Your browser does not support iframes.</p>
                         </iframe>*@
                 <!--style = "display: none;" -->
-                <h1 style="color:rgb(0, 0, 0); font-weight:bold; font-family:Gill-Sans, Arial, sans-serif"> Islamic Learning Foundation Courses</h1>
-            
-                <p ng-controller="Rolecontroller" ng-show="!isAdmin" class="lead" style="font-size:35px; font-weight:normal;color:black">Welcome {{UserName}} To The ILF LEARNING Platform <br />
+              
+                <p ng-controller="Rolecontroller" ng-show="!isAdmin" class="lead" style="font-size:27px; font-weight:normal;color:black">
                You Are Enrolled In The Following Courses...</p>
 
-                <ul>
-                    <li ng-repeat="x in GetAllSingleUserCourses"><a href="~/Home/Modules/{{x.CourseID}}" ng-click=""> {{x.CourseName}}</a></li>
-                </ul>
+             
+                    <span style="font-size:x-large; font-weight:300; font-family:Gill-Sans, Arial, sans-serif" ng-repeat="x in GetAllSingleUserCourses"><a style="color:black;" href="~/Home/Modules/{{x.CourseID}}" ng-click=""> <i class="fa fa-book" aria-hidden="true" style="color:grey;font-size:xx-large"></i> {{x.CourseName}}<br /></a></span>
+               
 
 
                 <div ng-controller="Rolecontroller" ng-show="isAdmin" class="card mb-3">

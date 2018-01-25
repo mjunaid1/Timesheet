@@ -520,7 +520,7 @@ $scope.UserName = $('#UserName').val();
 
         $scope.ShowContentModules = function (CourseName, Modulename,id) {
 
-           
+            $scope.GetModuleContentDropboxApi = "";
 
             var config = {
                 headers: {
