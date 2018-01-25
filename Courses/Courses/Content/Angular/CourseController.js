@@ -592,6 +592,19 @@ $scope.UserName = $('#UserName').val();
             });
             //});
 
+            var data44 = {
+                "path": "id:y0FGkpiUfvAAAAAAAAAB6Q",
+                "format": "png",
+                "size": "w64h64",
+                "mode": "strict"
+
+
+            }
+            var resource44 = "https://content.dropboxapi.com/2/files/get_thumbnail";
+                    $http.post(resource44, data44, config).success(function (data, status) {
+
+
+        });
 
         }
 
