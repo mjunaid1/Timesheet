@@ -249,22 +249,22 @@
 
 
         <div  id="accordion" role="tablist" aria-multiselectable="true">
-            <div  ng-repeat="x in GetAllSingleUserCourseModules" class="card">
+            <div  ng-repeat="x1 in GetAllSingleUserCourseModules" class="card">
                 <div class="card-header" role="tab" id="xyz{{abc = $index + 1}}">
                     <h5  class="mb-0">
-                        <a style="color:black" data-toggle="collapse"  data-parent="#accordion" ng-click="ShowContentModules(x.CourseName,x.ModuleName,'abc'+abc)" href="#xyz1{{abc = $index + 1}}" aria-expanded="true" aria-controls="collapseOne " ><span class="fa fa-plus-square alert-primary" style="float:right"></span>
-                            {{x.ModuleName}}
+                        <a style="color:black" data-toggle="collapse"  data-parent="#accordion" ng-click="ShowContentModules(x1.CourseName,x1.ModuleName,x1.ModuleId)" href="#xyz1{{abc = $index + 1}}" aria-expanded="true" aria-controls="collapseOne " ><span class="fa fa-plus-square alert-primary" style="float:right"></span>
+                            {{x1.ModuleName}}
                         </a>
-
+                        @*&nbsp;  &nbsp;  {{modulePer | number:2 }}*@ 
                     </h5>
                 </div>
                 <div id="xyz1{{abc = $index + 1}}" style="" class="collapse " role="tabpanel" aria-labelledby="headingOne">
 
                     <div style="margin-left:20px;" class="card-block">
                         <br />
-                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show=" x.name.split('.').pop().toLowerCase() != 'mp4' && x.name.split('.').pop().toLowerCase() == 'pdf'"><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="fileClick($event,x.path_display)"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:red;font-size:x-large"></i>&nbsp;  {{x.name}}</a><br /> <br /></span>
+                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show=" x.name.split('.').pop().toLowerCase() != 'mp4' && x.name.split('.').pop().toLowerCase() == 'pdf'"><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="fileClick($event,x.path_display,x1.CourseName,x1.ModuleName)"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:red;font-size:x-large"></i>&nbsp;  {{x.name}}</a> &nbsp; <span ng-repeat="x3 in GetContentProgress" ng-show="x3.ContentId == x.id"><i class="fa fa-check" aria-hidden="true" style="color:green;font-size:x-large"></i></span><br /> <br /></span>
 
-                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop().toLowerCase() == 'mp4' && x.name.split('.').pop().toLowerCase() != 'pdf' "><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="videoClick($event,x.path_display)"><i class="fa fa-play-circle-o" aria-hidden="true" style="color:grey;font-size:x-large"></i>&nbsp;   {{x.name}}</a><br /> <br /></span>
+                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop().toLowerCase() == 'mp4' && x.name.split('.').pop().toLowerCase() != 'pdf' "><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="videoClick($event,x.path_display,x1.CourseName,x1.ModuleName)"><i class="fa fa-play-circle-o" aria-hidden="true" style="color:grey;font-size:x-large"></i>&nbsp;   {{x.name}}</a> &nbsp; <span ng-repeat="x3 in GetContentProgress" ng-show="x3.ContentId == x.id"><i class="fa fa-check" aria-hidden="true" style="color:green;font-size:x-large"></i></span><br /> <br /></span>
                         <br /><br />
                     </div>
                 </div>

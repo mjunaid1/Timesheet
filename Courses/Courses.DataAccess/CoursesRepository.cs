@@ -1221,6 +1221,195 @@ namespace Courses.DataAccess
             }
         }
 
+        public List<CourseCountent> selectDropboxContent_Id()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry1 = "select * from [CourseContent] ";
+                using (var cmd3 = new SqlCommand(qry1, conn))
+                {
+                    cmd3.CommandType = CommandType.Text;
+
+                    List<CourseCountent> data = new List<CourseCountent>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd3.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new CourseCountent(myReader);
+                                data.Add(get);
+
+
+
+
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+
+
+
+        public bool InsertCourseModules_Content(CourseCountent Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                string qry1 = "select DropboxId from [CourseContent] ";
+
+
+                //using (var cmd3 = new SqlCommand(qry1, conn))
+                //{
+                //    cmd3.CommandType = CommandType.Text;
+
+                //    List<CourseCountent> data = new List<CourseCountent>();
+                //    //var myReader = cmd.ExecuteReader();
+                //    using (var myReader = cmd3.ExecuteReader())
+                //    {
+                //        try
+                //        {
+                //            while (myReader.Read())
+                //            {
+                //                var get = new CourseCountent(myReader);
+                //                data.Add(get);
+
+
+
+
+
+                //            }
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            // LOG ERROR
+                //            throw ex;
+                //        }
+                //    }
+
+                //    foreach(var a in data.Where(x => x.DropboxId != Model.DropboxId))
+                //    {
+
+                //        var abc = Model.DropboxId;
+
+
+
+                //        //if(a.DropboxId != Model.DropboxId)
+                //        //{
+
+
+                //        //    string qry = "delete [CourseContent] where DropboxId = '"+Model.DropboxId+"'";
+                //        //    using (var cmd = new SqlCommand(qry, conn))
+                //        //    {
+                //        //        cmd.CommandType = CommandType.Text;
+                //        //        cmd.ExecuteNonQuery();
+
+                //        //    }
+
+
+                //        //}
+
+
+
+                //    }
+
+
+                //}
+
+
+
+                string qry = "INSERT INTO [CourseContent] ([ContentType],[ContentName],[ContentURL],ModuleId,DropboxId) VALUES ('" + Model.ContentType + "','" + Model.ContentName + "','" + Model.ContentURL + "'," + Model.ModuleId + ",'" + Model.DropboxId + "')";
+                using (var cmd = new SqlCommand("[InsertCourse_Content]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ContentType", SqlDbType.NVarChar).Value = Model.ContentType;
+                    cmd.Parameters.Add("@ContentName", SqlDbType.NVarChar).Value = Model.ContentName;
+                    cmd.Parameters.Add("@ContentURL", SqlDbType.NVarChar).Value = Model.ContentURL;
+                    cmd.Parameters.Add("@ModuleId", SqlDbType.Int).Value = Model.ModuleId;
+                    cmd.Parameters.Add("@DropboxId", SqlDbType.NVarChar).Value = Model.DropboxId;
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
+
+
+        
+        public bool InserContentProgress(StudentContentProgress Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "INSERT INTO [StudentExamResults] ([ContentId],[Username]) VALUES ('" + Model.ContentId + "','"+Model.Username+"')";
+                using (var cmd = new SqlCommand("[InsertContentProgress]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ContentId", SqlDbType.NVarChar).Value = Model.ContentId;
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = Model.Username;
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
+
+
+        public List<StudentContentProgress> GetContentProgress(StudentContentProgress model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry1 = "  select [StudentContentProgress].ContentId, [CourseContent].ModuleId from [StudentContentProgress] , [CourseContent] where[CourseContent].DropboxId = [StudentContentProgress].ContentId and [StudentContentProgress].Username = '"+model.Username+"' ";
+                using (var cmd3 = new SqlCommand(qry1, conn))
+                {
+                    cmd3.CommandType = CommandType.Text;
+
+                    List<StudentContentProgress> data = new List<StudentContentProgress>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd3.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new StudentContentProgress(myReader);
+                                data.Add(get);
+
+
+
+
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
 
         static async Task Run()
         {

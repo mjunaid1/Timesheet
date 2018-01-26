@@ -279,7 +279,7 @@ namespace Courses.Entities
 
 
 
-       
+
         public string UserName { get; set; }
         public string Result { get; set; }
         public string ExamName { get; set; }
@@ -290,11 +290,58 @@ namespace Courses.Entities
             if (dbReader.HasColumn("StudentUserName") && dbReader["StudentUserName"] != DBNull.Value) UserName = (string)dbReader["StudentUserName"];
             if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
             if (dbReader.HasColumn("result") && dbReader["result"] != DBNull.Value) Result = (string)dbReader["result"];
-           
+
 
 
         }
 
     }
+        public class CourseCountent
+        {
 
+
+
+
+            public string ContentName { get; set; }
+            public string ContentURL { get; set; }
+            public string ContentType { get; set; }
+            public int ModuleId { get; set; }
+            public string DropboxId { get; set; }
+
+            public CourseCountent(IDataReader dbReader)
+            {
+                if (dbReader == null) return;
+                if (dbReader.HasColumn("ContentName") && dbReader["ContentName"] != DBNull.Value) ContentName = (string)dbReader["ContentName"];
+                if (dbReader.HasColumn("ContentURL") && dbReader["ContentURL"] != DBNull.Value) ContentURL = (string)dbReader["ContentURL"];
+                if (dbReader.HasColumn("ContentType") && dbReader["ContentType"] != DBNull.Value) ContentType = (string)dbReader["ContentType"];
+                if (dbReader.HasColumn("DropboxId") && dbReader["DropboxId"] != DBNull.Value) DropboxId = (string)dbReader["DropboxId"];
+                if (dbReader.HasColumn("ModuleId") && dbReader["ModuleId"] != DBNull.Value) ModuleId = (int)dbReader["ModuleId"];
+
+
+
+            }
+        }
+
+    public class StudentContentProgress
+    {
+
+
+
+
+        
+        public string ContentId { get; set; }
+        public string Username { get; set; }
+        public int ModuleId { get; set; }
+
+        public StudentContentProgress(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("ContentId") && dbReader["ContentId"] != DBNull.Value) ContentId = (string)dbReader["ContentId"];
+            if (dbReader.HasColumn("Username") && dbReader["Username"] != DBNull.Value) Username = (string)dbReader["Username"];
+            if (dbReader.HasColumn("ModuleId") && dbReader["ModuleId"] != DBNull.Value) ModuleId = (int)dbReader["ModuleId"];
+
+
+
+        }
+    }
 }

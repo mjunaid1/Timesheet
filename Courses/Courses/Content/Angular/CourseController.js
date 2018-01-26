@@ -28,7 +28,7 @@ $scope.UserName = $('#UserName').val();
         });
     };
 
-    $scope.videoClick = function ($event, videoSource) {
+    $scope.videoClick = function ($event, videoSource,c,m,i) {
 
       //  alert(videoSource);
         var config = {
@@ -51,6 +51,21 @@ $scope.UserName = $('#UserName').val();
                         $log.info("videoClick", data.link)
                         $scope.open('lg', data.link);
 
+                        var data3 = {
+                            "ContentId": data.metadata.id,
+                            "Username": $scope.UserName
+                        }
+
+                        var resource = location.protocol + "//" + location.host + "/api/Search/InserContentProgress";
+                        $http.post(resource, data3).success(function (data, status) {
+
+                            if (data = "true") {
+                                $scope.ShowContentModules(c, m,i);
+                            }
+                        });
+
+
+                       
                       //  alert($scope.GetModuleContentDropboxApi.metadata.name + "  " + $scope.GetModuleContentDropboxApi.link)
 
                      //   $window.location.href = 'https://api.dropboxapi.com/2/files/get_temporary_link';
@@ -58,13 +73,14 @@ $scope.UserName = $('#UserName').val();
                     });
 
                
-
+                  
        
     }
 
 
-    $scope.fileClick = function ($event, fileSource) {
+    $scope.fileClick = function ($event, fileSource,c,m,i) {
 
+        var id = "";
       
         var config = {
             headers: {
@@ -78,11 +94,41 @@ $scope.UserName = $('#UserName').val();
 
 
         }
+        var data3 = {
+            "path": fileSource
+
+
+        }
+
+        var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
+        $http.post(resource2, data3, config).success(function (data, status) {
+
+            id = data.metadata.id;
+         
+         
+
+        });
+
 
         var resource2 = "https://api.dropboxapi.com/2/sharing/create_shared_link";
         $http.post(resource2, data2, config).success(function (data, status) {
 
+        
+
+            var data3 = {
+                "ContentId": id,
+                "Username": $scope.UserName
+            }
+
+            var resource = location.protocol + "//" + location.host + "/api/Search/InserContentProgress";
+            $http.post(resource, data3).success(function (data, status) {
+
+                if (data = "true") {
+                    $scope.ShowContentModules(c, m,i);
+                }
+            });
            
+         
 
          //   alert(data.url);
 
@@ -515,12 +561,19 @@ $scope.UserName = $('#UserName').val();
 
         $scope.GetSingleUserCourseModules();
 
+        $scope.GetContentProgress = [];
+
+    
 
         $scope.GetModuleContentDropboxApi = [];
 
-        $scope.ShowContentModules = function (CourseName, Modulename,id) {
+        $scope.ShowContentModules = function (CourseName, Modulename, ModuleId) {
 
             $scope.GetModuleContentDropboxApi = "";
+        
+            var length;
+
+
 
             var config = {
                 headers: {
@@ -545,6 +598,8 @@ $scope.UserName = $('#UserName').val();
 
                 $scope.GetModuleContentDropboxApi = data.entries;
 
+                length =  $scope.GetModuleContentDropboxApi.length;
+               
                 var count = 0 ;
                 angular.forEach($scope.GetAllSingleUserCourseModules, function (value, key) {
                     count = count + 1
@@ -554,14 +609,14 @@ $scope.UserName = $('#UserName').val();
 
                    
 
-                    if (value.ModuleName == Modulename) {
+                    //if (value.ModuleName == Modulename) {
 
-                        $("#"+id).css("display", "block");
-                    } else {
+                    //    $("#"+id).css("display", "block");
+                    //} else {
 
 
-                        $("#abc" + count).css("display", "none");
-                    }
+                    //    $("#abc" + count).css("display", "none");
+                    //}
 
                 });
 
@@ -589,22 +644,80 @@ $scope.UserName = $('#UserName').val();
                 //    });
 
                 //    });
+
+
+
+                var perCount = 0;
+
+                var data4 = { "Username": $scope.UserName };
+
+                var resource4 = location.protocol + "//" + location.host + "/api/Search/GetContentProgress";
+
+                $http.post(resource4, data4).success(function (data, status) {
+                    $scope.GetContentProgress = data;
+                    angular.forEach($scope.GetContentProgress, function (value, key) {
+
+                        if (value.ModuleId == ModuleId) {
+                            perCount++;
+                            //   alert(ModuleId);
+
+                        }
+
+                    });
+
+                    $scope.modulePer = perCount / $scope.GetModuleContentDropboxApi.length * 100 + "%";
+                   // alert($scope.GetModuleContentDropboxApi.length + "  " + perCount)
+                });
+
+
             });
             //});
 
-            var data44 = {
-                "path": "id:y0FGkpiUfvAAAAAAAAAB6Q",
-                "format": "png",
-                "size": "w64h64",
-                "mode": "strict"
+            //var data44 = {
+            //    "path": "id:y0FGkpiUfvAAAAAAAAAB6Q",
+            //    "format": "png",
+            //    "size": "w64h64",
+            //    "mode": "strict"
 
 
-            }
-            var resource44 = "https://content.dropboxapi.com/2/files/get_thumbnail";
-                    $http.post(resource44, data44, config).success(function (data, status) {
+            //}
+            //var resource44 = "https://content.dropboxapi.com/2/files/get_thumbnail";
+            //        $http.post(resource44, data44, config).success(function (data, status) {
 
 
-        });
+            //});
+
+
+            var count = 0;
+            angular.forEach($scope.GetModuleContentDropboxApi, function (value, key) {
+                count = count + 1
+                //   alert();
+
+
+
+
+
+                //if (value.ModuleName == Modulename) {
+
+                //    $("#"+id).css("display", "block");
+                //} else {
+
+
+                //    $("#abc" + count).css("display", "none");
+                //}
+
+            });
+
+
+                 
+                   
+
+
+
+
+
+
+
 
         }
 
@@ -646,6 +759,166 @@ $scope.UserName = $('#UserName').val();
                     .error(function (data, status) {
                         // this isn't happening:
                     })
+
+
+                $scope.DropboxContent_Id = [];
+
+                var resource = location.protocol + "//" + location.host + "/api/Search/selectDropboxContent_Id";
+
+                $http.get(resource).success(function (data, status) {
+                    $scope.DropboxContent_Id = data;
+
+                }).error(function (data, status) {
+                    // this isn't happening:
+                })
+
+
+
+
+
+
+
+
+                var CourseName;
+                var ModuleId;
+
+                var Email = $('#UserName').val();
+                var data2 = {
+                    Email: Email
+
+                }
+
+                //  alert(S_id + " dgjk'" + C_id);
+                var resource = location.protocol + "//" + location.host + "/api/Search/GetCourses_Single_User";
+                $http.post(resource, data2).success(function (data, status) {
+
+
+                    angular.forEach(data, function (value, key) {
+
+                        if (value.CourseID == CourseId) {
+                            CourseName = value.CourseName;
+                            //  alert(CourseName); 
+                        }
+
+
+
+
+                    });
+
+                });
+
+
+
+
+
+
+                var config = {
+                    headers: {
+                        'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
+                        'Content-Type': 'application/json'
+                    }
+                }
+
+
+
+
+                var data = {
+                    Username: Email,
+                    CourseId: CourseId
+
+                }
+                var Path;
+                //  alert(S_id + " dgjk'" + C_id);
+                var resource = location.protocol + "//" + location.host + "/api/Search/GetCourseModules_Single_User";
+                $http.post(resource, data).success(function (data, status) {
+
+
+                    $scope.GetAllSingleUserCourseModules = data;
+
+
+                    angular.forEach($scope.GetAllSingleUserCourseModules, function (value, key) {
+
+
+                        // alert("Courses/" + CourseName +"/Modules/" +value.ModuleName);
+                        ModuleId = value.ModuleId;
+                        Path = "/Courses/" + CourseName + "/Modules/" + value.ModuleName;
+
+                        var data1 = {
+                            "path": Path
+
+
+                        }
+                        //     alert("1");
+                        var jun;
+                        var data2 = {
+
+                            "ContentType": "",
+                            "ContentName": jun,
+                            "ContentURL": Path,
+                            "ModuleId": ModuleId,
+                            "DropboxId": ""
+
+                        }
+
+                        var resource1 = "https://api.dropboxapi.com/2/files/list_folder";
+                        var resource3 = location.protocol + "//" + location.host + "/api/Search/InsertCourseModules_Content";
+                        $http.post(resource1, data1, config).success(function (data, status) {
+
+
+                            angular.forEach(data.entries, function (value, key) {
+
+
+
+
+
+
+                                if (value.name.split('.').pop().toLowerCase() == 'mp4' || value.name.split('.').pop().toLowerCase() == 'pdf') {
+
+                                    var type = value.name.split('.').pop().toLowerCase();
+                                    data2.ContentName = value.name;
+                                    data2.DropboxId = value.id;
+                                    //   alert(data2.ContentName + "Ԗ" + data2.ContentURL + "Ԗ"  + data2.ModuleId);
+                                    //    alert("2");
+
+                                    var data3 = {
+
+                                        "ContentType": type,
+                                        "ContentName": data2.ContentName,
+                                        "ContentURL": data2.ContentURL,
+                                        "ModuleId": data2.ModuleId,
+                                        "DropboxId": data2.DropboxId
+
+                                    }
+
+
+                                    $http.post(resource3, data3).success(function (data, status) {
+
+                                        //   alert(data);
+                                        //      alert(data2.ContentName + "Ԗ" + data2.ContentURL + "Ԗ" + data2.ModuleId);
+
+                                    });
+
+
+
+                                }
+
+
+                            });
+
+
+
+
+                        });
+
+
+
+                    });
+
+
+
+
+                });
+
 
 
             } else {

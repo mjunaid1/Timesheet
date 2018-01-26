@@ -375,6 +375,66 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpGet]
+        public List<CourseCountent> selectDropboxContent_Id()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.selectDropboxContent_Id();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public bool InsertCourseModules_Content([FromBody] CourseCountent model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.InsertCourseModules_Content(model);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost] 
+        public bool InserContentProgress([FromBody] StudentContentProgress model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.InserContentProgress(model);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost]
+        public List<StudentContentProgress> GetContentProgress([FromBody] StudentContentProgress model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetContentProgress(model);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

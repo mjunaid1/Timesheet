@@ -161,6 +161,35 @@ namespace Courses
          routeTemplate: "api/Search/ViewsResults",
            defaults: new { controller = "Courses", action = "ViewsResults" }
   );
+
+
+            config.Routes.MapHttpRoute(
+        name: "InsertCourseModules_Content",
+        routeTemplate: "api/Search/InsertCourseModules_Content",
+          defaults: new { controller = "Courses", action = "InsertCourseModules_Content" }
+ );
+
+
+
+                    config.Routes.MapHttpRoute(
+        name: "selectDropboxContent_Id",
+        routeTemplate: "api/Search/selectDropboxContent_Id",
+        defaults: new { controller = "Courses", action = "selectDropboxContent_Id" }
+        );
+
+
+            config.Routes.MapHttpRoute(
+name: "InserContentProgress",
+routeTemplate: "api/Search/InserContentProgress",
+defaults: new { controller = "Courses", action = "InserContentProgress" }
+);
+
+
+            config.Routes.MapHttpRoute(
+name: "GetContentProgress",
+routeTemplate: "api/Search/GetContentProgress",
+defaults: new { controller = "Courses", action = "GetContentProgress" }
+);
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",

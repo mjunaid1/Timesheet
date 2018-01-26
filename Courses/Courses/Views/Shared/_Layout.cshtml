@@ -48,16 +48,23 @@
     <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
         <div class="content-wrapper">
             <div ng-controller="Rolecontroller">
-                <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/Logo/")ilf_logo1.png" width="530px" height="100px" style="margin-bottom:10px;" alt="LOGO" ></a>
+                <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/Logo/")2.png" alt="LOGO" width="100%" height="70px;" style="margin-bottom:10px"></a>
 
 
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-                    <a class="navbar-brand" href="/Home/Index" style="font-weight:300;color:black;font-size:x-large ; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.1);text-transform:uppercase">Welcome To ILF COURSES</a>
+                <nav @*style="padding: .0rem 1rem;"*@ class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+
+
+                    @*<a href="/Home/Index"><img src="~/Content/Logo/ilf 50-50.png" style="margin-left:75px;" width="50px" height="50px" /></a>*@
+
+
+
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                        <ul style="margin-top:10px; text-align:center" class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                            <a href="/Home/Index"><img src="~/Content/Logo/ilfwhite.png" style="margin-left:20px; padding-bottom: 1em; " width="85px" height="85px" /></a>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                                 <a class="nav-link" href="/Home/Index">
                                     <i class="fa fa-fw fa-dashboard"></i>
@@ -72,8 +79,8 @@
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="collapseMulti">
                                     @*<li style="font-weight:300; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
-                                        <a href="/Home/Admin">Admin</a>
-                                    </li>*@
+                                <a href="/Home/Admin">Admin</a>
+                            </li>*@
 
                                     <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/Course">Courses</a>
@@ -92,19 +99,28 @@
                                     </li>
                                     <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/AddUser">Add Users</a>
-                                    </li> 
+                                    </li>
                                     <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/UserCourses">User Courses</a>
                                     </li>
-                                    
-                                    
+
+
                                 </ul>
                             </li>
-                            <li  ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+
+                            <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span class="nav-link-text" style="font-weight:300 ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">EXIT</span>
+                                </a>
+                            </li>
+
+
+                            <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                                 @*<a class="nav-link" href="/Home/USER">
-                                    <i class="fa fa-fw fa-table"></i>
-                                    <span class="nav-link-text" style="font-weight:bold ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">USERS</span>
-                                </a>*@
+                            <i class="fa fa-fw fa-table"></i>
+                            <span class="nav-link-text" style="font-weight:bold ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">USERS</span>
+                        </a>*@
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
