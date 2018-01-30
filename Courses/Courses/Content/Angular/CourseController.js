@@ -28,8 +28,8 @@ $scope.UserName = $('#UserName').val();
         });
     };
 
-    $scope.videoClick = function ($event, videoSource,c,m,i) {
-
+    $scope.videoClick = function ($event, videoSource,c,m,i,cid) {
+       // alert(cid);
       //  alert(videoSource);
         var config = {
             headers: {
@@ -51,9 +51,14 @@ $scope.UserName = $('#UserName').val();
                         $log.info("videoClick", data.link)
                         $scope.open('lg', data.link);
 
+                    
                         var data3 = {
                             "ContentId": data.metadata.id,
-                            "Username": $scope.UserName
+                            "Username": $scope.UserName,
+                            "ModuleId": i,
+                            "CourseName": c,
+                            "ModuleName": m,
+                            "CourseId": cid
                         }
 
                         var resource = location.protocol + "//" + location.host + "/api/Search/InserContentProgress";
@@ -78,7 +83,7 @@ $scope.UserName = $('#UserName').val();
     }
 
 
-    $scope.fileClick = function ($event, fileSource,c,m,i) {
+    $scope.fileClick = function ($event, fileSource,c,m,i,cid) {
 
         var id = "";
       
@@ -117,7 +122,11 @@ $scope.UserName = $('#UserName').val();
 
             var data3 = {
                 "ContentId": id,
-                "Username": $scope.UserName
+                "Username": $scope.UserName,
+                "ModuleId": i,
+                "CourseName": c,
+                "ModuleName": m,
+                "CourseId":cid
             }
 
             var resource = location.protocol + "//" + location.host + "/api/Search/InserContentProgress";
@@ -561,6 +570,37 @@ $scope.UserName = $('#UserName').val();
 
         $scope.GetSingleUserCourseModules();
 
+
+        $scope.GetAllCourseProgress = [];
+
+        $scope.GetCourseProgress = function () {
+
+            var Email = $('#UserName').val();
+            var C_id = $('#coursid').val();
+            var data = {
+                Username: Email,
+                CourseId: C_id
+
+            }
+
+            //  alert(S_id + " dgjk'" + C_id);
+            var resource = location.protocol + "//" + location.host + "/api/Search/GetCourseProgress";
+            $http.post(resource, data).success(function (data, status) {
+
+
+                $scope.GetAllCourseProgress = data;
+
+            });
+
+
+
+        }
+
+        $scope.GetCourseProgress();
+
+
+
+
         $scope.GetContentProgress = [];
 
     
@@ -655,6 +695,10 @@ $scope.UserName = $('#UserName').val();
 
                 $http.post(resource4, data4).success(function (data, status) {
                     $scope.GetContentProgress = data;
+
+                    var jun = -1;
+                  
+
                     angular.forEach($scope.GetContentProgress, function (value, key) {
 
                         if (value.ModuleId == ModuleId) {
@@ -666,6 +710,32 @@ $scope.UserName = $('#UserName').val();
                     });
 
                     $scope.modulePer = perCount / $scope.GetModuleContentDropboxApi.length * 100 + "%";
+
+                    angular.forEach($scope.GetAllSingleUserCourseModules, function (value, key) {
+                        jun++;
+                        if (ModuleId == value.ModuleId) {
+                        //    alert(value.Module_Per + "  " + jun)
+                            $scope.GetAllSingleUserCourseModules[jun].Module_Per = Math.round(perCount / $scope.GetModuleContentDropboxApi.length * 100) ;
+                        }
+                    });
+
+                    var Email = $('#UserName').val();
+                    var C_id = $('#coursid').val();
+                    var data4 = {
+                        Username: Email,
+                        CourseId: C_id
+
+                    }
+
+                    //  alert(S_id + " dgjk'" + C_id);
+                    var resource = location.protocol + "//" + location.host + "/api/Search/GetCourseProgress";
+                    $http.post(resource, data4).success(function (data, status) {
+
+
+                        $scope.GetAllCourseProgress = data;
+
+                    });
+
                    // alert($scope.GetModuleContentDropboxApi.length + "  " + perCount)
                 });
 
@@ -708,11 +778,7 @@ $scope.UserName = $('#UserName').val();
 
             });
 
-
-                 
-                   
-
-
+          
 
 
 

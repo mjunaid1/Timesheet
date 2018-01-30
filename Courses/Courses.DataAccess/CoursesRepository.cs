@@ -18,6 +18,7 @@ namespace Courses.DataAccess
         static string ModuleDirectoryName = "";
         static string ModuleName = "";
         static string CourseName = "";
+        static int dropboxCount = 0;
         protected string CoursesConnectionString { get; set; }
         public CoursesRepository()
         {
@@ -567,7 +568,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = " select m.ModuleId , m.ModuleName, c.courseName from UserCourses uc ,CourseModules cm, courses c , modules m , AspNetUsers a where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+Username+"' and c.CourseId =  "+CourseId + " group by m.ModuleId , m.ModuleName, c.courseName";
+                string qry = " select m.ModuleId , m.ModuleName, c.courseName ,s.[Module%] , c.CourseId from UserCourses uc ,CourseModules cm, courses c , AspNetUsers a , modules m left join [StudentModulesProgress] s on s.ModuleId = m.ModuleId where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+ Username + "' and c.CourseId =  "+ CourseId + " group by m.ModuleId , m.ModuleName, c.courseName , s.[Module%],c.CourseID";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -595,8 +596,39 @@ namespace Courses.DataAccess
             }
         }
 
+        public List<StudentCoursePercentage> GetCourseProgress(string Username, int CourseId)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select [Course%] from  [StudentCoursesProgress] where Username = '"+ Username + "' and CourseId = "+ CourseId;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
 
-        
+                    List<StudentCoursePercentage> data = new List<StudentCoursePercentage>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new StudentCoursePercentage(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
         public List<Exams> GetExams()
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
@@ -1357,12 +1389,21 @@ namespace Courses.DataAccess
             {
                 conn.Open();
                 string qry = "INSERT INTO [StudentExamResults] ([ContentId],[Username]) VALUES ('" + Model.ContentId + "','"+Model.Username+"')";
+                  ModuleName = Model.ModuleName;
+                  CourseName = Model.CourseName;
+
+                var task = Task.Run((Func<Task>)CoursesRepository.CheckModuleContentCount);
+                task.Wait();
+
                 using (var cmd = new SqlCommand("[InsertContentProgress]", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@ContentId", SqlDbType.NVarChar).Value = Model.ContentId;
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = Model.Username;
+                    cmd.Parameters.Add("@ModuleId", SqlDbType.NVarChar).Value = Model.ModuleId;
+                    cmd.Parameters.Add("@dropboxContentCount", SqlDbType.Int).Value = dropboxCount;
+                    cmd.Parameters.Add("@CourseId", SqlDbType.Int).Value = Model.CourseId;
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1405,6 +1446,7 @@ namespace Courses.DataAccess
                             throw ex;
                         }
                     }
+                  
                     return data;
                 }
             }
@@ -1500,5 +1542,23 @@ namespace Courses.DataAccess
             }
         }
 
+        static async Task CheckModuleContentCount()
+        {
+            using (var dbx = new DropboxClient("M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD"))
+            {
+
+
+
+                //if (CoursesRepository.ModuleDirectoryName != "")
+                //{
+
+                var list = await dbx.Files.ListFolderAsync(@"/Courses/" + CoursesRepository.CourseName + "/Modules/"+ CoursesRepository.ModuleName);
+                dropboxCount = list.Entries.Count();
+
+
+
+                //  }
+            }
+        }
     }
 }

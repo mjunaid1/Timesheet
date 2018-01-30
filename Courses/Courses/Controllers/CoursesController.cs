@@ -210,6 +210,22 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost]
+        public List<StudentCoursePercentage> GetCourseProgress([FromBody] CourseModules r)
+        {
+            try
+            {
+                //  Username = "0f7520cd-d8e3-4c3f-b4e7-68d9a1a4832f";
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetCourseProgress(r.Username, r.CourseId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
 
         [HttpGet] 
         public List<Exams> GetExams()

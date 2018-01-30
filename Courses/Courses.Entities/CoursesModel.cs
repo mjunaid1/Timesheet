@@ -34,13 +34,17 @@ namespace Courses.Entities
         public string ModuleName { get; set; }
 
         public string CourseName { get; set; }
+        public string Module_Per { get; set; }
+        public int CourseId { get; set; }
 
         public Modules(IDataReader dbReader)
         {
             if (dbReader == null) return;
             if (dbReader.HasColumn("ModuleId") && dbReader["ModuleId"] != DBNull.Value) ModuleId = (int)dbReader["ModuleId"];
+            if (dbReader.HasColumn("CourseId") && dbReader["CourseId"] != DBNull.Value) CourseId = (int)dbReader["CourseId"];
             if (dbReader.HasColumn("ModuleName") && dbReader["ModuleName"] != DBNull.Value) ModuleName = (string)dbReader["ModuleName"];
             if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
+            if (dbReader.HasColumn("Module%") && dbReader["Module%"] != DBNull.Value) Module_Per = (string)dbReader["Module%"];
 
         }
 
@@ -328,10 +332,13 @@ namespace Courses.Entities
 
 
 
-        
+
         public string ContentId { get; set; }
         public string Username { get; set; }
         public int ModuleId { get; set; }
+        public string CourseName { get; set; }
+        public string ModuleName { get; set; }
+        public int CourseId { get; set; }
 
         public StudentContentProgress(IDataReader dbReader)
         {
@@ -339,9 +346,34 @@ namespace Courses.Entities
             if (dbReader.HasColumn("ContentId") && dbReader["ContentId"] != DBNull.Value) ContentId = (string)dbReader["ContentId"];
             if (dbReader.HasColumn("Username") && dbReader["Username"] != DBNull.Value) Username = (string)dbReader["Username"];
             if (dbReader.HasColumn("ModuleId") && dbReader["ModuleId"] != DBNull.Value) ModuleId = (int)dbReader["ModuleId"];
+            if (dbReader.HasColumn("CourseId") && dbReader["CourseId"] != DBNull.Value) CourseId = (int)dbReader["CourseId"];
+            if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
+            if (dbReader.HasColumn("ModuleName") && dbReader["ModuleName"] != DBNull.Value) ModuleName = (string)dbReader["ModuleName"];
 
 
 
         }
     }
+        public class StudentCoursePercentage
+        {
+
+
+
+
+
+         
+            public string CoursePer { get; set; }
+           
+
+            public StudentCoursePercentage(IDataReader dbReader)
+            {
+                if (dbReader == null) return;
+                if (dbReader.HasColumn("Course%") && dbReader["Course%"] != DBNull.Value) CoursePer = (string)dbReader["Course%"];
+               
+
+
+
+            }
+        
+        }
 }

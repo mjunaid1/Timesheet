@@ -65,9 +65,9 @@
             <li class="breadcrumb-item">
                 <a href="/Home/Index">Courses</a>
             </li>
-            <li class="breadcrumb-item active">Course Modules</li>
+            <li class="breadcrumb-item active">Course Modules</li> &nbsp;  &nbsp; <li><span class="badge badge-primary" ng-repeat="x in GetAllCourseProgress" ng-show="x.CoursePer !=0">Overall {{ x.CoursePer  }}% Course Completed</span></li>
         </ol>
-
+       
 
         @*<ul>
             <li  ng-repeat="x in GetAllSingleUserCourseModules"><a id="xyz{{abc = $index + 1}}" href="" ng-click="ShowContentModules(x.CourseName,x.ModuleName,'abc'+abc)"> {{x.ModuleName}}</a>
@@ -256,15 +256,17 @@
                             {{x1.ModuleName}}
                         </a>
                         @*&nbsp;  &nbsp;  {{modulePer | number:2 }}*@ 
+                        &nbsp;  &nbsp;  <span class="badge badge-primary" ng-show="x1.Module_Per != NULL">{{x1.Module_Per  | number:0 }}% Completed</span>
+                        
                     </h5>
                 </div>
                 <div id="xyz1{{abc = $index + 1}}" style="" class="collapse " role="tabpanel" aria-labelledby="headingOne">
 
                     <div style="margin-left:20px;" class="card-block">
                         <br />
-                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show=" x.name.split('.').pop().toLowerCase() != 'mp4' && x.name.split('.').pop().toLowerCase() == 'pdf'"><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="fileClick($event,x.path_display,x1.CourseName,x1.ModuleName)"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:red;font-size:x-large"></i>&nbsp;  {{x.name}}</a> &nbsp; <span ng-repeat="x3 in GetContentProgress" ng-show="x3.ContentId == x.id"><i class="fa fa-check" aria-hidden="true" style="color:green;font-size:x-large"></i></span><br /> <br /></span>
+                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show=" x.name.split('.').pop().toLowerCase() != 'mp4' && x.name.split('.').pop().toLowerCase() == 'pdf'"><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="fileClick($event,x.path_display,x1.CourseName,x1.ModuleName,x1.ModuleId,x1.CourseId)"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:red;font-size:x-large"></i>&nbsp;  {{x.name}}</a> &nbsp; <span ng-repeat="x3 in GetContentProgress" ng-show="x3.ContentId == x.id"><i class="fa fa-check" aria-hidden="true" style="color:green;font-size:x-large"></i></span><br /> <br /></span>
 
-                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop().toLowerCase() == 'mp4' && x.name.split('.').pop().toLowerCase() != 'pdf' "><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="videoClick($event,x.path_display,x1.CourseName,x1.ModuleName)"><i class="fa fa-play-circle-o" aria-hidden="true" style="color:grey;font-size:x-large"></i>&nbsp;   {{x.name}}</a> &nbsp; <span ng-repeat="x3 in GetContentProgress" ng-show="x3.ContentId == x.id"><i class="fa fa-check" aria-hidden="true" style="color:green;font-size:x-large"></i></span><br /> <br /></span>
+                        <span ng-repeat="x in GetModuleContentDropboxApi" ng-show="x.name.split('.').pop().toLowerCase() == 'mp4' && x.name.split('.').pop().toLowerCase() != 'pdf' "><a style="text-decoration:none;color:black;font-size:large" href="" ng-click="videoClick($event,x.path_display,x1.CourseName,x1.ModuleName,x1.ModuleId,x1.CourseId)"><i class="fa fa-play-circle-o" aria-hidden="true" style="color:grey;font-size:x-large"></i>&nbsp;   {{x.name}}</a> &nbsp; <span ng-repeat="x3 in GetContentProgress" ng-show="x3.ContentId == x.id"><i class="fa fa-check" aria-hidden="true" style="color:green;font-size:x-large"></i></span><br /> <br /></span>
                         <br /><br />
                     </div>
                 </div>

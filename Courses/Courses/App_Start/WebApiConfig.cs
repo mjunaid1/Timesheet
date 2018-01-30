@@ -190,6 +190,13 @@ name: "GetContentProgress",
 routeTemplate: "api/Search/GetContentProgress",
 defaults: new { controller = "Courses", action = "GetContentProgress" }
 );
+
+            
+                 config.Routes.MapHttpRoute(
+name: "GetCourseProgress",
+routeTemplate: "api/Search/GetCourseProgress",
+defaults: new { controller = "Courses", action = "GetCourseProgress" }
+);
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",
             //   routeTemplate: "api/Search/getCourses",
