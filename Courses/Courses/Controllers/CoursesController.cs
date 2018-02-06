@@ -377,12 +377,12 @@ namespace Courses.Controllers
 
 
         [HttpGet]
-        public List<ViewsResults> ViewsResults()
+        public List<EnrolledStudents> GetEnrolledStudents()
         {
             try
             {
                 CoursesRepository _searchRepository = new CoursesRepository();
-                var result = _searchRepository.ViewsResults();
+                var result = _searchRepository.GetEnrolledStudents();
                 return result;
             }
             catch (Exception ex)

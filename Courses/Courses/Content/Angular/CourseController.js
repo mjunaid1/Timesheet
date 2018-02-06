@@ -996,13 +996,13 @@ $scope.UserName = $('#UserName').val();
 
 
 
-        $scope.getAllViewsResults = [];
+        $scope.getAllEnrolledStudents = [];
 
-        $scope.GetViewsResults = function () {
-            var resource = location.protocol + "//" + location.host + "/api/Search/ViewsResults";
+        $scope.getEnrolledStudents = function () {
+            var resource = location.protocol + "//" + location.host + "/api/Search/GetEnrolledStudents";
 
             $http.get(resource).success(function (data, status) {
-                $scope.getAllViewsResults = data;
+                $scope.getAllEnrolledStudents = data;
 
             })
                 .error(function (data, status) {
@@ -1013,7 +1013,7 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.GetViewsResults();
+        $scope.getEnrolledStudents();
 
 
         $scope.AddExam = function () {

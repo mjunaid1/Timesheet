@@ -155,11 +155,11 @@ namespace Courses
 
 
 
-            
+
             config.Routes.MapHttpRoute(
-         name: "ViewsResults",
-         routeTemplate: "api/Search/ViewsResults",
-           defaults: new { controller = "Courses", action = "ViewsResults" }
+      name: "GetEnrolledStudents",
+       routeTemplate: "api/Search/GetEnrolledStudents",
+           defaults: new { controller = "Courses", action = "GetEnrolledStudents" }
   );
 
 

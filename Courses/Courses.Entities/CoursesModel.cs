@@ -278,28 +278,28 @@ namespace Courses.Entities
     }
 
 
-    public class ViewsResults
-    {
+    //public class ViewsResults
+    //{
 
 
 
 
-        public string UserName { get; set; }
-        public string Result { get; set; }
-        public string ExamName { get; set; }
+    //    public string UserName { get; set; }
+    //    public string Result { get; set; }
+    //    public string ExamName { get; set; }
 
-        public ViewsResults(IDataReader dbReader)
-        {
-            if (dbReader == null) return;
-            if (dbReader.HasColumn("StudentUserName") && dbReader["StudentUserName"] != DBNull.Value) UserName = (string)dbReader["StudentUserName"];
-            if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
-            if (dbReader.HasColumn("result") && dbReader["result"] != DBNull.Value) Result = (string)dbReader["result"];
+    //    public ViewsResults(IDataReader dbReader)
+    //    {
+    //        if (dbReader == null) return;
+    //        if (dbReader.HasColumn("StudentUserName") && dbReader["StudentUserName"] != DBNull.Value) UserName = (string)dbReader["StudentUserName"];
+    //        if (dbReader.HasColumn("ExamName") && dbReader["ExamName"] != DBNull.Value) ExamName = (string)dbReader["ExamName"];
+    //        if (dbReader.HasColumn("result") && dbReader["result"] != DBNull.Value) Result = (string)dbReader["result"];
 
 
 
-        }
+    //    }
 
-    }
+    //}
         public class CourseCountent
         {
 
@@ -376,4 +376,34 @@ namespace Courses.Entities
             }
         
         }
+
+    public class EnrolledStudents { 
+
+
+        public string  Username { get; set; }
+        public string CourseName { get; set; }
+        public string Exam { get; set; }
+        public string Result { get; set; }
+        public string CoursePer { get; set; }
+        public string CurrentModuleName { get; set; }
+        public string ModulePer { get; set; }
+
+
+        public EnrolledStudents(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("Username") && dbReader["Username"] != DBNull.Value) Username = (string)dbReader["Username"];
+            if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
+            if (dbReader.HasColumn("Exam") && dbReader["Exam"] != DBNull.Value) Exam = (string)dbReader["Exam"];
+            if (dbReader.HasColumn("Result") && dbReader["Result"] != DBNull.Value) Result = (string)dbReader["Result"];
+            if (dbReader.HasColumn("Current Module Name") && dbReader["Current Module Name"] != DBNull.Value) CurrentModuleName = (string)dbReader["Current Module Name"];
+            if (dbReader.HasColumn("Module%") && dbReader["Module%"] != DBNull.Value) ModulePer = (string)dbReader["Module%"];
+            if (dbReader.HasColumn("Course%") && dbReader["Course%"] != DBNull.Value) CoursePer = (string)dbReader["Course%"];
+
+
+
+
+        }
+
+    }
 }

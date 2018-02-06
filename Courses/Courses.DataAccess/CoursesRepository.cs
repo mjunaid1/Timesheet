@@ -568,7 +568,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = " select m.ModuleId , m.ModuleName, c.courseName ,s.[Module%] , c.CourseId from UserCourses uc ,CourseModules cm, courses c , AspNetUsers a , modules m left join [StudentModulesProgress] s on s.ModuleId = m.ModuleId where c.CourseId = uc.CourseId and a.Id = uc.StudentId and  cm.CourseId = c.CourseId and cm.ModuleId = m.ModuleId and a.Email = '"+ Username + "' and c.CourseId =  "+ CourseId + " group by m.ModuleId , m.ModuleName, c.courseName , s.[Module%],c.CourseID";
+                string qry = " select  cm.ModuleId,(select ModuleName from Modules where  Modules.ModuleId = cm.ModuleId ) as 'ModuleName' , (select CourseName from Courses where  Courses.CourseId = uc.CourseId ) as 'courseName', mp.[Module%], uc.CourseId   from UserCourses uc inner join aspnetUsers a on a.Id = uc.StudentId  inner join CourseModules cm on cm.CourseId = uc.CourseId left join StudentModulesProgress mp on mp.UserName = a.UserName and mp.CourseId = uc.CourseId and mp.ModuleId = cm.ModuleId where a.Email = '"+Username+"' and uc.CourseId =  "+CourseId+" group by cm.ModuleId , uc.CourseId , mp.[Module%]";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -1219,18 +1219,18 @@ namespace Courses.DataAccess
             }
         }
 
-           
-        public List<ViewsResults> ViewsResults()
+
+        public List<EnrolledStudents> GetEnrolledStudents()
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "select [StudentExamResults].StudentUserName, Exam.ExamName , [StudentExamResults].result from [StudentExamResults] , Exam where Exam.Examid = [StudentExamResults].ExamId ";
+                string qry = "select a.username ,   (select CourseName from Courses where Courses.CourseId = c.CourseId) as 'CourseName', iif(count(e.Result)<>0,'Yes','No') as 'Exam', e.Result as 'Result' , cp.[Course%]+'%' as 'Course%' , (select ModuleName from Modules where Modules.Moduleid = m.ModuleId) as 'Current Module Name', m.[Module%]+'%' as 'Module%' from UserCourses u inner join aspnetUsers a on a.Id = u.StudentId inner join Courses c on c.CourseId = u.CourseId left join StudentExamResults e on e.StudentUserName = a.UserName left join StudentCoursesProgress cp on cp.UserName = a.UserName and cp.CourseId =c.CourseId left join StudentModulesProgress m on m.UserName = a.UserName and m.CourseId = c.CourseId and m.ModuleId in (select StudentModulesProgress.ModuleId from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName   ) and m.Created in (select max(StudentModulesProgress.Created) from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName ) group by  a.UserName , c.CourseId , e.Result ,cp.[Course%] , m.[Module%] , m.ModuleId";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    List<ViewsResults> data = new List<ViewsResults>();
+                    List<EnrolledStudents> data = new List<EnrolledStudents>();
                     //var myReader = cmd.ExecuteReader();
                     using (var myReader = cmd.ExecuteReader())
                     {
@@ -1238,7 +1238,7 @@ namespace Courses.DataAccess
                         {
                             while (myReader.Read())
                             {
-                                var get = new ViewsResults(myReader);
+                                var get = new EnrolledStudents(myReader);
                                 data.Add(get);
                             }
                         }
