@@ -79,6 +79,21 @@ namespace Courses.Controllers
         }
 
 
+        [HttpGet] 
+        public List<Students> GetTeachers()
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetTeachers();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public bool AddCourseModules([FromBody]CourseModules Model)
         {
@@ -114,7 +129,7 @@ namespace Courses.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet] 
         public List<Students> GetStudents()
         {
             try
@@ -451,6 +466,24 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+
+        [HttpPost] 
+        public List<CoursesModel> GetSingleTeachersCourses([FromBody] CoursesModel Model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetSingleTeachersCourses(Model.TeacherUsername);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         // GET: api/Courses2
         public IEnumerable<string> Get()
         {

@@ -43,6 +43,13 @@ namespace Courses
                     defaults: new { controller = "Courses", action = "GetModules" }
            );
 
+            
+            config.Routes.MapHttpRoute(
+               name: "GetTeachers",
+                routeTemplate: "api/Search/GetTeachers",
+                    defaults: new { controller = "Courses", action = "GetTeachers" }
+           );
+
             config.Routes.MapHttpRoute(
                name: "AddCourseModules",
                 routeTemplate: "api/Search/AddCourseModules",
@@ -196,6 +203,13 @@ defaults: new { controller = "Courses", action = "GetContentProgress" }
 name: "GetCourseProgress",
 routeTemplate: "api/Search/GetCourseProgress",
 defaults: new { controller = "Courses", action = "GetCourseProgress" }
+);
+
+            
+                 config.Routes.MapHttpRoute(
+name: "GetSingleTeachersCourses",
+routeTemplate: "api/Search/GetSingleTeachersCourses",
+defaults: new { controller = "Courses", action = "GetSingleTeachersCourses" }
 );
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",

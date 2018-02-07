@@ -1,11 +1,86 @@
 ﻿courseApp.controller("courseController", function courseController($scope, $window, $http, $filter, $timeout, $log, $uibModal) {
     $scope.Author = "Umais Siddiqui";
     $scope.UserName = "";
+    $scope.role = [];
     $scope.test = function () { alert("Testing"); };
     var promise = $timeout(function () {
-$scope.UserName = $('#UserName').val();
-    }, 1000)
+        $scope.UserName = $('#UserName').val();
+        $scope.role = $('#role').val();
+
+        if ($scope.role == 1) {
+            $scope.getEnrolledStudents();
+            $scope.getCourses();
+            $scope.getModules();
+            $scope.getStudents();
+            $scope.getCourseModules();
+            $scope.getUserCourses();
+            $scope.getExams();
+            $scope.getTeachers();
+        } else if($scope.role == 2)
+        {
+            $scope.GetSingleUserCourses();
+            $scope.GetSingleUserCourseModules();
+            $scope.GetCourseProgress();
+        } else if ($scope.role == 3){
+
+            $scope.getSingleTeachersCourses();
+
+        }
+
+
+
+    }, 2000)
+
+
+
+
+    $scope.getUsersRole = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/CheckUser";
+        var user = $('#UserName').val();
+
+        var data = {
+            UserName: user
+        };
+
+
+        $http.post(resource, data).success(function (data, status) {
+            if (data.Role == 1) {
+                $scope.isStudent = false;
+                $scope.isTeacher = false;
+                $scope.isAdmin = true;
+              
+               
+            } else if (data.Role == 2) {
+                $scope.isAdmin = false;
+                $scope.isTeacher = false;
+                $scope.isStudent = true;
+              
+               
+
+            } else if (data.Role == 3) {
+                $scope.isStudent = false;
+                $scope.isAdmin = false;
+                $scope.isTeacher = true;
+              
+               
+            }
+
+            $scope.role = data.Role;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+    $scope.getUsersRole();
+
     
+
+
     $scope.open = function (size, videoSource) {
         $log.info("open", videoSource);
         var modalInstance = $uibModal.open({
@@ -160,16 +235,20 @@ $scope.UserName = $('#UserName').val();
     }
 
     $scope.AddCourses = function () {
+        $scope.isError = false;
+        $scope.isSuccess = false;
+        var selectedTeacher = $("#selectedTeacher").val();
 
-
+      
         var data1 = {
             CourseName: $scope.CourseName,
             CourseDuration: $scope.CourseDuration,
-            CourseStartDate: $scope.CourseStartDate
+            CourseStartDate: $scope.CourseStartDate,
+            TeacherUsername: selectedTeacher
+
         };
 
-        if ($scope.CourseName != null && $scope.CourseDuration != null && $scope.CourseStartDate != null) {
-
+        if ($scope.CourseName != null && $scope.CourseDuration != null && $scope.CourseStartDate != null && selectedTeacher != "? undefined:undefined ?") {                
             var resource = location.protocol + "//" + location.host + "/api/Search/AddCourse";
             $http.post(resource, data1).success(function (data, status) {
              
@@ -177,9 +256,9 @@ $scope.UserName = $('#UserName').val();
                     $scope.isError = false;
                     $scope.isSuccess = true;
                     $scope.successMessage = "Course Successfully Added...";
-                    $scope.CourseName = '';
-                    $scope.CourseDuration = '';
-                    $scope.CourseStartDate = '';
+                    $scope.CourseName = null;
+                    $scope.CourseDuration = null;
+                    $scope.CourseStartDate = null;
                     $scope.getCourses();
                  //   $scope.AddCourseDirectory("/Courses/"+data1.CourseName);
                     //$scope.onPropertySearch();
@@ -193,36 +272,7 @@ $scope.UserName = $('#UserName').val();
     }
 
    
-    $scope.AddCourseDirectory = function (foldername) {
-
-        var config = {
-            headers: {
-                'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
-                'Content-Type': 'application/json'
-            }
-        }
-        var data2 = {
-            "title": "CreateFolder",
-            "destination":  foldername,
-            "open": true
-
-
-        }
-
-        var resource2 = "https://api.dropboxapi.com/2/file_requests/create";
-        $http.post(resource2, data2, config).success(function (data, status) {
-
-            if (data = "true") {
-
-                $scope.isError = false;
-                $scope.isSuccess = true;
-                $scope.successMessage = "Successfully Directory Created in Dropbox ...";
-               
-            }
-
-        });
-    }
-
+  
     $scope.AddModules = function () {
 
 
@@ -251,27 +301,7 @@ $scope.UserName = $('#UserName').val();
     }
 
 
-    //$scope.getCourses = function () {
-
-
-    //    var data1 = {
-    //        ModuleName: $scope.ModuleName,
-
-    //    };
-
-
-    //    var resource = location.protocol + "//" + location.host + "/api/Search/AddModules";
-    //    $http.post(resource, data1).success(function (data, status) {
-    //        if (data === "true") {
-    //            $scope.isSuccess = true;
-    //            $scope.successMessage = "Modules Successfully Added...";
-    //            $scope.ModuleName = '';
-
-    //            //$scope.onPropertySearch();
-    //        }
-    //    });
-    //}
-
+    
     $scope.getAllCourses = [];
 
     $scope.getCourses = function () {
@@ -288,12 +318,13 @@ $scope.UserName = $('#UserName').val();
 
 
     }
+   
+   
 
-    $scope.getCourses();
 
     
 
-
+     
     $scope.getAllModules = [];
 
     $scope.getModules = function () {
@@ -310,9 +341,49 @@ $scope.UserName = $('#UserName').val();
 
 
     }
- 
-        $scope.getModules();
-  
+    
+    
+       
+    $scope.getAllTeachers = [];
+
+    $scope.getTeachers = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetTeachers";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.getAllTeachers = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+       
+
+    $scope.getAllSingleTeachersCourses = [];
+
+    $scope.getSingleTeachersCourses = function () {
+
+        var data = {
+            TeacherUsername: $scope.UserName
+
+        }
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetSingleTeachersCourses";
+        $http.post(resource,data).success(function (data, status) {
+            $scope.getAllSingleTeachersCourses = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
 
    
        
@@ -437,7 +508,8 @@ $scope.UserName = $('#UserName').val();
 
     }
 
-    $scope.getStudents();
+   
+ 
 
 
 
@@ -492,7 +564,8 @@ $scope.UserName = $('#UserName').val();
 
     }
 
-    $scope.getCourseModules();
+  
+  
 
 
 
@@ -513,7 +586,8 @@ $scope.UserName = $('#UserName').val();
 
     }
 
-    $scope.getUserCourses();
+ 
+ 
 
 
 
@@ -540,7 +614,7 @@ $scope.UserName = $('#UserName').val();
 
     }
 
-        $scope.GetSingleUserCourses();
+    
 
 
         $scope.GetAllSingleUserCourseModules = [];
@@ -568,7 +642,7 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.GetSingleUserCourseModules();
+        
 
 
         $scope.GetAllCourseProgress = [];
@@ -596,7 +670,7 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.GetCourseProgress();
+       
 
 
 
@@ -790,7 +864,7 @@ $scope.UserName = $('#UserName').val();
 
         $scope.getAllExams = [];
 
-        $scope.getExams = function () {
+      $scope.getExams = function () {
             var resource = location.protocol + "//" + location.host + "/api/Search/GetExams";
 
             $http.get(resource).success(function (data, status) {
@@ -805,7 +879,7 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.getExams();
+     
 
 
 
@@ -1013,7 +1087,8 @@ $scope.UserName = $('#UserName').val();
 
         }
 
-        $scope.getEnrolledStudents();
+    
+       
 
 
         $scope.AddExam = function () {

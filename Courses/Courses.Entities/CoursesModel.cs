@@ -14,7 +14,9 @@ namespace Courses.Entities
         public string CourseName { get; set; }
         public string CourseDuration { get; set; }
         public DateTime CourseStartDate { get; set; }
-       
+        public string TeacherUsername { get; set; }
+
+
 
 
         public CoursesModel(IDataReader dbReader)
@@ -24,6 +26,7 @@ namespace Courses.Entities
             if (dbReader.HasColumn("CourseName") && dbReader["CourseName"] != DBNull.Value) CourseName = (string)dbReader["CourseName"];
             if (dbReader.HasColumn("CourseDuration") && dbReader["CourseDuration"] != DBNull.Value) CourseDuration = (string)dbReader["CourseDuration"];
             if (dbReader.HasColumn("CourseStartDate") && dbReader["CourseStartDate"] != DBNull.Value) CourseStartDate = (DateTime)dbReader["CourseStartDate"];
+            if (dbReader.HasColumn("TeacherUsername") && dbReader["TeacherUsername"] != DBNull.Value) TeacherUsername = (string)dbReader["TeacherUsername"];
 
         }
     }

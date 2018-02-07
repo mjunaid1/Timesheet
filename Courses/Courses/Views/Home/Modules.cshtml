@@ -57,7 +57,7 @@
 </style>*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <input type="hidden" id="coursid" value="@ViewBag.CourseId">
-<div ng-controller="courseController">
+
     
     <div class="container-fluid">
         <!-- Breadcrumbs-->
@@ -278,7 +278,7 @@
 
         <a ng-repeat="x in getAllExamsPerCourse" href="" ng-click="StartExam(x.ExamId)" class="btn btn-secondary">Start {{x.ExamName}}</a>
     </div>
-</div>
+
 
 @*<div id="accordion" role="tablist" aria-multiselectable="true">
     <div class="card">

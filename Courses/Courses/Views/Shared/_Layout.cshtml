@@ -47,7 +47,8 @@
     @*<div ng-controller="courseController">*@
     <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
         <div class="content-wrapper">
-            <div ng-controller="Rolecontroller">
+            <div ng-controller="courseController">
+                <input type="hidden" id="role" value="{{role}}" />
                 <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/Logo/")2.png" alt="LOGO" width="100%" height="70px;" style="margin-bottom:10px"></a>
 
 
@@ -73,14 +74,14 @@
                             </li>
 
                             <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="ADMIN">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti1" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-sitemap"></i>
                                     <span class="nav-link-text" style="font-weight:300 ;  font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2)">ADMIN</span>
                                 </a>
-                                <ul class="sidenav-second-level collapse" id="collapseMulti">
+                                <ul class="sidenav-second-level collapse" id="collapseMulti1">
                                     @*<li style="font-weight:300; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
-                                <a href="/Home/Admin">Admin</a>
-                            </li>*@
+                                    <a href="/Home/Admin">Admin</a>
+                                </li>*@
 
                                     <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
                                         <a href="/Home/Course">Courses</a>
@@ -108,20 +109,47 @@
                                 </ul>
                             </li>
 
-                            <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                <a class="nav-link" href="#">
-                                    <i class="fa fa-sign-out"></i>
-                                    <span class="nav-link-text" style="font-weight:300 ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">EXIT</span>
+
+                            <li  ng-show="isTeacher" class="nav-item" data-toggle="tooltip" data-placement="right" title="Teacher">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-sitemap"></i>
+                                    <span class="nav-link-text" style="font-weight:300 ;  font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2)">Teacher</span>
                                 </a>
+                                <ul class="sidenav-second-level collapse" id="collapseMulti">
+                                 
+
+                                  
+
+                                   
+
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
+                                        <a href="/Home/CourseModule">Course Module</a>
+                                    </li>
+
+                                    <li style="font-weight:300 ; font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">
+                                        <a href="/Home/CourseExam">Course Exam</a>
+                                    </li>
+                                 
+
+
+                                </ul>
                             </li>
+
+
+                          @*   <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                                   <a class="nav-link" href="#">
+                                       <i class="fa fa-sign-out"></i>
+                                       <span class="nav-link-text" style="font-weight:300 ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">EXIT</span>
+                                   </a>
+                               </li>
 
 
                             <li ng-show="isAdmin" class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                @*<a class="nav-link" href="/Home/USER">
-                            <i class="fa fa-fw fa-table"></i>
-                            <span class="nav-link-text" style="font-weight:bold ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">USERS</span>
-                        </a>*@
-                            </li>
+                                       <a class="nav-link" href="/Home/USER">
+                                       <i class="fa fa-fw fa-table"></i>
+                                       <span class="nav-link-text" style="font-weight:bold ;font-size:16px; font-family:Gill-Sans, Arial, sans-serif ;text-shadow:1px 1px 0 rgba(0,0,0,0.2) ;text-transform:uppercase">USERS</span>
+                                   </a>
+                               </li>*@
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
@@ -137,8 +165,9 @@
 
                     </div>
                 </nav>
-            </div>
+
                 @RenderBody()
+            </div>
                 <footer class="sticky-footer">
                     <div class="container">
                         <div class="text-center">

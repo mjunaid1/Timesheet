@@ -18,7 +18,7 @@
         @if (Request.IsAuthenticated)
         {
             <input type="hidden" id="UserName" value="@User.Identity.GetUserName()">
-            <div ng-controller="courseController">
+           
 
                 @*<video controls="controls" height="480" width="640">
                             <source src="https://dl.dropboxusercontent.com/content_link/K30mptXJTiyxnRKtQjgvgZTSXpVXoDM8wAprimiuwTd0XnZ1MWIgfM1RSyewnbCD/file?dl=1"  type="video/mp4"/>
@@ -29,15 +29,21 @@
                         </iframe>*@
                 <!--style = "display: none;" -->
               
-                <p ng-controller="Rolecontroller" ng-show="!isAdmin" class="lead" style="font-size:27px; font-weight:normal;color:black">
+                <p  ng-show="isStudent" class="lead" style="font-size:27px; font-weight:normal;color:black">
                You Are Enrolled In The Following Courses...</p>
 
              
-                    <span style="font-size:x-large; font-weight:300; font-family:Gill-Sans, Arial, sans-serif" ng-repeat="x in GetAllSingleUserCourses"><a style="color:black;" href="~/Home/Modules/{{x.CourseID}}" ng-click=""> <i class="fa fa-book" aria-hidden="true" style="color:grey;font-size:xx-large"></i> {{x.CourseName}}<br /></a></span>
-               
+         <span  ng-show="isStudent" style="font-size:x-large; font-weight:300; font-family:Gill-Sans, Arial, sans-serif" ng-repeat="x in GetAllSingleUserCourses"><a style="color:black;" href="~/Home/Modules/{{x.CourseID}}" ng-click=""> <i class="fa fa-book" aria-hidden="true" style="color:grey;font-size:xx-large"></i> {{x.CourseName}}<br /></a></span>
 
 
-                <div ng-controller="Rolecontroller" ng-show="isAdmin" class="card mb-3">
+        <p ng-show="isTeacher" class="lead" style="font-size:27px; font-weight:normal;color:black">
+            You Are Enrolled In The Following Courses...
+        </p>
+        <span ng-show="isTeacher" style="font-size:x-large; font-weight:300; font-family:Gill-Sans, Arial, sans-serif" ng-repeat="x in getAllSingleTeachersCourses"><a style="color:black;" href="{{x.CourseID}}" ng-click=""> <i class="fa fa-book" aria-hidden="true" style="color:grey;font-size:xx-large"></i> {{x.CourseName}}<br /></a></span>
+
+
+
+                <div ng-show="isAdmin" class="card mb-3">
                     <div class="card-header">
                         <i class="fa fa-table "></i><span style="color:#868e96; font-weight:bold;"> Students </span> Enrolled
                     </div>
@@ -78,7 +84,7 @@
                 </div>
 
 
-            </div>
+            
         }
 
         else

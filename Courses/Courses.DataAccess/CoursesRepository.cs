@@ -52,7 +52,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "insert into [Courses] (CourseName, CourseDuration , CourseStartDate) values ('"+ Model.CourseName+ "','"+ Model.CourseDuration + "','"+ Model.CourseStartDate + "')";
+                string qry = "insert into [Courses] (CourseName, CourseDuration , CourseStartDate, TeacherUsername) values ('" + Model.CourseName+ "','"+ Model.CourseDuration + "','"+ Model.CourseStartDate + "','"+Model.TeacherUsername+"')";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -92,7 +92,7 @@ namespace Courses.DataAccess
             }
         }
 
-       
+        
         public List<CoursesModel> GetCourses()
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
@@ -261,6 +261,39 @@ namespace Courses.DataAccess
 
 
                 return true;
+            }
+        }
+
+        public List<Students> GetTeachers()
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [AspNetUsers] where role = 3";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Students> data = new List<Students>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Students(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
             }
         }
 
@@ -1451,6 +1484,42 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+
+        
+        public List<CoursesModel> GetSingleTeachersCourses(string Username)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from courses where TeacherUsername = '"+ Username + "'";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<CoursesModel> data = new List<CoursesModel>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new CoursesModel(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
 
 
         static async Task Run()
