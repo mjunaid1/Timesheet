@@ -232,7 +232,108 @@ namespace Courses.DataAccess
             }
         }
 
+        public bool AddCourseModuleForTeacher(CourseModules Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                Modules data = new Modules();
 
+                string qry = "insert into [Modules] (ModuleName) values ('" + Model.ModuleName + "')";
+                using (var cmd = new SqlCommand(qry, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+
+
+                    string qry2 = "select max(ModuleId) as ModuleId from Modules where ModuleName = '"+Model.ModuleName+"'";
+
+                    using (var cmd2 = new SqlCommand(qry2, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        var myReader = cmd2.ExecuteReader();
+
+                        myReader.Read();
+
+
+                        data.ModuleId = (int)myReader["ModuleId"];
+
+                        myReader.Close();
+
+                        string qry3 = "insert into [CourseModules]  (CourseId,ModuleId) values (" + Model.CourseId + ", " + data.ModuleId+ ")";
+
+                        using (var cmd3 = new SqlCommand(qry3, conn))
+                        {
+                            cmd.CommandType = CommandType.Text;
+
+                            cmd3.ExecuteNonQuery();
+
+                            ModuleDirectoryName = Model.DirectoryPath;
+                            CourseName = Model.CourseName;
+                            ModuleName = Model.ModuleName;
+
+                            var task = Task.Run((Func<Task>)CoursesRepository.Run1);
+                            task.Wait();
+
+
+                        }
+
+
+
+
+
+
+                    }
+
+
+                }
+
+
+        
+
+                //var count = 0;
+                //foreach (var a in words1)
+                //{
+                //    ModuleDirectoryName = a;
+
+                //    String[] words11 = a.Split('/');
+                //    foreach (var ab in words11)
+                //    {
+                //        count++;
+
+                //        if (count == 1)
+                //        {
+                //            CourseName = ab;
+
+                //        }
+
+                //        if (count == 3)
+                //        {
+                //            ModuleName = ab;
+
+                //            var task = Task.Run((Func<Task>)CoursesRepository.Run1);
+                //            task.Wait();
+
+                //            //      Task.Run(Run1);
+
+                //            count = 0;
+                //        }
+                //    }
+
+                //}
+
+
+
+
+
+
+
+
+
+
+                return true;
+            }
+        }
         public bool AddUserCourses(UserCourses Model)
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
@@ -248,6 +349,37 @@ namespace Courses.DataAccess
 
 
                     string qry = "INSERT INTO UserCourses (StudentId ,CourseId) VALUES  ('" + Model.StudentId + "', " + a + ")";
+                    using (var cmd = new SqlCommand(qry, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+
+                    }
+
+
+                }
+
+
+
+                return true;
+            }
+        }
+
+        public bool AddUserCoursesForTeacher(UserCourses Model)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                string s = Model.StudentId.ToString();
+                String[] words = s.Split(',');
+
+                foreach (var a in words)
+                {
+
+
+
+                    string qry = "INSERT INTO UserCourses (StudentId ,CourseId) VALUES  ('" + a + "', " + Model.CourseId + ")";
                     using (var cmd = new SqlCommand(qry, conn))
                     {
                         cmd.CommandType = CommandType.Text;
@@ -472,14 +604,77 @@ namespace Courses.DataAccess
             }
         }
 
+        public List<CourseModules> GetTeacherCourseModules(string Username)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "select CourseModules.CourseId, CourseModules.ModuleId, Courses.CourseName, Modules.ModuleName from [CourseModules] left join Courses on Courses.CourseId = CourseModules.CourseId left join Modules on Modules.ModuleId = CourseModules.ModuleId left join UserCourses on UserCourses.CourseId = Courses.CourseID where Courses.TeacherUsername = '"+Username+"' group by CourseModules.CourseId,CourseModules.ModuleId, Courses.CourseName, Modules.ModuleName ";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    // CourseModules cc = new CourseModules();
+                    List<CourseModules> data = new List<CourseModules>();
 
+                    var id = 0;
+                    var name = "";
+
+
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new CourseModules(myReader);
+
+                                //if (get.CourseId == id)
+                                //{
+
+                                //    //        get.CourseId = 0; get.CourseName = ""; get.ModuleId = 0; 
+                                //    name = get.ModuleName += "," + name;
+
+                                //    data.Add(get);
+                                //}
+                                //else
+                                //{
+
+                                //    name = get.ModuleName;
+                                //    data.Add(get);
+                                //}
+
+                                //  string data3 = GetCourseModules1(get.CourseID);
+                                //cc.CourseId = (int)myReader["CourseId"];
+                                //cc.ModuleId = (int)myReader["ModuleId"];
+                                //cc.CourseName = (string)myReader["CourseName"];
+                                //cc.ModuleName = (string)myReader["ModuleName"];
+                                data.Add(get);
+
+                                id = get.CourseId;
+
+
+                                //      Console.WriteLine(data3);
+                                // data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
 
         public List<UserCourses> GetUserCourses()
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "select UserCourses.CourseId, UserCourses.StudentId, Courses.CourseName, AspNetUsers.Email from UserCourses left join Courses on Courses.CourseId = UserCourses.CourseId left join AspNetUsers on AspNetUsers.id = UserCourses.StudentId order by UserCourses.CourseId";
+                string qry = "select UserCourses.CourseId, UserCourses.StudentId, Courses.CourseName, AspNetUsers.Email from UserCourses left join Courses on Courses.CourseId = UserCourses.CourseId left join AspNetUsers on AspNetUsers.id = UserCourses.StudentId group by UserCourses.CourseId, UserCourses.StudentId, Courses.CourseName, AspNetUsers.Email ";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -515,7 +710,46 @@ namespace Courses.DataAccess
             }
         }
 
+        public List<UserCourses> GetUserCoursesForTeacher(string Username)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "  select Courses.CourseID, Courses.CourseName ,(select AspNetUsers.Email from AspNetUsers where AspNetUsers.id = UserCourses.StudentId ) as 'Email' from Courses left join UserCourses on UserCourses.CourseId = Courses.CourseID where Courses.TeacherUsername = '"+Username+"' group by Courses.CourseID, Courses.CourseName ,UserCourses.StudentId";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    // CourseModules cc = new CourseModules();
+                    List<UserCourses> data = new List<UserCourses>();
 
+
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new UserCourses(myReader);
+
+
+                                data.Add(get);
+
+
+
+
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
 
 
         public  string GetCourseModules1(int c )
@@ -667,7 +901,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "select CourseExam.ExamId , Exam.ExamName , Courses.CourseName, Exam.Created from CourseExam , Courses , Exam where CourseExam.CourseId = Courses.CourseId and CourseExam.ExamId = Exam.ExamId";
+                string qry = "select CourseExam.ExamId , Exam.ExamName , Courses.CourseName, Exam.Created from CourseExam , Courses , Exam where CourseExam.CourseId = Courses.CourseId and CourseExam.ExamId = Exam.ExamId order by Exam.Created desc";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -695,7 +929,38 @@ namespace Courses.DataAccess
             }
         }
 
+        public List<Exams> GetExamsForTeacher(string username)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = " select cx.ExamId , e.ExamName , c.CourseName, e.Created  from CourseExam cx inner join Courses c on c.CourseId = cx.CourseId inner join [Exam] e on e.examid = cx.examid where c.TeacherUsername = '"+username+"'";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
 
+                    List<Exams> data = new List<Exams>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new Exams(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
 
 
 
@@ -924,6 +1189,61 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+
+        public QuestionsAndAnswers ExamRecords(int ExamId,string email,string result)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+
+                using (var cmd = new SqlCommand("ExamRecords", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Examid", SqlDbType.BigInt).Value = ExamId;
+                    cmd.Parameters.Add("@email", SqlDbType.NVarChar).Value = email; 
+                    cmd.Parameters.Add("@result", SqlDbType.NVarChar).Value = result;
+                    QuestionsAndAnswers data = null;
+
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                data = new QuestionsAndAnswers(myReader);
+                            }
+                            myReader.NextResult();
+                            while (myReader.Read())
+                            {
+
+
+                                data.Questions.Add(new Questions1(myReader));
+
+
+                            }
+
+                            myReader.NextResult();
+                            while (myReader.Read())
+                            {
+                                data.Answers.Add(new Answers(myReader));
+                            }
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
 
         public bool deleteQues(int Qid)
         {
@@ -1239,13 +1559,87 @@ namespace Courses.DataAccess
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
+                Results r = new Results();
+                var Count = 0;
+                var Answerid = "";
+                var Questionid = "";
+                var CorrectAnswer = "";
+
+                string s = Model.Records;
+                String[] words = s.Split('‡');
                 conn.Open();
                 string qry = "INSERT INTO [StudentExamResults] ([StudentUserName],[ExamId],[Result],[TotalWrongAnswers],[TotalCorrectAnswers]) VALUES ('"+Model.UserName+"',"+Model.ExamId+",'"+Model.Result + "',"+Model.TotalWrongAnswers+","+Model.TotalCorrectAnswers+")";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
+                         cmd.ExecuteNonQuery();
 
+
+                    string qry2 = "select max(ResultId) as ResultId from [StudentExamResults] where StudentUserName = '"+ Model.UserName+ "' and ExamId = "+ Model.ExamId + " and Result = '"+ Model.Result+ "' and TotalWrongAnswers = "+Model.TotalWrongAnswers+" and TotalCorrectAnswers = "+ Model.TotalCorrectAnswers;
+
+                    using (var cmd2 = new SqlCommand(qry2, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        var myReader = cmd2.ExecuteReader();
+
+                        myReader.Read();
+
+
+                        r.ResultId = (int)myReader["ResultId"];
+
+                        myReader.Close();
+
+
+                        foreach (var a in words)
+                        {
+
+                            var Options = a;
+
+
+                            if (Options != "")
+                            {
+                                String[] words1 = Options.Split('‰');
+                                foreach (var a1 in words1)
+                                {
+
+                                    Count++;
+                                    if (Count == 1)
+                                        Questionid = a1;
+                                    if (Count == 2)
+                                        Answerid = a1;
+                                    if (Count == 3)
+                                    {
+                                        CorrectAnswer = a1;
+
+
+                                        string qry3 = "insert into [StudentExamRecords]  ([ResultId],[QuestionId],AnswerId,CorrectAnswer) values (" + r.ResultId + "," + Questionid + "," + Answerid + ",'" + CorrectAnswer + "')";
+
+                                        using (var cmd3 = new SqlCommand(qry3, conn))
+                                        {
+                                            cmd.CommandType = CommandType.Text;
+
+                                                  cmd3.ExecuteNonQuery();
+
+                                        }
+
+
+
+
+
+                                        Count = 0;
+                                    }
+
+                                
+
+
+                                }
+
+
+                            }
+
+                        }
+
+                    }
                 }
 
                 return true;
@@ -1258,7 +1652,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry = "select a.username ,   (select CourseName from Courses where Courses.CourseId = c.CourseId) as 'CourseName', iif(count(e.Result)<>0,'Yes','No') as 'Exam', e.Result as 'Result' , cp.[Course%]+'%' as 'Course%' , (select ModuleName from Modules where Modules.Moduleid = m.ModuleId) as 'Current Module Name', m.[Module%]+'%' as 'Module%' from UserCourses u inner join aspnetUsers a on a.Id = u.StudentId inner join Courses c on c.CourseId = u.CourseId left join StudentExamResults e on e.StudentUserName = a.UserName left join StudentCoursesProgress cp on cp.UserName = a.UserName and cp.CourseId =c.CourseId left join StudentModulesProgress m on m.UserName = a.UserName and m.CourseId = c.CourseId and m.ModuleId in (select StudentModulesProgress.ModuleId from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName   ) and m.Created in (select max(StudentModulesProgress.Created) from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName ) group by  a.UserName , c.CourseId , e.Result ,cp.[Course%] , m.[Module%] , m.ModuleId";
+                string qry = "select a.username ,   (select CourseName from Courses where Courses.CourseId = c.CourseId) as 'CourseName', iif(count(e.Result)<>0,'Yes','No') as 'Exam', e.Result as 'Result' , cp.[Course%]+'%' as 'Course%' , (select ModuleName from Modules where Modules.Moduleid = m.ModuleId) as 'Current Module Name', m.[Module%]+'%' as 'Module%' from UserCourses u inner join aspnetUsers a on a.Id = u.StudentId inner join Courses c on c.CourseId = u.CourseId left join [CourseExam] cx on cx.CourseId = u.CourseId left join StudentExamResults e on e.StudentUserName = a.UserName and e.ExamId = cx.ExamId left join StudentCoursesProgress cp on cp.UserName = a.UserName and cp.CourseId =c.CourseId left join StudentModulesProgress m on m.UserName = a.UserName and m.CourseId = c.CourseId and m.ModuleId in (select StudentModulesProgress.ModuleId from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName   ) and m.Created in (select max(StudentModulesProgress.Created) from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName ) group by  a.UserName , c.CourseId , e.Result ,cp.[Course%] , m.[Module%] , m.ModuleId";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -1286,12 +1680,45 @@ namespace Courses.DataAccess
             }
         }
 
-        public List<CourseCountent> selectDropboxContent_Id()
+        public List<EnrolledStudents> GetEnrolledCoursesStudent(int courseid)
         {
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry1 = "select * from [CourseContent] ";
+                string qry = "select e.ResultId, a.username ,   e.ExamId, ( select ExamName from exam where exam.examid = e.ExamId) as 'ExamName' ,(select CourseName from Courses where Courses.CourseId = c.CourseId) as 'CourseName', iif(count(e.Result)<>0,'Yes','No') as 'Exam',e.Result as 'Result' , cp.[Course%]+'%' as 'Course%' , (select ModuleName from Modules where Modules.Moduleid = m.ModuleId) as 'Current Module Name',m.[Module%]+'%' as 'Module%' ,iif(count(e.Comments)<>0,1,0) as 'CheckComments' , e.Comments from UserCourses u inner join aspnetUsers a on a.Id = u.StudentId inner join Courses c on c.CourseId = u.CourseId left join [CourseExam] cx on cx.CourseId = u.CourseId left join StudentExamResults e on e.StudentUserName = a.UserName and e.ExamId = cx.ExamId left join StudentCoursesProgress cp on cp.UserName = a.UserName and cp.CourseId =c.CourseId left join StudentModulesProgress m on m.UserName = a.UserName and m.CourseId = c.CourseId and m.ModuleId in (select StudentModulesProgress.ModuleId from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName   ) and m.Created in (select max(StudentModulesProgress.Created) from UserCourses , CourseModules, StudentModulesProgress where UserCourses.CourseId = CourseModules.CourseId and StudentModulesProgress.ModuleId =  CourseModules.ModuleId and StudentModulesProgress.Username = a.UserName ) where u.CourseId = " + courseid+ " group by  e.ResultId, a.UserName , c.CourseId , e.Result ,cp.[Course%] , m.[Module%] , m.ModuleId, e.ExamId, e.Comments";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<EnrolledStudents> data = new List<EnrolledStudents>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new EnrolledStudents(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
+
+        public List<CourseCountent> selectDropboxContent_Id(int url)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry1 = "select * from [CourseContent] where ModuleId = "+url+"" ;
                 using (var cmd3 = new SqlCommand(qry1, conn))
                 {
                     cmd3.CommandType = CommandType.Text;
@@ -1432,11 +1859,17 @@ namespace Courses.DataAccess
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ContentId", SqlDbType.NVarChar).Value = Model.ContentId;
+                    //cmd.Parameters.Add("@ContentId", SqlDbType.NVarChar).Value = Model.ContentId;
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = Model.Username;
                     cmd.Parameters.Add("@ModuleId", SqlDbType.NVarChar).Value = Model.ModuleId;
                     cmd.Parameters.Add("@dropboxContentCount", SqlDbType.Int).Value = dropboxCount;
                     cmd.Parameters.Add("@CourseId", SqlDbType.Int).Value = Model.CourseId;
+                    cmd.Parameters.Add("@ModuleName", SqlDbType.NVarChar).Value = Model.ModuleName;
+                    cmd.Parameters.Add("@CourseName", SqlDbType.NVarChar).Value = Model.CourseName;
+                    cmd.Parameters.Add("@ContentName", SqlDbType.NVarChar).Value = Model.CountentName;
+
+
+
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1451,7 +1884,7 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(CoursesConnectionString))
             {
                 conn.Open();
-                string qry1 = "  select [StudentContentProgress].ContentId, [CourseContent].ModuleId from [StudentContentProgress] , [CourseContent] where[CourseContent].DropboxId = [StudentContentProgress].ContentId and [StudentContentProgress].Username = '"+model.Username+"' ";
+                string qry1 = "  select [StudentContentProgress].ContentId, [CourseContent].ModuleId from [StudentContentProgress] , [CourseContent] where[CourseContent].ContentId = [StudentContentProgress].ContentId and [StudentContentProgress].Username = '" + model.Username+"' ";
                 using (var cmd3 = new SqlCommand(qry1, conn))
                 {
                     cmd3.CommandType = CommandType.Text;
@@ -1627,6 +2060,23 @@ namespace Courses.DataAccess
 
 
                 //  }
+            }
+        }
+
+
+        
+        public bool UpdateTeacherComment(string com, int rid)
+        {
+            using (var conn = new SqlConnection(CoursesConnectionString))
+            {
+                conn.Open();
+                string qry = "  update [StudentExamResults] set Comments = '" + com + "'where ResultId =  " + rid + "";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
             }
         }
     }

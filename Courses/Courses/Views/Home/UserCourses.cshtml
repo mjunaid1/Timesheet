@@ -15,7 +15,7 @@
             <li class="breadcrumb-item active">User Course </li>
         </ol>
 
-        <div class="row">
+        <div ng-show="isAdmin" class="row">
             <div class="col-12">
 
                 <H1 style="color:rgb(53, 53, 53); font-weight:bold;">User Courses</H1>
@@ -107,6 +107,107 @@
 
 
             
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-show="isTeacher" class="row">
+            <div class="col-12">
+
+                <H1 style="color:rgb(53, 53, 53); font-weight:bold;">User Courses</H1>
+                <br />
+                <label> COURSES NAME: </label>
+                <select id="selectedTeacherCourses" ng-model="selectedTeacherCourses" class="selectpicker col-3">
+
+
+
+                    <option ng-repeat="x in getAllSingleTeachersCourses" value="{{x.CourseID}}">{{x.CourseName}}</option>
+
+
+                </select>
+                <br />
+
+
+                <div class="widget-box">
+                    <div class="widget-title">
+
+                        <h5> STUDENTS USERNAME</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form id="myform" class="form-horizontal">
+
+                            <div class="control-group">
+                                <label class="control-label"></label>
+                                <div class="controls">
+                                    <select ng-model="selectedStudents2" id="selectedStudents2" multiple>
+                                        <option ng-repeat="x in getAllStudents" value="{{x.Id}}">{{x.Username}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-actions">
+                                <input type="submit" ng-click="InsertUserCoursesForTeacher()" value="SAVE" class="btn btn-success">
+
+                            </div>
+
+                            <br />
+
+                            <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                                <h6 class="alert-heading">{{successMessage}}</h6>
+                            </div>
+                            <div class="alert alert-danger alert-block" ng-show="isError">
+                                <h6 class="alert-heading">{{errormessage}}</h6>
+                            </div>
+                            <br />
+                            <!-- Example DataTables Card-->
+                            <div class="card mb-3 ">
+                                <div class="card-header">
+                                    <i class="fa fa-table "></i><span style="color:#868e96; font-weight:bold;"> User-Courses </span> Table
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive table-sm">
+                                        <table class="table table-bordered  table-striped" cellspacing="0">
+                                            <thead class="table-info">
+                                                <tr>
+                                                    @*<th>COURSE ID</th>*@
+                                                    <th>COURSE NAME</th>
+                                                    @*<th>MODULE ID</th>*@
+                                                    <th>Student Email</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in getAllUserCoursesForTeacher | filter:query | orderBy:['CourseName','orderProp']  " >
+
+                                                    @*<td>{{x.CourseId}}</td>*@
+                                                    <td>{{x.CourseName}}</td>
+                                                    @*<td>{{x.GetModuleId}}</td>*@
+                                                    <td>{{x.Username}}</td>
+
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <br />
+
+
+
 
 
 

@@ -13,7 +13,8 @@
             </li>
             <li class="breadcrumb-item active">Course Exams</li>
         </ol>
-        <div class="row">
+
+        <div ng-show="isAdmin" class="row">
             <div class="col-12">
                 <h1 style="color:rgb(53, 53, 53); font-weight:bold;">COURSE EXAMS</h1><br />
                 <a href="" ng-click="AddExam()" class="btn btn-success">Add Exam</a>
@@ -74,300 +75,369 @@
 
 
 
-                <script type="text/ng-template" id="viewQues.html">
-
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">{{modalTitle}}</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="alert alert-danger alert-block" ng-show="isError">
-                            <h6 class="alert-heading">{{errormessage}}</h6>
-                        </div>
-                        <ul style="list-style:none;" class="col col-md-12">
-                            <li ng-repeat="x1 in ViewQuestionAndAnswers.Questions">
-                                <h2 style="font-size: large;font-weight:bold; color:black;">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}} &nbsp;  &nbsp; <span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '2' ">(Multiple)</span><span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '1' ">(Single)</span>  <a href="" ng-click="deleteQues(x1.QuesId)"><i class="fa fa-trash" aria-hidden="true" style="float:right;color:red;"></i></a> <a href="" ng-click="EditQues(x1.QuesId)"><i class="fa fa-pencil-square-o" aria-hidden="true" style="float:right;margin-right:5px;color:cornflowerblue;"></i></a> </h2>
-
-
-                                <ul ng-repeat="x in ViewQuestionAndAnswers.Answers">
-
-
-                                    <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}}  &nbsp; <i ng-if="x.CorrectAnswer === true" class="fa fa-check-square-o" style="font-size:large;color:green;"></i> </li>
-
-
-
-                                </ul>
-                                <br />
-
-                            </li>
-
-                        </ul>
-
-
-
-                    </div>
-                    <div class="modal-footer">
-                        @*<button class="btn btn-primary" type="button" ng-click="">Save</button>*@
-                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-                    </div>
-
-                </script>
-
-
-
-                <script type="text/ng-template" id="addExam.html">
-
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">{{modalTitle}}</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <form class="form-horizontal" name="client">
-                            <div class="col-12">
-
-
-                                <div class="col-sm-12">
-                                    <label class="">Exam Name</label>
-                                    <input class="form-control" type="text" ng-model="ExamName" />
-                                </div>
-                                <div class="col-sm-12">
-
-                                    <label>Course Name</label>
-                                    <select class="form-control" id="selectedCourses" ng-model="selectedCourses">
-                                        <option ng-repeat="x in getAllCourses" value="{{x.CourseID}}">{{x.CourseName}}</option>
-                                    </select>
-                                </div>
-
-
-
-                            </div>
-
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" ng-click="InsertExam()">Save</button>
-                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-                    </div>
-
-                </script>
-
-
-                <script type="text/ng-template" id="addQues.html">
-
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">{{modalTitle}}</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <form class="form-horizontal" name="client">
-                            @*<div class="col-12">*@
-
-
-                            <div class="col-sm-12">
-                                <label class="">Question</label>
-
-                                <textarea ng-model="question" class="form-control" cols="2" rows="1"></textarea>
-                            </div>
-                            <div class="col-sm-12">
-
-                                <label>Answer Type</label>
-                                <select class="form-control" id="answerType" ng-model="answerType">
-                                    <option value="1">Single</option>
-                                    <option value="2">Multiple</option>
-
-                                </select>
-                                <br />
-
-                            </div>
-
-
-
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <label class="">Option 1</label>
-
-
-                                        <textarea ng-model="ans1Option" ng-style="option1style" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-                                        <label class=""></label>
-
-                                        <br /><br />
-                                        <input value="sdf" ng-change="OnCheck()" ng-model="ans1" type="checkbox" class="form-control" />
-                                    </div>
-                                    <div class="col-5">
-                                        <label class="">Option 2</label>
-
-
-                                        <textarea ng-style="option2style" ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-                                        <label class=""></label>
-                                        <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans2" class="form-control" />
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-5">
-                                        <label class="">Option 3</label>
-
-
-                                        <textarea ng-style="option3style" ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-
-                                        <label class=""></label>
-                                        <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans3" class="form-control" />
-                                    </div>
-                                    <div class="col-5">
-                                        <label class="">Option 4</label>
-
-
-                                        <textarea ng-style="option4style" ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-                                        <label class=""></label>
-                                        <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans4" class="form-control" />
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="alert alert-success alert-block" ng-show="isSuccess">
-
-                                    <h6 class="alert-heading">{{successMessage}}</h6>
-                                </div>
-                                <div class="alert alert-danger alert-block" ng-show="isError">
-                                    <h6 class="alert-heading">{{errormessage}}</h6>
-                                </div>
-                            </div>
-
-                            @*</div>*@
-
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" ng-click="InsertQues()">Save</button>
-                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-                    </div>
-
-                </script>
-
-
-                <script type="text/ng-template" id="editQues.html">
-
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">{{modalTitle}}</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <form class="form-horizontal" name="client">
-                            @*<div class="col-12">*@
-
-
-                            <div class="col-sm-12">
-                                <label class="">Question</label>
-
-                                <textarea ng-model="question" class="form-control" cols="2" rows="1"></textarea>
-                            </div>
-                            <div class="col-sm-12">
-
-                                <label>Answer Type</label>
-                                <select class="form-control" id="answerType" ng-model="answerType">
-                                    <option value="1">Single</option>
-                                    <option value="2">Multiple</option>
-
-                                </select>
-                                <br />
-
-                            </div>
-
-
-
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <label class="">Option 1</label>
-
-
-                                        <textarea ng-model="ans1Option" ng-style="option1style" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-                                        <label class=""></label>
-
-                                        <br /><br />
-                                        <input value="sdf" ng-change="OnCheck()" ng-model="ans1" type="checkbox" class="form-control" />
-                                    </div>
-                                    <div class="col-5">
-                                        <label class="">Option 2</label>
-
-
-                                        <textarea ng-style="option2style" ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-                                        <label class=""></label>
-                                        <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans2" class="form-control" />
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-5">
-                                        <label class="">Option 3</label>
-
-
-                                        <textarea ng-style="option3style" ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-
-                                        <label class=""></label>
-                                        <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans3" class="form-control" />
-                                    </div>
-                                    <div class="col-5">
-                                        <label class="">Option 4</label>
-
-
-                                        <textarea ng-style="option4style" ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
-                                    </div>
-                                    <div style="top:25%;" class="col-1">
-                                        <label class=""></label>
-                                        <br /><br />
-                                        <input ng-change="OnCheck()" type="checkbox" ng-model="ans4" class="form-control" />
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="alert alert-success alert-block" ng-show="isSuccess">
-
-                                    <h6 class="alert-heading">{{successMessage}}</h6>
-                                </div>
-                                <div class="alert alert-danger alert-block" ng-show="isError">
-                                    <h6 class="alert-heading">{{errormessage}}</h6>
-                                </div>
-                            </div>
-
-                            @*</div>*@
-
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" ng-click="EditQues()">Save</button>
-                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-                    </div>
-
-                </script>
             </div>
 
         </div>
+
+        <div ng-show="isTeacher" class="row">
+            <div class="col-12">
+                <h1 style="color:rgb(53, 53, 53); font-weight:bold;">COURSE EXAMS</h1><br />
+                <a href="" ng-click="AddExam()" class="btn btn-success">Add Exam</a>
+
+                <br /> <br />
+                <div class="widget-box">
+                    @*<div class="widget-title">
+
+                        <h5>MODULE NAME</h5>
+                    </div>*@
+                    <div class="widget-content nopadding">
+
+
+                        <!-- Example DataTables Card-->
+                        <div class="card mb-3 ">
+                            <div class="card-header">
+                                <i class="fa fa-table "></i><span style="color:#868e96; font-weight:bold;"> Exam-List </span>
+                            </div>
+                            <div class="card-body ">
+                                <div class="table-responsive table-sm">
+                                    <table class="table table-bordered table-striped" cellspacing="0">
+                                        <thead class="table-info">
+                                            <tr>
+                                                @*<th>COURSE ID</th>*@
+                                                <th>EXAM NAME</th>
+                                                <th>CREATED DATE</th>
+                                                <th>COURSE NAME</th>
+                                                <th></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="x in getAllExams">
+
+
+                                                <td>{{x.ExamName}}</td>
+                                                <td>{{x.Created | date:'MM/dd/yyyy'}}</td>
+                                                <td>{{x.CourseName}}</td>
+                                                @*<td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)">Add Ques</a></td>*@
+                                                <td><a href="" ng-click="AddQues(x.ExamId,x.ExamName)" style="font-size:large;"><i class="fa fa-plus-square" title="Add Qustions"></i></a> &nbsp; <a href="" title="View Qustions" ng-click="ViewQues(x.ExamId,x.ExamName)" style="font-size:large;"><i class="fa fa-window-maximize"></i></a> &nbsp; <!-- <a href="#" style="font-size:large;"><i class="fa fa-pencil-square-o"></i></a> --></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <script type="text/ng-template" id="viewQues.html">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger alert-block" ng-show="isError">
+                    <h6 class="alert-heading">{{errormessage}}</h6>
+                </div>
+                <ul style="list-style:none;" class="col col-md-12">
+                    <li ng-repeat="x1 in ViewQuestionAndAnswers.Questions">
+                        <h2 style="font-size: large;font-weight:bold; color:black;">Q#:{{abc = $index + 1}} &nbsp; {{x1.Question}} &nbsp;  &nbsp; <span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '2' ">(Multiple)</span><span style="color:lightslategrey; font-weight:bold ; font-size:large;" ng-if="x1.AnswerType === '1' ">(Single)</span>  <a href="" ng-click="deleteQues(x1.QuesId)"><i class="fa fa-trash" aria-hidden="true" style="float:right;color:red;"></i></a> <a href="" ng-click="EditQues(x1.QuesId)"><i class="fa fa-pencil-square-o" aria-hidden="true" style="float:right;margin-right:5px;color:cornflowerblue;"></i></a> </h2>
+
+
+                        <ul ng-repeat="x in ViewQuestionAndAnswers.Answers">
+
+
+                            <li ng-if="x1.QuesId === x.QuesId"> {{x.AnswerText}}  &nbsp; <i ng-if="x.CorrectAnswer === true" class="fa fa-check-square-o" style="font-size:large;color:green;"></i> </li>
+
+
+
+                        </ul>
+                        <br />
+
+                    </li>
+
+                </ul>
+
+
+
+            </div>
+            <div class="modal-footer">
+                @*<button class="btn btn-primary" type="button" ng-click="">Save</button>*@
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </script>
+
+
+
+        <script type="text/ng-template" id="addExam.html">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" name="client">
+                    <div class="col-12">
+
+
+                        <div class="col-sm-12">
+                            <label class="">Exam Name</label>
+                            <input class="form-control" type="text" ng-model="ExamName" />
+                        </div>
+                        <div class="col-sm-12">
+
+                            <label>Course Name</label>
+                            <select class="form-control" id="selectedCourses" ng-model="selectedCourses">
+                                <option ng-repeat="x in getAllCourses" value="{{x.CourseID}}">{{x.CourseName}}</option>
+                            </select>
+                        </div>
+
+
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="InsertExam()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </script>
+
+
+        <script type="text/ng-template" id="addQues.html">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" name="client">
+                    @*<div class="col-12">*@
+
+
+                    <div class="col-sm-12">
+                        <label class="">Question</label>
+
+                        <textarea ng-model="question" class="form-control" cols="2" rows="1"></textarea>
+                    </div>
+                    <div class="col-sm-12">
+
+                        <label>Answer Type</label>
+                        <select class="form-control" id="answerType" ng-model="answerType">
+                            <option value="1">Single</option>
+                            <option value="2">Multiple</option>
+
+                        </select>
+                        <br />
+
+                    </div>
+
+
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-5">
+                                <label class="">Option 1</label>
+
+
+                                <textarea ng-model="ans1Option" ng-style="option1style" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+                                <label class=""></label>
+
+                                <br /><br />
+                                <input value="sdf" ng-change="OnCheck()" ng-model="ans1" type="checkbox" class="form-control" />
+                            </div>
+                            <div class="col-5">
+                                <label class="">Option 2</label>
+
+
+                                <textarea ng-style="option2style" ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+                                <label class=""></label>
+                                <br /><br />
+                                <input ng-change="OnCheck()" type="checkbox" ng-model="ans2" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <label class="">Option 3</label>
+
+
+                                <textarea ng-style="option3style" ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+
+                                <label class=""></label>
+                                <br /><br />
+                                <input ng-change="OnCheck()" type="checkbox" ng-model="ans3" class="form-control" />
+                            </div>
+                            <div class="col-5">
+                                <label class="">Option 4</label>
+
+
+                                <textarea ng-style="option4style" ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+                                <label class=""></label>
+                                <br /><br />
+                                <input ng-change="OnCheck()" type="checkbox" ng-model="ans4" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                            <h6 class="alert-heading">{{successMessage}}</h6>
+                        </div>
+                        <div class="alert alert-danger alert-block" ng-show="isError">
+                            <h6 class="alert-heading">{{errormessage}}</h6>
+                        </div>
+                    </div>
+
+                    @*</div>*@
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="InsertQues()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </script>
+
+
+        <script type="text/ng-template" id="editQues.html">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" name="client">
+                    @*<div class="col-12">*@
+
+
+                    <div class="col-sm-12">
+                        <label class="">Question</label>
+
+                        <textarea ng-model="question" class="form-control" cols="2" rows="1"></textarea>
+                    </div>
+                    <div class="col-sm-12">
+
+                        <label>Answer Type</label>
+                        <select class="form-control" id="answerType" ng-model="answerType">
+                            <option value="1">Single</option>
+                            <option value="2">Multiple</option>
+
+                        </select>
+                        <br />
+
+                    </div>
+
+
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-5">
+                                <label class="">Option 1</label>
+
+
+                                <textarea ng-model="ans1Option" ng-style="option1style" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+                                <label class=""></label>
+
+                                <br /><br />
+                                <input value="sdf" ng-change="OnCheck()" ng-model="ans1" type="checkbox" class="form-control" />
+                            </div>
+                            <div class="col-5">
+                                <label class="">Option 2</label>
+
+
+                                <textarea ng-style="option2style" ng-model="ans2Option" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+                                <label class=""></label>
+                                <br /><br />
+                                <input ng-change="OnCheck()" type="checkbox" ng-model="ans2" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <label class="">Option 3</label>
+
+
+                                <textarea ng-style="option3style" ng-model="ans3Option" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+
+                                <label class=""></label>
+                                <br /><br />
+                                <input ng-change="OnCheck()" type="checkbox" ng-model="ans3" class="form-control" />
+                            </div>
+                            <div class="col-5">
+                                <label class="">Option 4</label>
+
+
+                                <textarea ng-style="option4style" ng-model="ans4Option" class="form-control" cols="2" rows="1"></textarea>
+                            </div>
+                            <div style="top:25%;" class="col-1">
+                                <label class=""></label>
+                                <br /><br />
+                                <input ng-change="OnCheck()" type="checkbox" ng-model="ans4" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                            <h6 class="alert-heading">{{successMessage}}</h6>
+                        </div>
+                        <div class="alert alert-danger alert-block" ng-show="isError">
+                            <h6 class="alert-heading">{{errormessage}}</h6>
+                        </div>
+                    </div>
+
+                    @*</div>*@
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="EditQues()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </script>
     </div>
 
 

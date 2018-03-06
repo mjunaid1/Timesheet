@@ -49,14 +49,18 @@ namespace Courses
                 routeTemplate: "api/Search/GetTeachers",
                     defaults: new { controller = "Courses", action = "GetTeachers" }
            );
-
+            
             config.Routes.MapHttpRoute(
                name: "AddCourseModules",
                 routeTemplate: "api/Search/AddCourseModules",
                     defaults: new { controller = "Courses", action = "AddCourseModules" }
            );
 
-
+            config.Routes.MapHttpRoute(
+           name: "AddCourseModuleForTeacher",
+            routeTemplate: "api/Search/AddCourseModuleForTeacher",
+                defaults: new { controller = "Courses", action = "AddCourseModuleForTeacher" }
+       );
             config.Routes.MapHttpRoute(
                name: "GetStudents",
                 routeTemplate: "api/Search/GetStudents",
@@ -75,6 +79,12 @@ namespace Courses
               routeTemplate: "api/Search/GetCourseModules",
                   defaults: new { controller = "Courses", action = "GetCourseModules" }
          );
+            
+            config.Routes.MapHttpRoute(
+             name: "GetTeacherCourseModules",
+              routeTemplate: "api/Search/GetTeacherCourseModules",
+                  defaults: new { controller = "Courses", action = "GetTeacherCourseModules" }
+         );
 
             config.Routes.MapHttpRoute(
             name: "GetUserCourses",
@@ -82,10 +92,23 @@ namespace Courses
                  defaults: new { controller = "Courses", action = "GetUserCourses" }
         );
 
+            
+            config.Routes.MapHttpRoute(
+            name: "GetUserCoursesForTeacher",
+             routeTemplate: "api/Search/GetUserCoursesForTeacher",
+                 defaults: new { controller = "Courses", action = "GetUserCoursesForTeacher" }
+        );
+
             config.Routes.MapHttpRoute(
            name: "AddUserCourses",
             routeTemplate: "api/Search/AddUserCourses",
                 defaults: new { controller = "Courses", action = "AddUserCourses" }
+       );
+            
+            config.Routes.MapHttpRoute(
+           name: "AddUserCoursesForTeacher",
+            routeTemplate: "api/Search/AddUserCoursesForTeacher",
+                defaults: new { controller = "Courses", action = "AddUserCoursesForTeacher" }
        );
 
             config.Routes.MapHttpRoute(
@@ -105,6 +128,12 @@ namespace Courses
       name: "GetExams",
        routeTemplate: "api/Search/GetExams",
            defaults: new { controller = "Courses", action = "GetExams" }
+  );
+            
+            config.Routes.MapHttpRoute(
+      name: "GetExamsForTeacher",
+       routeTemplate: "api/Search/GetExamsForTeacher",
+           defaults: new { controller = "Courses", action = "GetExamsForTeacher" }
   );
 
             config.Routes.MapHttpRoute(
@@ -127,8 +156,13 @@ namespace Courses
                defaults: new { controller = "Courses", action = "ViewQuestionAndAnswers" }
       );
 
+            config.Routes.MapHttpRoute(
+      name: "ExamRecords",
+       routeTemplate: "api/Search/ExamRecords",
+           defaults: new { controller = "Courses", action = "ExamRecords" }
+  );
 
-             config.Routes.MapHttpRoute(
+            config.Routes.MapHttpRoute(
              name: "deleteQues",
              routeTemplate: "api/Search/deleteQues",
                defaults: new { controller = "Courses", action = "deleteQues" }
@@ -167,6 +201,13 @@ namespace Courses
       name: "GetEnrolledStudents",
        routeTemplate: "api/Search/GetEnrolledStudents",
            defaults: new { controller = "Courses", action = "GetEnrolledStudents" }
+  );
+
+            
+            config.Routes.MapHttpRoute(
+      name: "GetEnrolledCoursesStudent",
+       routeTemplate: "api/Search/GetEnrolledCoursesStudent",
+           defaults: new { controller = "Courses", action = "GetEnrolledCoursesStudent" }
   );
 
 
@@ -210,6 +251,13 @@ defaults: new { controller = "Courses", action = "GetCourseProgress" }
 name: "GetSingleTeachersCourses",
 routeTemplate: "api/Search/GetSingleTeachersCourses",
 defaults: new { controller = "Courses", action = "GetSingleTeachersCourses" }
+);
+
+            
+                 config.Routes.MapHttpRoute(
+name: "UpdateTeacherComment",
+routeTemplate: "api/Search/UpdateTeacherComment",
+defaults: new { controller = "Courses", action = "UpdateTeacherComment" }
 );
             //config.Routes.MapHttpRoute(
             //  name: "getCourses",

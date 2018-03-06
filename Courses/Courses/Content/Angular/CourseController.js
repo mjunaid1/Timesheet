@@ -24,12 +24,17 @@
         } else if ($scope.role == 3){
 
             $scope.getSingleTeachersCourses();
+            $scope.getStudents();
+            $scope.getExamsForTeacher();
+            $scope.getUserCoursesForTeacher();
+            $scope.getCourseModulesForTeacher();
+
 
         }
 
 
 
-    }, 2000)
+    })
 
 
 
@@ -121,19 +126,21 @@
                     var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
                     $http.post(resource2, data2, config).success(function (data, status) {
 
-                      
+
+                        alert(data.metadata.sharing_info.read_only);
 
                         $log.info("videoClick", data.link)
                         $scope.open('lg', data.link);
 
                     
                         var data3 = {
-                            "ContentId": data.metadata.id,
+                        
                             "Username": $scope.UserName,
                             "ModuleId": i,
                             "CourseName": c,
                             "ModuleName": m,
-                            "CourseId": cid
+                            "CourseId": cid,
+                            "CountentName": data.metadata.name
                         }
 
                         var resource = location.protocol + "//" + location.host + "/api/Search/InserContentProgress";
@@ -160,7 +167,7 @@
 
     $scope.fileClick = function ($event, fileSource,c,m,i,cid) {
 
-        var id = "";
+        var name = "";
       
         var config = {
             headers: {
@@ -183,7 +190,7 @@
         var resource2 = "https://api.dropboxapi.com/2/files/get_temporary_link";
         $http.post(resource2, data3, config).success(function (data, status) {
 
-            id = data.metadata.id;
+            name = data.metadata.name;
          
          
 
@@ -196,12 +203,13 @@
         
 
             var data3 = {
-                "ContentId": id,
+               
                 "Username": $scope.UserName,
                 "ModuleId": i,
                 "CourseName": c,
                 "ModuleName": m,
-                "CourseId":cid
+                "CourseId": cid,
+                "CountentName": name
             }
 
             var resource = location.protocol + "//" + location.host + "/api/Search/InserContentProgress";
@@ -288,7 +296,7 @@
                     $scope.isError = false;
                     $scope.isSuccess = true;
                     $scope.successMessage = "Modules Successfully Added...";
-                    $scope.ModuleName = '';
+                    $scope.ModuleName = null;
                     $scope.getModules();
                     //$scope.onPropertySearch();
                 }
@@ -321,7 +329,7 @@
    
    
 
-
+ 
     
 
      
@@ -463,6 +471,61 @@
     }
 
 
+    $scope.InsertCourseModuleForTeacher = function () {
+
+        $scope.isError = false;
+        $scope.isSuccess = false;
+
+        var C_id = $("#selectedTeacherCourses").val();
+       
+
+        
+        var ModuleName = $scope.TModuleName;
+        var CourseName = '';
+        angular.forEach($scope.getAllSingleTeachersCourses, function (value, key) {
+
+            if (value.CourseID == C_id) {
+                CourseName = value.CourseName;
+            }
+
+        });
+
+
+   
+
+
+        var d = CourseName + "/Modules/" + ModuleName;
+    
+        var data1 = {
+            ModuleName: ModuleName,
+            CourseId: C_id,
+            CourseName: CourseName,
+            DirectoryPath: d
+        };
+      //  alert(C_id + ":" + ModuleName);
+        if ((ModuleName != undefined || ModuleName != null) && C_id != "? undefined:undefined ?" ) {
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/AddCourseModuleForTeacher";
+            $http.post(resource, data1).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Modules Successfully Assign...";
+                    $scope.TModuleName = null;
+                    $scope.getCourseModulesForTeacher();
+                  
+                }
+            });
+        } else {
+            $scope.isError = true;
+            $scope.errormessage = "All Fields Are Required..";
+        }
+     
+
+
+
+    }
+
     $scope.InsertUserCourses = function () {
 
         var S_id = $("#selectedStudents").val();
@@ -489,7 +552,32 @@
 
     }
 
+    
+    $scope.InsertUserCoursesForTeacher = function () {
 
+        var S_id = $("#selectedStudents2").val().toString();
+        var C_id = $("#selectedTeacherCourses").val();
+
+        var data1 = {
+            StudentId: S_id,
+            CourseId: C_id
+        }
+
+       //   alert(S_id + " dgjk" + C_id);
+        var resource = location.protocol + "//" + location.host + "/api/Search/AddUserCoursesForTeacher";
+        $http.post(resource, data1).success(function (data, status) {
+            if (data = "true") {
+                $scope.isSuccess = true;
+                $scope.successMessage = "Successfully Assigned Course...";
+                $scope.getUserCoursesForTeacher();
+
+                //$scope.onPropertySearch();
+            }
+        });
+
+
+
+    }
 
     $scope.getAllStudents = [];
 
@@ -565,7 +653,26 @@
     }
 
   
-  
+    $scope.getAllCourseModulesForTeacher = [];
+
+    $scope.getCourseModulesForTeacher = function () {
+        var data = {
+            Username: $scope.UserName
+
+        }
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetTeacherCourseModules";
+
+        $http.post(resource, data).success(function (data, status) {
+            $scope.getAllCourseModulesForTeacher = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
 
 
 
@@ -586,8 +693,32 @@
 
     }
 
- 
- 
+
+
+
+    $scope.getAllUserCoursesForTeacher = [];
+
+    $scope.getUserCoursesForTeacher = function () {
+
+        var data = {
+            Username: $scope.UserName
+        }
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetUserCoursesForTeacher";
+
+        $http.post(resource,data).success(function (data, status) {
+            $scope.getAllUserCoursesForTeacher = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+
+    
 
 
 
@@ -713,7 +844,35 @@
                 $scope.GetModuleContentDropboxApi = data.entries;
 
                 length =  $scope.GetModuleContentDropboxApi.length;
-               
+
+               $scope.DropboxContent_Id = [];
+              
+
+                var resource = location.protocol + "//" + location.host + "/api/Search/selectDropboxContent_Id";
+
+                var d = {
+                    "ModuleId": ModuleId
+                }
+                $http.post(resource, d).success(function (data, status) {
+
+                    $scope.DropboxContent_Id = data;
+
+                    angular.forEach($scope.DropboxContent_Id, function (value, key) {
+                    
+                        if (value.ModuleId == ModuleId) {
+                            $scope.GetModuleContentDropboxApi[key].id = value.ContentId;
+                           
+                        //    alert(value.ContentId);
+                        }
+
+                    });
+
+
+                }).error(function (data, status) {
+                    // this isn't happening:
+                })
+
+
                 var count = 0 ;
                 angular.forEach($scope.GetAllSingleUserCourseModules, function (value, key) {
                     count = count + 1
@@ -868,8 +1027,11 @@
             var resource = location.protocol + "//" + location.host + "/api/Search/GetExams";
 
             $http.get(resource).success(function (data, status) {
-                $scope.getAllExams = data;
 
+             
+             
+                    $scope.getAllExams = data;
+          
             })
                 .error(function (data, status) {
                     // this isn't happening:
@@ -880,7 +1042,27 @@
         }
 
      
+      $scope.getExamsForTeacher = function () {
+          var data = {
+              TeacherUsername: $scope.UserName
 
+          }
+          var resource = location.protocol + "//" + location.host + "/api/Search/GetExamsForTeacher";
+
+          $http.post(resource,data).success(function (data, status) {
+
+
+
+              $scope.getAllExams = data;
+
+          })
+              .error(function (data, status) {
+                  // this isn't happening:
+              })
+
+
+
+      }
 
 
         $scope.getAllExamsPerCourse = [];
@@ -901,16 +1083,16 @@
                     })
 
 
-                $scope.DropboxContent_Id = [];
+                //$scope.DropboxContent_Id = [];
 
-                var resource = location.protocol + "//" + location.host + "/api/Search/selectDropboxContent_Id";
+                //var resource = location.protocol + "//" + location.host + "/api/Search/selectDropboxContent_Id";
 
-                $http.get(resource).success(function (data, status) {
-                    $scope.DropboxContent_Id = data;
+                //$http.get(resource).success(function (data, status) {
+                //    $scope.DropboxContent_Id = data;
 
-                }).error(function (data, status) {
-                    // this isn't happening:
-                })
+                //}).error(function (data, status) {
+                //    // this isn't happening:
+                //})
 
 
 
@@ -1088,7 +1270,29 @@
         }
 
     
-       
+        $scope.getAllEnrolledCoursesStudents = [];
+
+        $scope.getEnrolledCoursesStudents = function (courseid) {
+
+            $scope.getAllEnrolledCoursesStudents = "";
+            var data = {
+
+                CourseID: courseid
+            }
+            var resource = location.protocol + "//" + location.host + "/api/Search/GetEnrolledCoursesStudent";
+
+            $http.post(resource,data).success(function (data, status) {
+                $scope.getAllEnrolledCoursesStudents = data;
+
+            })
+                .error(function (data, status) {
+                    // this isn't happening:
+                })
+
+
+
+        }
+
 
 
         $scope.AddExam = function () {
@@ -1102,8 +1306,15 @@
                     size: '',
                     resolve: {
                         courses: function () {
-                            return $scope.getAllCourses;
+                            if ($scope.role == 1){
+                                return $scope.getAllCourses;
+                            } else {
+
+                                return $scope.getAllSingleTeachersCourses;
+                            }
+                           
                         }
+                      
                     }
                 });
 
@@ -1186,6 +1397,60 @@
 
         }
 
+        $scope.ViewStudentExam = function (Examid, ExamName,Username,Result,comments,resultid,courseid) {
+
+          
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'viewStudentExam.html',
+
+                controller: 'viewStudentExamModalInstanceCtrl',
+                windowClass: 'app-modal-window',
+                size: 'lg',
+                resolve: {
+                    ExamId: function () {
+                        return Examid;
+                    },
+                    ExamName: function () {
+                        return ExamName;
+                    },
+                    Username: function () {
+                        return Username;
+                    },
+
+                    Result: function () {
+                        return Result;
+                    },
+                    Comments: function () {
+                        return comments;
+                    },
+                    Resultid: function () {
+                        return resultid;
+                    },
+                    Courseid: function () {
+                        return courseid;
+                    }
+
+                }
+            });
+
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                    //  $scope.getExams();
+                   // alert(response.Courseid);
+                    $scope.getEnrolledCoursesStudents(response.Courseid);
+                },
+                function handleReject(error) {
+                //    alert("Alert rejected!", error.locations);
+                //    $scope.getEnrolledCoursesStudents(4068);
+                }
+            );
+
+        }
+
         $scope.StartExam = function (Examid) {
 
             var CourseId = $('#coursid').val();
@@ -1220,7 +1485,209 @@
 
         }
 
+        $scope.ShowContent = function (coursename,modulename,moduleid) {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'ShowContent.html',
+
+                controller: 'showContentModalInstanceCtrl',
+                windowClass: 'app-modal-window',
+                size: 'lg',
+                resolve: {
+                    CourseName: function () {
+                        return coursename;
+
+                    }, ModuleName: function () {
+                        return modulename;
+
+                    }, ModuleId: function () {
+                        return moduleid;
+
+                    }
+
+                }
+            });
+
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                    $scope.getExams();
+                },
+                function handleReject(error) {
+                    // alert("Alert rejected!");
+                }
+            );
+
+        }
+
 });
+
+
+courseApp.controller('showContentModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, CourseName, ModuleName, ModuleId) {
+    $scope.modalTitle = "View Content";
+
+    alert(ModuleId);
+
+
+    $scope.GetModuleContentDropboxApi = [];
+
+   // $scope.ShowContentModules = function (CourseName, ModuleName) {
+
+    $scope.GetModuleContentDropboxApi = "";
+    $scope.GetContent = "";
+
+
+        var config = {
+            headers: {
+                'Authorization': 'Bearer M9-AXilUwLAAAAAAAAAAE5oPgmq8_7-AqcHjs9K7a9UixgirDSrxt4RzeRmHEzPD',
+                'Content-Type': 'application/json'
+            }
+        }
+       
+        var path = "/Courses/" + CourseName + "/Modules/" + ModuleName + "/";
+
+        var data1 = {
+            "path": path
+
+
+        }
+        var resource1 = "https://api.dropboxapi.com/2/files/list_folder";
+        $http.post(resource1, data1, config).success(function (data, status) {
+
+
+            $scope.GetModuleContentDropboxApi = data.entries;
+
+
+            var resource = location.protocol + "//" + location.host + "/api/Search/selectDropboxContent_Id";
+            $http.get(resource).success(function (data1, status) {
+
+
+              
+                $scope.GetContent = data1;
+
+              ////  angular.forEach(data1, function (value, key) {
+              ////      if (value.ModuleId == ModuleId) {
+              ////         // if (value.DropboxId == $scope.GetModuleContentDropboxApi[key].id) {
+
+
+              ////         //     alert(value.DropboxId);
+              ////       //   }
+
+              //////      alert(value.DropboxId);
+              ////      }
+
+
+              ////  });
+
+                //angular.forEach($scope.GetModuleContentDropboxApi, function (value, key) {
+
+              
+
+                //    angular.forEach($scope.GetContent, function (value1, key) {
+
+                //        if (value1.ModuleId == ModuleId){
+
+                //            if (value.id == value1.DropboxId) {
+
+                //           //     alert("if " + value1.DropboxId + " name: " + value1.ContentName);
+                //                alert("if " + value.id + " name: " + value.name);
+                            
+
+                //            } else {
+
+                //             //   alert("else  " + value1.DropboxId + " name: " + value1.ContentName);
+                //                alert("else  " + value.id + " name: " + value.name);
+                //            }
+                       
+                //        }
+
+
+
+                //    });
+                //});
+
+
+
+            });
+            
+        });
+      
+       
+
+
+
+
+   // }
+
+  //  $scope.ShowContentModules(CourseName, ModuleName);
+
+
+   $scope.uploadContent = function () {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'UploadContent.html',
+
+                controller: 'uploadContentModalInstanceCtrl',
+                windowClass: 'app-modal-window',
+                size: '',
+                resolve: {
+                  
+
+                }
+            });
+
+
+
+            modalInstance.result.then(
+                function handleResolve(response) {
+                    $scope.getExams();
+                },
+                function handleReject(error) {
+                    // alert("Alert rejected!");
+                }
+            );
+
+        }
+
+
+      
+ 
+
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+
+});
+
+courseApp.controller('uploadContentModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance) {
+    $scope.modalTitle = "Upload Content";
+
+
+
+
+
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+});
+
 
 
 courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, ExamId, Username) {
@@ -1274,7 +1741,15 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
         var Iscorrect = 0;
         var IsWrong = 0;
 
+        $scope.StudentAnswers = {
+            QusestionId: "",
+            Answerid: "",
+            CorrectAnswer: ""
 
+
+        };
+
+        var records = "";
 
        
 
@@ -1328,28 +1803,68 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
                             if (count == 1){
                                 u_op1 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
                                 _op1 = $scope.Correct1.Answers[i].CorrectAnswer;
-                              //  alert(Qid + " c1")
-                              
+                           //     alert(Qid + " op1:" + $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId)
+                            //    if (u_op1 == true) {
+                                    $scope.StudentAnswers.QusestionId += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰";
+                                    $scope.StudentAnswers.Answerid += $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰";
+                                    $scope.StudentAnswers.CorrectAnswer += $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‰";
+
+                                    records += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰" +
+                                        $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰" +
+                                        $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‡";
+                           //     }
+
                             }
 
                             if (count == 2) {
                                 u_op2 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
                                 _op2 = $scope.Correct1.Answers[i].CorrectAnswer;
-                            //    alert(Qid + " c2")
+                            //    alert(Qid + " op2:" + $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer)
+                          //      if (u_op2 == true){
+                                    $scope.StudentAnswers.QusestionId += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰";
+                                    $scope.StudentAnswers.Answerid += $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰";
+                                    $scope.StudentAnswers.CorrectAnswer += $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‰";
+
+                                records += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰" +
+                                    $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰" +
+                                    $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‡";
+                         //       }
                             }
                             if (count == 3) {
                                 u_op3 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
                                 _op3 = $scope.Correct1.Answers[i].CorrectAnswer;
-                             //   alert(Qid + " c3")
+                              //  alert(Qid + " op3:" + $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer)
+
+
+                          //      if (u_op3 == true) {
+                                    $scope.StudentAnswers.QusestionId += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰";
+                                    $scope.StudentAnswers.Answerid += $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰";
+                                    $scope.StudentAnswers.CorrectAnswer += $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‰";
+
+                                    records += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰" +
+                                        $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰" +
+                                        $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‡";
+                           //     }
                             }
                             if (count == 4) {
                                 u_op4 = $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer;
                                 _op4 = $scope.Correct1.Answers[i].CorrectAnswer;
-                             //   alert(Qid + " c4")
+                            //    alert(Qid + " op4:" + $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer)
+
+                            //    if (u_op4 == true) {
+                                    $scope.StudentAnswers.QusestionId += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰";
+                                    $scope.StudentAnswers.Answerid += $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰";
+                                    $scope.StudentAnswers.CorrectAnswer += $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‰";
+
+                                    records += $scope.ViewAllQuestionAndAnswers.Answers[i].QuesId + "‰" +
+                                        $scope.ViewAllQuestionAndAnswers.Answers[i].AnswerID + "‰" +
+                                        $scope.ViewAllQuestionAndAnswers.Answers[i].CorrectAnswer + "‡";
+                          //      }
+
                             }
 
-                            
 
+                         
 
                             //if (r == r1) {
 
@@ -1378,9 +1893,10 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
 
 
                     }
-
+               
                     if (u_op1 == _op1 && u_op2 == _op2 && u_op3 == _op3 && u_op4 == _op4) {
 
+                      //  alert(u_op1);
                         Iscorrect++;
                 //        alert(Qid + " Right Answer");
                     //    alert(Qid + ":\n1 API:" + _op1 + "::User:" + u_op1 + "\n" + "2 API:" + _op2 + "::User:" + u_op2 + "\n" + "3 API:" + _op3 + "::User:" + u_op3 + "\n" + "4 API:" + _op4 + "::User:" + u_op4 + "\n");
@@ -1397,11 +1913,12 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
                      
                     }
                   
-
+                  
                   
 
                 });
-
+             //   alert("QuestionId: " + $scope.StudentAnswers.QusestionId + "AnswerId: " + $scope.StudentAnswers.Answerid + "Answer: " + $scope.StudentAnswers.CorrectAnswer);
+                alert(records);
                 var result = Iscorrect / totalQuestions * 100;
 
             //    alert("Wrong is: " + IsWrong + " and Right is: " + Iscorrect + ", Total:" + totalQuestions + " % is " + result + "%");
@@ -1412,7 +1929,8 @@ courseApp.controller('StartExamModalInstanceCtrl', function ($scope, $http, $uib
                     ExamId: ExamId,
                     TotalWrongAnswers: IsWrong,
                     TotalCorrectAnswers: Iscorrect,
-                    Result: result+"%"
+                    Result: result + "%",
+                    Records: records
 
                 }
 
@@ -1904,6 +2422,150 @@ courseApp.controller('viewQuesModalInstanceCtrl', function ($scope, $http, $uibM
 
 });
 
+courseApp.controller('viewStudentExamModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, ExamId, ExamName, Username, Result, Comments, Resultid, Courseid) {
+    $scope.modalTitle = "View Result (" + ExamName + ")";
+
+    $scope.comm = false;
+
+    $scope.comments = Comments;
+
+
+    $scope.ViewAllQuestionAndAnswers = [];
+    $scope.ViewQuestionAndAnswers = function () {
+
+        $scope.checkAns = [];
+
+        var rc = 0; var wc = 0;
+
+        var data = {
+            ExamId: ExamId,
+            Username: Username,
+            Result: Result
+
+        }
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/ExamRecords";
+        $http.post(resource, data).success(function (data, status) {
+
+
+            $scope.ViewQuestionAndAnswers = data;
+          //  $scope.ViewQuestionAndAnswers[0].Question = "Right";
+
+            $scope.comm = true;
+            //if (data == null) {
+            //    $scope.isError = true;
+            //    $scope.errormessage = "No Questions Found...";
+            //} else {
+            //    $scope.isError = false;
+            //    $scope.ViewQuestionAndAnswers = data;
+            //}
+
+            var count = 0; var count2 = 0;
+            angular.forEach(data.Questions, function (value, key) {
+
+                count = 0; count2 = 0;
+                angular.forEach(data.Answers, function (value1, key) {
+
+
+                    if (value1.QuesId == value.QuesId) {
+                        count++;
+
+                        if (value1.is_check_true == "Right"){
+                            count2++;
+                        }
+
+                //   alert(value1.AnswerText + "" + value1.CorrectAnswer);
+
+
+                    }
+
+
+
+                
+
+                });
+
+            //    alert(count + " :: " + count2 );
+
+                if (count == count2) {
+
+               //     alert("true");
+                //    $scope.ViewQuestionAndAnswers.Questions[key].Question = "Right";
+                    var r = ++rc;
+
+                    $scope.checkAns[key] = "Correct Answer!";
+                    $scope.RightCount = "Total Right Ans: " + r; 
+               //     $scope.ViewQuestionAndAnswers[0].Question = "Right";
+               //     $scope.CheckQues = "Right";
+
+                } else {
+                    var r = ++wc;
+                //    $scope.ViewQuestionAndAnswers[key].Question = "Wrong";
+               //     $scope.CheckQues = "Wrong";
+             //      alert("false");
+              //      $scope.ViewQuestionAndAnswers.Questions[key].Question = "Wrong";
+                    $scope.checkAns[key] = "Wrong Answer!";
+                    $scope.WrongCount = "Total Wrong Ans: " + r; 
+                }
+
+
+            });
+
+        });
+
+
+    }
+
+
+    $scope.ViewQuestionAndAnswers();
+
+ 
+    $scope.UpdateComment = function () {
+
+
+        if ($scope.comments == null) {
+          //  alert('ad');
+           var Com = null;
+        } else {
+
+            var Com = $scope.comments;
+        }
+
+     
+
+        var data = {
+            Comments: Com,
+            Resultid: Resultid
+
+        }
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/UpdateTeacherComment";
+        $http.post(resource, data).success(function (data, status) {
+
+            if (data == true) {
+                $scope.ok();
+            }
+        });
+    }
+
+
+  //  $scope.UpdateComment();
+
+
+    $scope.ok = function () {
+     //   $uibModalInstance.close('ok');
+        $uibModalInstance.close({ Courseid: Courseid });
+    };
+
+
+
+    //$scope.cancel = function () {
+    //  //  $uibModalInstance.dismiss('cancel', 40);
+    //    $uibModalInstance.close({ locations: 4568 });
+    //};
+
+});
+
 
 courseApp.controller('editQuesModalInstanceCtrl', function ($scope, $http, $uibModalInstance, QuesId, ViewAllQuestionAndAnswersObj) {
     $scope.modalTitle = "Update Question";
@@ -2263,6 +2925,8 @@ courseApp.controller('addExamModalInstanceCtrl', function ($scope, $http, $uibMo
 
   //  alert(courses[0].CourseName);
     $scope.getAllCourses = courses;
+
+  
 
 
 

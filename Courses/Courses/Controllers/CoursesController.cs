@@ -111,7 +111,22 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost] 
+        public bool AddCourseModuleForTeacher([FromBody]CourseModules Model)
+        {
+            try
+            {
 
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.AddCourseModuleForTeacher(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         [HttpPost]
         public bool AddUserCourses([FromBody]UserCourses Model)
         {
@@ -121,6 +136,23 @@ namespace Courses.Controllers
 
                 CoursesRepository _searchRepository = new CoursesRepository();
                 var Result = _searchRepository.AddUserCourses(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public bool AddUserCoursesForTeacher([FromBody]UserCourses Model)
+        {
+            try
+            {
+
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.AddUserCoursesForTeacher(Model);
                 return Result;
             }
             catch (Exception ex)
@@ -175,6 +207,21 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost] 
+        public List<CourseModules> GetTeacherCourseModules([FromBody] CourseModules r)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetTeacherCourseModules(r.Username);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet]
         public List<UserCourses> GetUserCourses()
         {
@@ -189,7 +236,21 @@ namespace Courses.Controllers
                 throw;
             }
         }
-
+        
+        [HttpPost]
+        public List<UserCourses> GetUserCoursesForTeacher(UserCourses Model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetUserCoursesForTeacher(Model.Username);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         [HttpPost]
         public List<CoursesModel> GetCourses_Single_User([FromBody] RegisterViewModel r)
@@ -257,6 +318,20 @@ namespace Courses.Controllers
             }
         }
 
+         [HttpPost] 
+        public List<Exams> GetExamsForTeacher([FromBody] CoursesModel Model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.GetExamsForTeacher(Model.TeacherUsername);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         [HttpPost] 
         public bool InsertExam([FromBody]Exams ExamModel)
@@ -309,6 +384,23 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        public QuestionsAndAnswers ExamRecords([FromBody] EnrolledStudents model)
+        {
+            try
+            {
+
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var Result = _searchRepository.ExamRecords(model.ExamId,model.Username,model.Result);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
 
         [HttpPost]
         public bool deleteQues([FromBody]int QuesId)
@@ -406,13 +498,28 @@ namespace Courses.Controllers
             }
         }
 
-        [HttpGet]
-        public List<CourseCountent> selectDropboxContent_Id()
+        [HttpPost]
+        public List<EnrolledStudents> GetEnrolledCoursesStudent(CoursesModel Model)
         {
             try
             {
                 CoursesRepository _searchRepository = new CoursesRepository();
-                var result = _searchRepository.selectDropboxContent_Id();
+                var result = _searchRepository.GetEnrolledCoursesStudent(Model.CourseID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public List<CourseCountent> selectDropboxContent_Id([FromBody] CourseCountent model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.selectDropboxContent_Id(model.ModuleId);
                 return result;
             }
             catch (Exception ex)
@@ -483,6 +590,20 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost] 
+        public bool UpdateTeacherComment([FromBody] EnrolledStudents model)
+        {
+            try
+            {
+                CoursesRepository _searchRepository = new CoursesRepository();
+                var result = _searchRepository.UpdateTeacherComment(model.Comments,model.ResultId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         // GET: api/Courses2
         public IEnumerable<string> Get()

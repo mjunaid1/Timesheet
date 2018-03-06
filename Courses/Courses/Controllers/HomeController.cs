@@ -29,8 +29,13 @@ namespace Courses.Controllers
 
             if (Request.IsAuthenticated)
             {
-               
 
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+                
+                    ViewBag.role = r.Role;
+                 
                 //var task = Task.Run((Func<Task>)HomeController.Run());
                 //task.Wait();
 
@@ -97,7 +102,10 @@ namespace Courses.Controllers
 
 
                 if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -125,7 +133,10 @@ namespace Courses.Controllers
 
 
                 if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -150,7 +161,10 @@ namespace Courses.Controllers
 
 
                 if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -176,7 +190,10 @@ namespace Courses.Controllers
 
 
                 if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -200,9 +217,11 @@ namespace Courses.Controllers
 
                 var r = Repository.CheckUser(s);
 
-
                 if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -291,8 +310,11 @@ namespace Courses.Controllers
                 var r = Repository.CheckUser(s);
 
 
-                if (r.Role == 1)
+                if (r.Role == 1 || r.Role == 3)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -315,8 +337,11 @@ namespace Courses.Controllers
                 var r = Repository.CheckUser(s);
 
 
-                if (r.Role == 1)
+                if (r.Role == 1 || r.Role == 3)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
@@ -385,8 +410,11 @@ namespace Courses.Controllers
                 var r = Repository.CheckUser(s);
 
 
-                if (r.Role == 1)
+                if (r.Role == 1 || r.Role == 3)
+                {
+                    ViewBag.role = r.Role;
                     return View();
+                }
                 else
                     return RedirectToAction("Index", "Home");
 
