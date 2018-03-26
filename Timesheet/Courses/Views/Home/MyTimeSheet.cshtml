@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "MyTimeSheet";
+    Layout = "~/Views/Shared/MyTimeSheet_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header sty-one">
+    <h1 class="text-black">
+        Time-Sheet Period
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Home/Index">Home</a></li>
+        @*<li class="sub-bread"><i class="fa fa-angle-right"></i> Tables</li>*@
+        <li><i class="fa fa-angle-right"></i> My Time-Sheet</li>
+    </ol>
+</section>
+
+ <!-- Main content -->
+
+    @*<div class="info-box">
+        <h4 class="text-black">Data Export</h4>
+        <p>Export data to Copy, CSV, Excel, PDF & Print</p>
+        <div class="table-responsive">
+            <table id="example2" class="table table-bordered table-hover" data-name="cool-table">
+                <thead>
+                    <tr>
+                        <th>ID #</th>
+                        <th>Opended by</th>
+                        <th>Cust.Email</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Assign to</th>
+                        <th>Date</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1001</td>
+                        <td>Alexander</td>
+                        <td>alexander@gmail.com</td>
+                        <td>Sed cursus dapibus diam</td>
+                        <td><span class="label label-success">Complete</span></td>
+                        <td>Pierce Sr.</td>
+                        <td>03-10-2017</td>
+                    </tr>
+                    <tr>
+                        <td>1010</td>
+                        <td>John Deo</td>
+                        <td>johndeo@gmail.com</td>
+                        <td>Sed cursus dapibus diam</td>
+                        <td><span class="label label-success">Complete</span></td>
+                        <td>Alexander</td>
+                        <td>02-10-2017</td>
+                    </tr>
+                    <tr>
+                        <td>1015</td>
+                        <td>Alexa Rose</td>
+                        <td>alexarose@gmail.com</td>
+                        <td>Sed cursus dapibus diam</td>
+                        <td><span class="label label-warning">New</span></td>
+                        <td>Alex Sr.deo</td>
+                        <td>01-10-2017</td>
+                    </tr>
+                   
+                </tbody>
+              
+            </table>
+        </div>
+    </div>*@
+
+    <div class="info-box">
+        <h4 class="text-black">TimeSheet Period List <button style="float:right" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add TimeSheet</button></h4>
+        
+        <p> Time-Sheet Period</p>
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-hover" >
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Period Type</th>
+                        <th>Duration</th>
+                        <th>Hours</th>
+                        <th>Submitted On</th>
+                        <th>Approved On</th>
+                        <th>Rejected On</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Trident</td>
+                        <td>
+                            Internet
+                            Explorer 4.0
+                        </td>
+                        <td>Win 95+</td>
+                        <td> 4</td>
+                        <td>X</td>
+                        <td>
+                            Internet
+                            Explorer 4.0
+                        </td>
+                        <td></td>
+                        <td><span class="label label-info">Submitted</span></td>
+                        <td style="vertical-align:middle">
+                            <div class="btn-group pull-right open">
+                                <button type="button" class="btn default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="font-size:13px;">
+                                    <i class="fa fa-cog"></i> Options
+                                    @*<i class="fa fa-angle-down"></i>*@
+                                </button>
+                             <ul class="dropdown-menu" role="menu" style="margin-left: -52px;margin-top: 23px;">
+                             <li><a style="padding: 8px 16px;" href="#">View Time-Sheet</a></li>
+                             <li><a style="padding: 8px 16px;" href="#">View Attachment</a></li>
+      
+                             </ul>
+                           </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Trident</td>
+                        <td>
+                            Internet
+                            Explorer 4.0
+                        </td>
+                        <td>Win 95+</td>
+                        <td> 4</td>
+                        <td>X</td>
+                        <td>
+                            Internet
+                            Explorer 4.0
+                        </td>
+                        <td></td>
+                        <td><span class="label label-info">Submitted</span></td>
+                        <td style="vertical-align:middle">
+                            <div class="btn-group pull-right open">
+                                <button type="button" class="btn default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="font-size:13px;">
+                                    <i class="fa fa-cog"></i> Options
+                                    @*<i class="fa fa-angle-down"></i>*@
+                                </button>
+                                <ul class="dropdown-menu" role="menu" style="margin-left: -52px;margin-top: 23px;">
+                                    <li><a style="padding: 8px 16px;" href="#">View Time-Sheet</a></li>
+                                    <li><a style="padding: 8px 16px;" href="#">View Attachment</a></li>
+
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                 
+                   
+                </tbody>
+                @*<tfoot>
+                    <tr>
+                        <th>Rendering engine</th>
+                        <th>Browser</th>
+                        <th>Platform(s)</th>
+                        <th>Engine version</th>
+                        <th>CSS grade</th>
+                    </tr>
+                </tfoot>*@
+            </table>
+        </div>
+    </div>
+
+<!-- /.content --> 

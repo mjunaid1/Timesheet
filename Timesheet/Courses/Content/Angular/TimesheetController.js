@@ -1,0 +1,399 @@
+﻿timesheetApp.controller("timesheetController", function timesheetController($scope, $window, $http, $filter, $timeout, $log, $uibModal) {
+    $scope.Author = "Umais Siddiqui";
+    $scope.UserName = "";
+    $scope.role = [];
+    $scope.test = function () { alert("Testing"); };
+    var promise = $timeout(function () {
+        $scope.UserName = $('#UserName').val();
+        $scope.role = $('#role').val();
+
+        if ($scope.role == 1) {
+          
+            $scope.getCompany();
+            $scope.getEmployees();
+            $scope.getCompanyEmployees();
+            $scope.getProjects();
+         
+        } else if ($scope.role == 2) {
+           
+        } 
+
+
+
+    })
+
+
+
+
+    $scope.getUsersRole = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/CheckUser";
+        var user = $('#UserName').val();
+
+        var data = {
+            UserName: user
+        };
+
+
+        $http.post(resource, data).success(function (data, status) {
+            if (data.Role == 1) {
+                $scope.isStudent = false;
+                $scope.isTeacher = false;
+                $scope.isAdmin = true;
+
+
+            } else if (data.Role == 2) {
+                $scope.isAdmin = false;
+                $scope.isTeacher = false;
+                $scope.isStudent = true;
+
+
+
+            } else if (data.Role == 3) {
+                $scope.isStudent = false;
+                $scope.isAdmin = false;
+                $scope.isTeacher = true;
+
+
+            }
+
+            $scope.role = data.Role;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+
+    }
+
+    $scope.getUsersRole();
+
+
+    $scope.AddCompany = function () {
+
+
+        var data1 = {
+            CompanyName: $scope.CompanyName,
+
+        };
+      
+
+        if ($scope.CompanyName && $scope.CompanyName != undefined) {
+            var resource = location.protocol + "//" + location.host + "/api/Search/AddCompany";
+            $http.post(resource, data1).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Company Successfully Added...";
+                    $scope.CompanyName = "";
+                    $scope.getCompany();
+                   
+                }
+            });
+        } else {
+            $scope.isError = true;
+            $scope.isSuccess = false;
+            $scope.errormessage = "All Fields Are Required..";
+        }
+
+    }
+
+
+    $scope.Obj_getCompany = [];
+
+    $scope.getCompany = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/getCompany";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.Obj_getCompany = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
+    $scope.Obj_getEmployees = [];
+
+    $scope.getEmployees = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/getEmployees";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.Obj_getEmployees = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+   
+    $scope.AddCompanyEmployees = function () {
+
+       var CompanyID = $("#selectedCompany").val();
+       var CheckEmp_id = $("#selectedEmployees").val();
+
+
+         //  $('#selectedCompany option:selected').text("? undefined:undefined ?")
+         //  $('#selectedCompany option:eq(2)').attr('selected', true);
+
+       if (CompanyID != "? undefined:undefined ?" && CheckEmp_id != null ){
+           var Emp_id = $("#selectedEmployees").val().toString();
+        
+        var data1 = {
+            CompanyId: CompanyID,
+            EmployeeId: Emp_id
+
+        };
+
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/AddCompanyEmployees";
+            $http.post(resource, data1).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Records Successfully Added...";
+               
+
+                }
+            });
+
+
+       } else {
+          
+            $scope.isError = true;
+            $scope.isSuccess = false;
+            $scope.errormessage = "All Fields Are Required..";
+
+       }
+
+    }
+
+
+    
+    $scope.Obj_getCompanyEmployees = [];
+
+    $scope.getCompanyEmployees = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetCompanyEmployees";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.Obj_getCompanyEmployees = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
+
+    
+    $scope.AddProject = function () {
+
+        var CompanyID = $("#selectedCompany").val();
+
+        var data1 = {
+            ProjectName: $scope.ProjectName,
+            CompanyId: CompanyID
+
+        };
+
+
+        if ($scope.ProjectName && $scope.ProjectName != undefined && CompanyID != "? undefined:undefined ?") {
+            var resource = location.protocol + "//" + location.host + "/api/Search/AddProject";
+            $http.post(resource, data1).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Project Successfully Added...";
+                    $scope.ProjectName = "";
+                    $scope.getProjects();
+
+                }
+            });
+        } else {
+            $scope.isError = true;
+            $scope.isSuccess = false;
+            $scope.errormessage = "All Fields Are Required..";
+        }
+
+    }
+
+
+
+    $scope.Obj_getProjects = [];
+
+    $scope.getProjects = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetProjects";
+
+        $http.get(resource).success(function (data, status) {
+            $scope.Obj_getProjects = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
+
+
+
+
+    $scope.addTimeRows = function () {
+
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'addTimeRows.html',
+
+            controller: 'addTimeRowsModalInstanceCtrl',
+            windowClass: 'app-modal-window',
+            size: '',
+            resolve: {
+                Username: function() {
+                    return $scope.UserName;
+
+                }
+            }
+        });
+
+
+
+        modalInstance.result.then(
+            function handleResolve(response) {
+
+            },
+            function handleReject(error) {
+
+               
+            }
+        );
+
+
+
+
+    }
+
+    $scope.addTimePriods = function () {
+
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'addTimePriods.html',
+
+            controller: 'addTimePriodsModalInstanceCtrl',
+            windowClass: 'app-modal-window',
+            size: '',
+            resolve: {
+                Username: function () {
+                    return $scope.UserName;
+
+                }
+            }
+        });
+
+
+
+        modalInstance.result.then(
+            function handleResolve(response) {
+
+            },
+            function handleReject(error) {
+
+
+            }
+        );
+
+
+
+
+    }
+
+});
+
+
+timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, Username) {
+    $scope.modalTitle = "Add Time Priods";
+
+    var fromdate = $scope.fromdate;
+    var toate = $scope.todate;
+
+    alert(fromdate + " " + toate);
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+});
+
+
+timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, Username) {
+    $scope.modalTitle = "Add Time Rows";
+ 
+    var data = {
+
+        Username: Username
+    }
+
+    $scope.Obj_getCompany = [];
+
+    $scope.getCompanyPerEmp = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/getCompanyPerEmp";
+
+        $http.post(resource,data).success(function (data, status) {
+            $scope.Obj_getCompany = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
+    $scope.changeCompany = function () {
+
+
+      //  alert($scope.selectedCompany);
+        var data = {
+
+            CompanyId: $scope.selectedCompany
+        }
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetProjectsPerCompany";
+
+        $http.post(resource, data).success(function (data, status) {
+            $scope.Obj_getProjects = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
+    $scope.getCompanyPerEmp();
+
+    $scope.ok = function () {
+        $uibModalInstance.close('ok');
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+});

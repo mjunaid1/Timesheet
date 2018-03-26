@@ -1,0 +1,71 @@
+﻿@using Courses.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/Login_Layout.cshtml";
+
+}
+
+
+<div class="hold-transition login-page sty1">
+    <div class="login-box sty1">
+        <div class="login-box-body sty1">
+            <div class="login-logo">
+                <a href="/Account/Login"><img src="@Url.Content("~/Content/")dist/img/login tS Logo.png" alt=""></a><br />
+                <img style="width:120px;height:120px;" src="~/Content/dist/img/logo TimeS2.png" />
+            </div>
+         
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-group", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<h4>Use a local account to log in.</h4>*@
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group has-feedback">
+                    @Html.LabelFor(m => m.Email)
+
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.LabelFor(m => m.Password)
+
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                </div>
+                @*<div class="form-group">
+
+                    <div class="form-check">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+
+                </div>*@
+
+                <div class="col-xs-4 m-t-1">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+
+                @*<input type="submit" value="Log in" class="btn btn-success btn-block" />*@
+                <br />
+                @*<div class="text-center bg-light">
+                        @Html.ActionLink("Register as a new user", "Register", new { @class = "d-block small mt-3" })
+
+                    </div>*@
+
+
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </div>
+
+    </div>
+
+</div>
+
+
