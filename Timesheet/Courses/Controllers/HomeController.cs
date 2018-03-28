@@ -72,6 +72,26 @@ namespace Courses.Controllers
             }
         }
 
+        public ActionResult Reports()
+        {
+            ViewBag.Message = "Your application description page.";
+
+
+
+            if (Request.IsAuthenticated)
+            {
+                return View();
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
+        }
+
         public ActionResult MyTimeSheet()
         {
             ViewBag.Message = "Your application description page.";

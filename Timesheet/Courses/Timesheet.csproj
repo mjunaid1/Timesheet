@@ -1137,6 +1137,7 @@
     <Content Include="Views\Shared\MyTimeSheet_Layout.cshtml" />
     <Content Include="Views\Home\TimeEntryPeriod.cshtml" />
     <Content Include="Views\Home\TimeEntryPeriod2.cshtml" />
+    <Content Include="Views\Home\Reports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
