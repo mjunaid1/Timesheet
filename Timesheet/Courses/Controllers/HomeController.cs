@@ -72,25 +72,7 @@ namespace Courses.Controllers
             }
         }
 
-        public ActionResult Reports()
-        {
-            ViewBag.Message = "Your application description page.";
-
-
-
-            if (Request.IsAuthenticated)
-            {
-                return View();
-
-
-
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-
-            }
-        }
+        
 
         public ActionResult MyTimeSheet()
         {
@@ -207,11 +189,39 @@ namespace Courses.Controllers
 
             }
         }
-        
-     
 
-       
-        
+        public ActionResult Reports()
+        {
+            ViewBag.Message = "Your Reports page.";
+
+
+
+            if (Request.IsAuthenticated)
+            {
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+
+                if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
+                    return View();
+                }
+                else
+                    return RedirectToAction("Index", "Home");
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
+        }
+
+
+
         public ActionResult AddProject()
         {
             ViewBag.Message = "Your Courses Page";
