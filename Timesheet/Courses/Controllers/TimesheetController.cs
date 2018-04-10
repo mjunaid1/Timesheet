@@ -167,5 +167,35 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        public bool AddTimePeriods([FromBody]TimesheetModel Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var Result = _searchRepository.AddTimePeriods(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public List<TimesheetModel> GetTimePeriods(TimesheetModel Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var result = _searchRepository.GetTimePeriods(Model.UserName);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

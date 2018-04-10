@@ -104,21 +104,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Trident</td>
+                                <tr ng-repeat="x in Obj_getTimePeriods">
+                                    <td>{{x.TimePeriods}}</td>
                                     @*<td>
-                                        Internet
-                                        Explorer 4.0
-                                    </td>*@
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td>X</td>
+                Internet
+                Explorer 4.0
+            </td>*@
+                                    <td>{{x.duration}}</td>
+                                    <td>{{x.Hours}}</td>
+                                    <td><span ng-show="x.SubmittedDate == '0001-01-01T00:00:00'">--</span><span ng-show="x.SubmittedDate != '0001-01-01T00:00:00'">{{x.SubmittedDate}}</span></td>
                                     @*<td>
-                                        Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td></td>*@
-                                    <td><span class="label label-info">Submitted</span></td>
+                Internet
+                Explorer 4.0
+            </td>
+            <td></td>*@
+                                    <td><span ng-show="x.Status == 'Not Submitted'" class="label label-warning">{{x.Status}}</span> <span ng-show="x.Status == 'Submitted'" class="label label-info">{{x.Status}}</span></td>
                                     <td style="vertical-align:middle">
                                         <div class="btn-group pull-right open">
                                             <button type="button" class="btn default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="font-size:13px;">
@@ -126,7 +126,7 @@
                                                 @*<i class="fa fa-angle-down"></i>*@
                                             </button>
                                             <ul class="dropdown-menu" role="menu" style="margin-left: -52px;margin-top: 23px;">
-                                                <li><a style="padding: 8px 16px;" href="#">View Time-Sheet</a></li>
+                                                <li><a style="padding: 8px 16px;" href="/home/TimeEntryPeriod2/{{x.TimePeriodId}}">View Time-Sheet</a></li>
                                                 <li><a style="padding: 8px 16px;" href="#">View Attachment</a></li>
 
                                             </ul>
@@ -173,17 +173,28 @@
 
                     <div class="col-sm-12">
 
-                        <label>To</label>
-                        <input type="date" ng-model="todate" class="form-control" />
+                        <label>StatDays</label>
+                        <input type="date" name="datefilter" id="config-demo" ng-model="startdate" class="form-control" />
 
                     </div>
                     <br />
                     <div class="col-sm-12">
 
-                        <label>From</label>
-                        <input ng-model="fromdate" type="date" class="form-control" />
+                        <label>EndDays</label>
+                        <input ng-model="enddate" type="date" class="form-control" />
 
                     </div>
+                    <br />
+                    <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                        <h6 class="alert-heading">{{successMessage}}</h6>
+                    </div>
+                    <div class="alert alert-danger alert-block" ng-show="isError">
+                        <h6 class="alert-heading">{{errormessage}}</h6>
+                    </div>
+
+
+
 
                 </div>
 
@@ -191,7 +202,7 @@
 
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+            <button class="btn btn-primary" type="button" ng-click="AddTimePeriods()">Add</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
 

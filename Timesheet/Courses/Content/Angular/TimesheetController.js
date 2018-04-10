@@ -15,7 +15,7 @@
             $scope.getProjects();
          
         } else if ($scope.role == 2) {
-           
+             $scope.getTimePeriods();
         } 
 
 
@@ -303,7 +303,7 @@
 
         modalInstance.result.then(
             function handleResolve(response) {
-
+                $scope.getTimePeriods();
             },
             function handleReject(error) {
 
@@ -316,16 +316,62 @@
 
     }
 
+
+    $scope.Obj_getTimePeriods = [];
+
+    $scope.getTimePeriods = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetTimePeriods";
+        var data = {
+            UserName: $scope.UserName
+        }
+        $http.post(resource, data).success(function (data, status) {
+            $scope.Obj_getTimePeriods = data;
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
 });
 
 
-timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, Username) {
-    $scope.modalTitle = "Add Time Priods";
+timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $http, $filter , $uibModal, $uibModalInstance, Username) {
+    $scope.modalTitle = "Add Time Periods";
 
-    var fromdate = $scope.fromdate;
-    var toate = $scope.todate;
+    $scope.AddTimePeriods = function () {
+        var startdate = $filter('date')($scope.startdate, 'MM/dd/yyyy');
+        var enddate = $filter('date')($scope.enddate, 'MM/dd/yyyy');
 
-    alert(fromdate + " " + toate);
+
+
+        if ((startdate != undefined || startdate != null) && (enddate != undefined || enddate != null)) {
+
+            var data = {
+                TimePeriods: startdate + "-" + enddate,
+                UserName: Username
+            }
+
+            var resource = location.protocol + "//" + location.host + "/api/Search/AddTimePeriods";
+            $http.post(resource, data).success(function (data, status) {
+                if (data = "true") {
+                    $uibModalInstance.close('ok');
+
+                }
+            });
+
+
+
+        } else {
+
+            $scope.isError = true;
+            $scope.isSuccess = false;
+            $scope.errormessage = "All Fields Are Required..";
+        }
+
+    }
 
     $scope.ok = function () {
         $uibModalInstance.close('ok');

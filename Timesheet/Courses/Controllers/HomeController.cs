@@ -137,7 +137,7 @@ namespace Courses.Controllers
         }
 
 
-        public ActionResult TimeEntryPeriod2()
+        public ActionResult TimeEntryPeriod2(int? id)
         {
             ViewBag.Message = "Your application description page.";
 
@@ -151,6 +151,11 @@ namespace Courses.Controllers
                 if (r.Role == 2)
                 {
                     ViewBag.role = r.Role;
+
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                     return View();
                 }
                 else

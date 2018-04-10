@@ -347,6 +347,55 @@ namespace Courses.DataAccess
             }
         }
 
+        public bool AddTimePeriods(TimesheetModel Model)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "insert into [Timesheet_tbl] (TimePeriods,UserName,Hours,duration,status,Created) values ('" + Model.TimePeriods + "','" + Model.UserName + "',0,0,'Not Submitted','" + System.DateTime.Now + "')";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
 
+                }
+
+                return true;
+            }
+        }
+
+
+        public List<TimesheetModel> GetTimePeriods(string Username)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [Timesheet_tbl] where UserName = '" + Username + "'";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<TimesheetModel> data = new List<TimesheetModel>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new TimesheetModel(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
     }
 }
