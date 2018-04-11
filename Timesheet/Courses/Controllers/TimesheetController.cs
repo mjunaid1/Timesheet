@@ -197,5 +197,21 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+        
+      [HttpPost]
+        public List<TimesheetModel> GetTimePeriodsPerId(TimesheetModel Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var result = _searchRepository.GetTimePeriodsPerId(Model.UserName,Model.TimePeriodId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

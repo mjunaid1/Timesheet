@@ -356,6 +356,13 @@ namespace Courses
        routeTemplate: "api/Search/GetTimePeriods",
            defaults: new { controller = "Timesheet", action = "GetTimePeriods" }
                );
+
+
+            config.Routes.MapHttpRoute(
+   name: "GetTimePeriodsPerId",
+    routeTemplate: "api/Search/GetTimePeriodsPerId",
+        defaults: new { controller = "Timesheet", action = "GetTimePeriodsPerId" }
+            );
         }
             
 

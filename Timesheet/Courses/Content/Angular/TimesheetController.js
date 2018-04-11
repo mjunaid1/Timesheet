@@ -15,7 +15,10 @@
             $scope.getProjects();
          
         } else if ($scope.role == 2) {
-             $scope.getTimePeriods();
+            $scope.getTimePeriods();
+            if ($('#paramid').val() != undefined) {
+                $scope.getTimePeriodsPerId();
+            }
         } 
 
 
@@ -23,7 +26,7 @@
     })
 
 
-
+    
 
     $scope.getUsersRole = function () {
         var resource = location.protocol + "//" + location.host + "/api/Search/CheckUser";
@@ -318,7 +321,7 @@
 
 
     $scope.Obj_getTimePeriods = [];
-
+ 
     $scope.getTimePeriods = function () {
         var resource = location.protocol + "//" + location.host + "/api/Search/GetTimePeriods";
         var data = {
@@ -326,6 +329,8 @@
         }
         $http.post(resource, data).success(function (data, status) {
             $scope.Obj_getTimePeriods = data;
+          
+      
 
         })
             .error(function (data, status) {
@@ -334,6 +339,34 @@
 
 
     }
+
+
+    $scope.Obj_getTimePeriodsPerId = [];
+
+    $scope.getTimePeriodsPerId  = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetTimePeriodsPerId";
+        var data = {
+            UserName: $scope.UserName,
+            TimePeriodId: $('#paramid').val()
+        }
+        $http.post(resource, data).success(function (data, status) {
+            $scope.Obj_getTimePeriodsPerId = data;
+
+
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
+
+  //  alert($('#paramid').val());
+
+
+  //  alert($scope.Obj_getTimePeriodsPerId[0].TimePeriods)
+
 
 });
 

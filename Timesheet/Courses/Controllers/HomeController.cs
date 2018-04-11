@@ -151,6 +151,7 @@ namespace Courses.Controllers
                 if (r.Role == 2)
                 {
                     ViewBag.role = r.Role;
+                    ViewBag.id = id;
 
                     if (id == null)
                     {

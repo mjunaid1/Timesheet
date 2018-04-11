@@ -397,5 +397,39 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+        
+        public List<TimesheetModel> GetTimePeriodsPerId(string Username , long id)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [Timesheet_tbl] where UserName = '" + Username + "' and TimePeriodId = " + id;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<TimesheetModel> data = new List<TimesheetModel>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new TimesheetModel(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
     }
 }
