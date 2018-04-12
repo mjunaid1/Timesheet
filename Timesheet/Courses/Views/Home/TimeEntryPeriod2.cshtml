@@ -36,17 +36,19 @@
                             <div class="col-lg-3">
                                 <h4 style="font-size:15px;" class="text-black"><i class="fa fa-user-o"></i>&nbsp;Employee</h4>
 
+                                <input class="form-control" type="text" readonly value="{{UserName}}">
 
-                                <select class="form-control">
+                                @*<select class="form-control">
                                     <option>{{UserName}}</option>
                                
 
                                   
-                                </select>
+                                </select>*@
+
                             </div>
 
                             <div class="col-lg-3">
-                                <h4 style="font-size:14px;margin-bottom:18px;" class="text-black"><i class="fa fa-calendar"></i>&nbsp;Current Time Sheet Period</h4>
+                                <h4 style="font-size:14px;margin-bottom:10px;" class="text-black"><i class="fa fa-calendar"></i>&nbsp;Current Time Sheet Period</h4>
                                 <input class="form-control" type="text" readonly  value="{{Obj_getTimePeriodsPerId[0].TimePeriods}}">
                             </div>
 
@@ -94,12 +96,13 @@
 
 
                                 </th>
-                                <th  style="width:800px;vertical-align:middle;text-align:center">Project • Task</th>
-                                <th style="vertical-align:middle;text-align:center"><span >Mon<br>3/12</span></th>
-                                <th style="vertical-align:middle;text-align:center"><span >Tue<br>3/13</span></th>
+                                <th style="width:800px;vertical-align:middle;text-align:center">Project • Task</th>
+                                <th  ng-repeat="x in datesdata"  style="vertical-align:middle;text-align:center"><span >{{x | date : "EEE"}}<br /> {{x | date : "M/d"}}</span></th>
+                                @*<th style="vertical-align:middle;text-align:center"><span >Tue<br>3/13</span></th>
                                 <th style="vertical-align:middle;text-align:center"><span >Wed<br>3/14</span></th>
                                 <th style="vertical-align:middle;text-align:center"><span >Thu<br>3/15</span></th>
-                                <th style="vertical-align:middle;text-align:center"><span >Fri<br>3/16</span></th>
+                                <th style="vertical-align:middle;text-align:center"><span >Fri<br>3/16</span></th>*@
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -566,12 +569,20 @@
                         <option ng-repeat="x in Obj_getProjects" value="{{x.ProjectId}}">{{x.ProjectName}}</option>
                     </select>
                 </div>
+                <br />
                 <div class="col-sm-12">
 
-                    <label></label>
+                    <label>Working Hours</label>
                     <input type="time" class="form-control" />
                 </div>
+                <br />
+                <div class="col-sm-12">
 
+                    <label>Current Date</label>
+                    <select class="form-control" id="selectedCurrentDate">
+                        <option ng-repeat="x in datesdata" value="{{x | date : "M/d/yyyy"}}">{{x | date : "M/d/yyyy"}}</option>
+                    </select>
+                </div>
 
             </div>
 

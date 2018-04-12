@@ -263,6 +263,10 @@
                 Username: function() {
                     return $scope.UserName;
 
+                },
+                GetDatePeriod: function () {
+                    return $scope.datesdata;
+
                 }
             }
         });
@@ -352,8 +356,45 @@
         $http.post(resource, data).success(function (data, status) {
             $scope.Obj_getTimePeriodsPerId = data;
 
+         
+            var ss = data[0].TimePeriods.split("-");
 
+         //   alert(ss);
+            //for (var i in ss) {
 
+           
+            //    alert(ss[i]);
+
+            //} 
+
+            var s = ss[0];
+            var s2 = ss[1];
+
+        //    alert(s + "  " +s2);
+
+            var start = new Date(s);
+            var end = new Date(s2);
+            var newend = end.setDate(end.getDate() + 1);
+            var end = new Date(newend);
+            var count = 0;
+            var datedata = [];
+            while (start < end) {
+                //  alert(new Date(start).getTime() / 1000); // unix timestamp format
+              // ISO Date format 
+         //       alert("loop: " + start); 
+
+              
+
+                var newDate = start.setDate(start.getDate() + 1);
+                start = new Date(newDate);
+
+                datedata[count] = new Date(start - 1);
+                count = count + 1;
+            }
+
+            $scope.datesdata = datedata;
+
+         //   alert("object: "+datedata)
         })
             .error(function (data, status) {
                 // this isn't happening:
@@ -418,9 +459,10 @@ timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $htt
 });
 
 
-timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, Username) {
+timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, Username, GetDatePeriod) {
     $scope.modalTitle = "Add Time Rows";
- 
+   
+    $scope.datesdata = GetDatePeriod;
     var data = {
 
         Username: Username
