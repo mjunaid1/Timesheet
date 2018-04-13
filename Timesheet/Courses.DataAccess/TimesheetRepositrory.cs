@@ -431,5 +431,23 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+        
+        public bool addWorkingHours(WorkingHours Model)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "insert into [TimesheetDetails_tbl] (TimePeriodId,ProjectId,Hours,Date,Created) values (" + Model.TimePeriodId + "," + Model.ProjectId + ",'"+Model.Hours+"','"+Model.Date+"','" + System.DateTime.Now + "')";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
     }
 }

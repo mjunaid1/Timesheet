@@ -130,4 +130,29 @@ namespace Courses.Entities
     }
 
 
+
+    public class WorkingHours
+    {
+        public long TimePeriodId { get; set; }
+        public long ProjectId { get; set; }
+        public string Date { get; set; }
+        public string Hours { get; set; }
+       
+
+        public WorkingHours(IDataReader dbReader)
+        {
+            if (dbReader == null) return;
+            if (dbReader.HasColumn("TimePeriodId") && dbReader["TimePeriodId"] != DBNull.Value) TimePeriodId = (long)dbReader["TimePeriodId"];
+            if (dbReader.HasColumn("ProjectId") && dbReader["ProjectId"] != DBNull.Value) ProjectId = (long)dbReader["ProjectId"];
+            if (dbReader.HasColumn("Date") && dbReader["Date"] != DBNull.Value) Date = (string)dbReader["Date"];
+            if (dbReader.HasColumn("Hours") && dbReader["Hours"] != DBNull.Value) Hours = (string)dbReader["Hours"];
+
+
+
+
+        }
+
+
+    }
+
 }

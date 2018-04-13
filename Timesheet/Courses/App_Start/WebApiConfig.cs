@@ -363,6 +363,16 @@ namespace Courses
     routeTemplate: "api/Search/GetTimePeriodsPerId",
         defaults: new { controller = "Timesheet", action = "GetTimePeriodsPerId" }
             );
+
+
+
+
+            
+            config.Routes.MapHttpRoute(
+   name: "addWorkingHours",
+    routeTemplate: "api/Search/addWorkingHours",
+        defaults: new { controller = "Timesheet", action = "addWorkingHours" }
+            );
         }
             
 

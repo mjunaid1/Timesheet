@@ -213,5 +213,20 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+        [HttpPost] 
+        public bool addWorkingHours([FromBody]WorkingHours Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var Result = _searchRepository.addWorkingHours(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

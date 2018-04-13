@@ -96,7 +96,7 @@
 
 
                                 </th>
-                                <th style="width:800px;vertical-align:middle;text-align:center">Project • Task</th>
+                                <th style="width:800px;vertical-align:middle;text-align:center">CompanyName • Project</th>
                                 <th  ng-repeat="x in datesdata"  style="vertical-align:middle;text-align:center"><span >{{x | date : "EEE"}}<br /> {{x | date : "M/d"}}</span></th>
                                 @*<th style="vertical-align:middle;text-align:center"><span >Tue<br>3/13</span></th>
                                 <th style="vertical-align:middle;text-align:center"><span >Wed<br>3/14</span></th>
@@ -107,13 +107,13 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td align="center" valign="middle" style="width:5px;">
+                                <td>
 
                                     <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
                                     <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
                                    
                                 </td>
-                                <td valign="middle" style="width:800px;">
+                                <td>
                                     <span>24</span>
                                     <span >375</span>
                                     <span>0</span>
@@ -124,11 +124,12 @@
                                     <br>
 
                                 </td>
-                                <td align="center" style="width:50px;">
+
+                                <td  ng-repeat="x in datesdata">
                                     <table id="TTT0" class="intab" border="0" style="border-width:0px;">
                                         <tbody>
                                             <tr id="RTT0" style="border-width:0px;">
-                                                <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="08:00" id="C_C_C_W_G_TT0_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
+                                                <td id="CTT0" style="border-width:0px;width:75px;"><input readonly name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="" id="C_C_C_W_G_TT0_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -136,270 +137,282 @@
                                         <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS00" rows="2" cols="20" id="C_C_C_W_G_DS00_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl020');" style="height:75px;width:200px;">Project plan meeting</textarea>
                                     </div>
                                 </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT1" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT1" style="border-width:0px;">
-                                                <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT1" type="text" value="08:00" id="C_C_C_W_G_TT1_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_0"><span id="C_C_C_W_G_VT1_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_0" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn10_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS10" rows="2" cols="20" id="C_C_C_W_G_DS10_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl021');" style="height:75px;width:200px;">Project plan meeting</textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT2" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT2" style="border-width:0px;">
-                                                <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT2" type="text" value="08:00" id="C_C_C_W_G_TT2_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_0"><span id="C_C_C_W_G_VT2_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_0" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn20_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS20" rows="2" cols="20" id="C_C_C_W_G_DS20_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl022');" style="height:75px;width:200px;">Project plan meeting</textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT3" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT3" style="border-width:0px;">
-                                                <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT3" type="text" value="08:00" id="C_C_C_W_G_TT3_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_0"><span id="C_C_C_W_G_VT3_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_0" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn30_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS30" rows="2" cols="20" id="C_C_C_W_G_DS30_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl023');" style="height:75px;width:200px;">Project plan meeting</textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT4" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT4" style="border-width:0px;">
-                                                <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT4" type="text" value="08:00" id="C_C_C_W_G_TT4_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_0"><span id="C_C_C_W_G_VT4_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_0" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn40_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS40" rows="2" cols="20" id="C_C_C_W_G_DS40_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl024');" style="height:75px;width:200px;">Project plan meeting</textarea>
-                                    </div>
-                                </td>
+
+
+                             @*   <td>
+        <table id="TTT1" class="intab" border="0" style="border-width:0px;">
+            <tbody>
+                <tr id="RTT1" style="border-width:0px;">
+                    <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT1" type="text" value="08:00" id="C_C_C_W_G_TT1_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_0"><span id="C_C_C_W_G_VT1_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_0" style="color:Red;display:none;">Invalid Time</span></td>
+                </tr>
+            </tbody>
+        </table><div id="C_C_C_W_G_Pn10_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
+            <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS10" rows="2" cols="20" id="C_C_C_W_G_DS10_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl021');" style="height:75px;width:200px;">Project plan meeting</textarea>
+        </div>
+    </td>
+    <td>
+        <table id="TTT2" class="intab" border="0" style="border-width:0px;">
+            <tbody>
+                <tr id="RTT2" style="border-width:0px;">
+                    <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT2" type="text" value="08:00" id="C_C_C_W_G_TT2_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_0"><span id="C_C_C_W_G_VT2_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_0" style="color:Red;display:none;">Invalid Time</span></td>
+                </tr>
+            </tbody>
+        </table><div id="C_C_C_W_G_Pn20_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
+            <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS20" rows="2" cols="20" id="C_C_C_W_G_DS20_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl022');" style="height:75px;width:200px;">Project plan meeting</textarea>
+        </div>
+    </td>
+    <td>
+        <table id="TTT3" class="intab" border="0" style="border-width:0px;">
+            <tbody>
+                <tr id="RTT3" style="border-width:0px;">
+                    <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT3" type="text" value="08:00" id="C_C_C_W_G_TT3_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_0"><span id="C_C_C_W_G_VT3_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_0" style="color:Red;display:none;">Invalid Time</span></td>
+                </tr>
+            </tbody>
+        </table><div id="C_C_C_W_G_Pn30_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
+            <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS30" rows="2" cols="20" id="C_C_C_W_G_DS30_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl023');" style="height:75px;width:200px;">Project plan meeting</textarea>
+        </div>
+    </td>
+    <td>
+        <table id="TTT4" class="intab" border="0" style="border-width:0px;">
+            <tbody>
+                <tr id="RTT4" style="border-width:0px;">
+                    <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT4" type="text" value="08:00" id="C_C_C_W_G_TT4_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_0"><span id="C_C_C_W_G_VT4_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_0" style="color:Red;display:none;">Invalid Time</span></td>
+                </tr>
+            </tbody>
+        </table><div id="C_C_C_W_G_Pn40_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
+            <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS40" rows="2" cols="20" id="C_C_C_W_G_DS40_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl024');" style="height:75px;width:200px;">Project plan meeting</textarea>
+        </div>
+    </td>*@
+
                             </tr>
-                            <tr>
-                                <td  align="center" valign="middle" style="width:5px;">
 
-                                    <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
-                                </td>
-                                <td valign="middle" style="width:800px;">
-                                    <span>24</span>
-                                    <span>375</span>
-                                    <span>0</span>
-                                    <span>1</span>
-                                    <span>0</span>
-                                    <span>LEGO</span>
-                                    <span> • Project plan</span>
-                                    <br>
 
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT0" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT0" style="border-width:0px;">
-                                                <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT0" type="text" id="C_C_C_W_G_TT0_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_1"><span id="C_C_C_W_G_VT0_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_1" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn01_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS01" rows="2" cols="20" id="C_C_C_W_G_DS01_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl030');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT1" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT1" style="border-width:0px;">
-                                                <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT1" type="text" id="C_C_C_W_G_TT1_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_1"><span id="C_C_C_W_G_VT1_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_1" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn11_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS11" rows="2" cols="20" id="C_C_C_W_G_DS11_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl031');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT2" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT2" style="border-width:0px;">
-                                                <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT2" type="text" id="C_C_C_W_G_TT2_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_1"><span id="C_C_C_W_G_VT2_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_1" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn21_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS21" rows="2" cols="20" id="C_C_C_W_G_DS21_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl032');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT3" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT3" style="border-width:0px;">
-                                                <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT3" type="text" id="C_C_C_W_G_TT3_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_1"><span id="C_C_C_W_G_VT3_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_1" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn31_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS31" rows="2" cols="20" id="C_C_C_W_G_DS31_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl033');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT4" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT4" style="border-width:0px;">
-                                                <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT4" type="text" id="C_C_C_W_G_TT4_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_1"><span id="C_C_C_W_G_VT4_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_1" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn41_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS41" rows="2" cols="20" id="C_C_C_W_G_DS41_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl034');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="middle" style="width:5px;">
+                           @* <tr>
+         <td  align="center" valign="middle" style="width:5px;">
 
-                                    <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
-                                </td>
-                                <td valign="middle" style="width:800px;">
-                                    <span>24</span>
-                                    <span>375</span>
-                                    <span>0</span>
-                                    <span>1</span>
-                                    <span>0</span>
-                                    <span>LEGO</span>
-                                    <span> • Project plan</span>
-                                    <br>
+             <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
+             <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
+         </td>
+         <td valign="middle" style="width:800px;">
+             <span>24</span>
+             <span>375</span>
+             <span>0</span>
+             <span>1</span>
+             <span>0</span>
+             <span>LEGO</span>
+             <span> • Project plan</span>
+             <br>
 
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT0" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT0" style="border-width:0px;">
-                                                <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT0" type="text" id="C_C_C_W_G_TT0_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_2"><span id="C_C_C_W_G_VT0_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_2" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn02_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS02" rows="2" cols="20" id="C_C_C_W_G_DS02_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl040');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT1" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT1" style="border-width:0px;">
-                                                <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT1" type="text" id="C_C_C_W_G_TT1_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_2"><span id="C_C_C_W_G_VT1_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_2" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn12_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS12" rows="2" cols="20" id="C_C_C_W_G_DS12_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl041');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT2" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT2" style="border-width:0px;">
-                                                <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT2" type="text" id="C_C_C_W_G_TT2_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_2"><span id="C_C_C_W_G_VT2_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_2" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn22_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS22" rows="2" cols="20" id="C_C_C_W_G_DS22_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl042');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT3" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT3" style="border-width:0px;">
-                                                <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT3" type="text" id="C_C_C_W_G_TT3_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_2"><span id="C_C_C_W_G_VT3_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_2" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn32_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS32" rows="2" cols="20" id="C_C_C_W_G_DS32_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl043');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT4" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT4" style="border-width:0px;">
-                                                <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT4" type="text" id="C_C_C_W_G_TT4_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_2"><span id="C_C_C_W_G_VT4_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_2" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn42_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS42" rows="2" cols="20" id="C_C_C_W_G_DS42_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl044');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="middle" style="width:5px;">
-                                    <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
-                                </td>
-                                <td valign="middle" style="width:800px;">
-                                    <span>24</span>
-                                    <span>375</span>
-                                    <span>0</span>
-                                    <span>1</span>
-                                    <span>0</span>
-                                    <span>LEGO</span>
-                                    <span> • Project plan</span>
-                                    <br>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT0" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT0" style="border-width:0px;">
+                         <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT0" type="text" id="C_C_C_W_G_TT0_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_1"><span id="C_C_C_W_G_VT0_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_1" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn01_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS01" rows="2" cols="20" id="C_C_C_W_G_DS01_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl030');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT1" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT1" style="border-width:0px;">
+                         <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT1" type="text" id="C_C_C_W_G_TT1_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_1"><span id="C_C_C_W_G_VT1_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_1" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn11_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS11" rows="2" cols="20" id="C_C_C_W_G_DS11_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl031');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT2" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT2" style="border-width:0px;">
+                         <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT2" type="text" id="C_C_C_W_G_TT2_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_1"><span id="C_C_C_W_G_VT2_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_1" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn21_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS21" rows="2" cols="20" id="C_C_C_W_G_DS21_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl032');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT3" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT3" style="border-width:0px;">
+                         <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT3" type="text" id="C_C_C_W_G_TT3_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_1"><span id="C_C_C_W_G_VT3_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_1" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn31_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS31" rows="2" cols="20" id="C_C_C_W_G_DS31_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl033');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT4" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT4" style="border-width:0px;">
+                         <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$TT4" type="text" id="C_C_C_W_G_TT4_1" class="form-control input-disp-valid" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_1"><span id="C_C_C_W_G_VT4_1" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_1" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn41_1" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl03$DS41" rows="2" cols="20" id="C_C_C_W_G_DS41_1" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl034');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+     </tr>
 
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT0" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT0" style="border-width:0px;">
-                                                <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT0" type="text" id="C_C_C_W_G_TT0_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_3"><span id="C_C_C_W_G_VT0_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_3" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn03_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS03" rows="2" cols="20" id="C_C_C_W_G_DS03_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl050');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT1" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT1" style="border-width:0px;">
-                                                <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT1" type="text" id="C_C_C_W_G_TT1_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_3"><span id="C_C_C_W_G_VT1_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_3" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn13_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS13" rows="2" cols="20" id="C_C_C_W_G_DS13_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl051');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT2" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT2" style="border-width:0px;">
-                                                <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT2" type="text" id="C_C_C_W_G_TT2_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_3"><span id="C_C_C_W_G_VT2_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_3" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn23_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS23" rows="2" cols="20" id="C_C_C_W_G_DS23_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl052');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT3" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT3" style="border-width:0px;">
-                                                <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT3" type="text" id="C_C_C_W_G_TT3_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_3"><span id="C_C_C_W_G_VT3_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_3" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn33_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS33" rows="2" cols="20" id="C_C_C_W_G_DS33_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl053');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                                <td align="center" style="width:50px;">
-                                    <table id="TTT4" class="intab" border="0" style="border-width:0px;">
-                                        <tbody>
-                                            <tr id="RTT4" style="border-width:0px;">
-                                                <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT4" type="text" id="C_C_C_W_G_TT4_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_3"><span id="C_C_C_W_G_VT4_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_3" style="color:Red;display:none;">Invalid Time</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table><div id="C_C_C_W_G_Pn43_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
-                                        <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS43" rows="2" cols="20" id="C_C_C_W_G_DS43_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl054');" style="height:75px;width:200px;"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
+
+     <tr>
+         <td align="center" valign="middle" style="width:5px;">
+
+             <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
+             <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
+         </td>
+         <td valign="middle" style="width:800px;">
+             <span>24</span>
+             <span>375</span>
+             <span>0</span>
+             <span>1</span>
+             <span>0</span>
+             <span>LEGO</span>
+             <span> • Project plan</span>
+             <br>
+
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT0" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT0" style="border-width:0px;">
+                         <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT0" type="text" id="C_C_C_W_G_TT0_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_2"><span id="C_C_C_W_G_VT0_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_2" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn02_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS02" rows="2" cols="20" id="C_C_C_W_G_DS02_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl040');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT1" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT1" style="border-width:0px;">
+                         <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT1" type="text" id="C_C_C_W_G_TT1_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_2"><span id="C_C_C_W_G_VT1_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_2" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn12_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS12" rows="2" cols="20" id="C_C_C_W_G_DS12_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl041');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT2" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT2" style="border-width:0px;">
+                         <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT2" type="text" id="C_C_C_W_G_TT2_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_2"><span id="C_C_C_W_G_VT2_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_2" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn22_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS22" rows="2" cols="20" id="C_C_C_W_G_DS22_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl042');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT3" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT3" style="border-width:0px;">
+                         <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT3" type="text" id="C_C_C_W_G_TT3_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_2"><span id="C_C_C_W_G_VT3_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_2" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn32_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS32" rows="2" cols="20" id="C_C_C_W_G_DS32_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl043');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT4" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT4" style="border-width:0px;">
+                         <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$TT4" type="text" id="C_C_C_W_G_TT4_2" class="form-control input-disp-valid" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_2"><span id="C_C_C_W_G_VT4_2" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_2" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn42_2" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl04$DS42" rows="2" cols="20" id="C_C_C_W_G_DS42_2" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl044');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+     </tr>
+
+
+    <tr>
+         <td align="center" valign="middle" style="width:5px;">
+             <a href="#" style="font-size: 18px;" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
+             <a style="font-size: 18px;"><i class="fa fa-times" title="Delete"></i></a>
+         </td>
+         <td valign="middle" style="width:800px;">
+             <span>24</span>
+             <span>375</span>
+             <span>0</span>
+             <span>1</span>
+             <span>0</span>
+             <span>LEGO</span>
+             <span> • Project plan</span>
+             <br>
+
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT0" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT0" style="border-width:0px;">
+                         <td id="CTT0" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT0" type="text" id="C_C_C_W_G_TT0_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_3"><span id="C_C_C_W_G_VT0_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_3" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn03_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS03" rows="2" cols="20" id="C_C_C_W_G_DS03_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl050');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT1" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT1" style="border-width:0px;">
+                         <td id="CTT1" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT1" type="text" id="C_C_C_W_G_TT1_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(1,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT1_ClientState" id="C_C_C_W_G_MT1_ClientState_3"><span id="C_C_C_W_G_VT1_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV1_3" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn13_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS13" rows="2" cols="20" id="C_C_C_W_G_DS13_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl051');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT2" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT2" style="border-width:0px;">
+                         <td id="CTT2" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT2" type="text" id="C_C_C_W_G_TT2_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(2,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT2_ClientState" id="C_C_C_W_G_MT2_ClientState_3"><span id="C_C_C_W_G_VT2_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV2_3" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn23_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS23" rows="2" cols="20" id="C_C_C_W_G_DS23_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl052');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT3" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT3" style="border-width:0px;">
+                         <td id="CTT3" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT3" type="text" id="C_C_C_W_G_TT3_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(3,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT3_ClientState" id="C_C_C_W_G_MT3_ClientState_3"><span id="C_C_C_W_G_VT3_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV3_3" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn33_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS33" rows="2" cols="20" id="C_C_C_W_G_DS33_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl053');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+         <td align="center" style="width:50px;">
+             <table id="TTT4" class="intab" border="0" style="border-width:0px;">
+                 <tbody>
+                     <tr id="RTT4" style="border-width:0px;">
+                         <td id="CTT4" style="border-width:0px;width:75px;"><input name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$TT4" type="text" id="C_C_C_W_G_TT4_3" class="form-control input-disp-valid" onchange="javascript:UpdateSum(4,this);" onkeydown="return (event.keyCode!=13);" style="width:75px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$MT4_ClientState" id="C_C_C_W_G_MT4_ClientState_3"><span id="C_C_C_W_G_VT4_3" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV4_3" style="color:Red;display:none;">Invalid Time</span></td>
+                     </tr>
+                 </tbody>
+             </table><div id="C_C_C_W_G_Pn43_3" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                 <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl05$DS43" rows="2" cols="20" id="C_C_C_W_G_DS43_3" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl054');" style="height:75px;width:200px;"></textarea>
+             </div>
+         </td>
+     </tr>*@
+
+                       
+
+                            @*<tr>
                                 <td class="timesheet-editrow" align="center" valign="middle" style="width:5px;">
                                     <a href="Controls/#TimeOffModal" id="C_C_C_W_G_btnEditRow_4" class="btnEditRow" data-toggle="modal" style="font-size: 13px;" title="Edit"><i class="icon-note"></i></a>
 
@@ -482,8 +495,9 @@
                                         <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl06$DS44" rows="2" cols="20" id="C_C_C_W_G_DS44_4" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl064');" style="height:75px;width:200px;"></textarea>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr>*@
+
+                            @*<tr>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td align="center">
@@ -531,7 +545,9 @@
                                         </tbody>
                                     </table>
                                 </td>
-                            </tr>
+                            </tr>*@
+
+
                         </tbody>
                     </table>
 
@@ -573,24 +589,33 @@
                 <div class="col-sm-12">
 
                     <label>Working Hours</label>
-                    <input type="time" class="form-control" />
+                    <input type="text" ng-model="hours" class="form-control" />
                 </div>
                 <br />
                 <div class="col-sm-12">
 
                     <label>Current Date</label>
-                    <select class="form-control" id="selectedCurrentDate">
-                        <option ng-repeat="x in datesdata" value="{{x | date : "M/d/yyyy"}}">{{x | date : "M/d/yyyy"}}</option>
+                    <select class="form-control" ng-model="selectedCurrentDate" id="selectedCurrentDate">
+                        <option ng-repeat="x in datesdata" value="{{x | date: 'MM/dd/yyyy'}}">{{x | date : "EEE, MMMM d, y"}}</option>
                     </select>
                 </div>
 
+            </div>
+
+            <br />
+            <div class="alert alert-success alert-block" ng-show="isSuccess">
+
+                <h6 class="alert-heading">{{successMessage}}</h6>
+            </div>
+            <div class="alert alert-danger alert-block" ng-show="isError">
+                <h6 class="alert-heading">{{errormessage}}</h6>
             </div>
 
         </form>
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="InsertExam()">Save</button>
+        <button class="btn btn-primary" type="button" ng-click="addWorkingHours()">Save</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
 

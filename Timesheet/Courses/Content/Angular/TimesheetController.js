@@ -267,6 +267,9 @@
                 GetDatePeriod: function () {
                     return $scope.datesdata;
 
+                }, TimePeriodId: function () {
+                    return $('#paramid').val();
+
                 }
             }
         });
@@ -459,7 +462,7 @@ timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $htt
 });
 
 
-timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $http, $uibModal, $uibModalInstance, Username, GetDatePeriod) {
+timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $filter, $http, $uibModal, $uibModalInstance, Username, GetDatePeriod, TimePeriodId) {
     $scope.modalTitle = "Add Time Rows";
    
     $scope.datesdata = GetDatePeriod;
@@ -507,6 +510,58 @@ timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $http,
     }
 
     $scope.getCompanyPerEmp();
+
+
+    $scope.addWorkingHours = function () {
+
+        var CompanyID = $("#selectedCompany").val();
+        var ProjectID = $("#selectedProject").val(); 
+        var CurrentDate = $("#selectedCurrentDate").val();
+        var Hours = $scope.hours;
+
+        if (CompanyID != "? undefined:undefined ?" && ProjectID != "? undefined:undefined ?" && CurrentDate != "? undefined:undefined ?" && Hours != "undefined" && Hours != "") {
+
+          //  alert(CompanyID + ": " + ProjectID + ": " + CurrentDate + ": " + Hours);
+
+       
+
+            //  alert($scope.selectedCompany);
+            var data = {
+
+                TimePeriodId: TimePeriodId,
+                ProjectId: ProjectID,
+                Date: CurrentDate,
+                Hours: Hours
+
+            }
+
+            var resource = location.protocol + "//" + location.host + "/api/Search/addWorkingHours";
+
+            $http.post(resource, data).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Successfully Added...";
+                    $uibModalInstance.close('ok');
+                }
+
+            })
+                .error(function (data, status) {
+                    // this isn't happening:
+                })
+
+
+
+        } else {
+
+            $scope.isError = true;
+            $scope.isSuccess = false;
+            $scope.errormessage = "Required All Fields...";
+        }
+
+      
+    }
+
 
     $scope.ok = function () {
         $uibModalInstance.close('ok');
