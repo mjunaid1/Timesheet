@@ -137,7 +137,16 @@ namespace Courses.Entities
         public long ProjectId { get; set; }
         public string Date { get; set; }
         public string Hours { get; set; }
-       
+        public string CompanyName { get; set; }
+        public string ProjectName { get; set; }
+        public string Mon { get; set; }
+        public string Tue { get; set; }
+        public string Wed { get; set; }
+        public string Thu { get; set; }
+        public string Fri { get; set; }
+        public string Sat { get; set; }
+        public string Sun { get; set; }
+
 
         public WorkingHours(IDataReader dbReader)
         {
@@ -146,7 +155,16 @@ namespace Courses.Entities
             if (dbReader.HasColumn("ProjectId") && dbReader["ProjectId"] != DBNull.Value) ProjectId = (long)dbReader["ProjectId"];
             if (dbReader.HasColumn("Date") && dbReader["Date"] != DBNull.Value) Date = (string)dbReader["Date"];
             if (dbReader.HasColumn("Hours") && dbReader["Hours"] != DBNull.Value) Hours = (string)dbReader["Hours"];
+            if (dbReader.HasColumn("CompanyName") && dbReader["CompanyName"] != DBNull.Value) CompanyName = (string)dbReader["CompanyName"];
+            if (dbReader.HasColumn("ProjectName") && dbReader["ProjectName"] != DBNull.Value) ProjectName = (string)dbReader["ProjectName"];
 
+            if (dbReader.HasColumn("Mon") && dbReader["Mon"] != DBNull.Value) Mon = (string)dbReader["Mon"];
+            if (dbReader.HasColumn("Tue") && dbReader["Tue"] != DBNull.Value) Tue = (string)dbReader["Tue"];
+            if (dbReader.HasColumn("Wed") && dbReader["Wed"] != DBNull.Value) Wed = (string)dbReader["Wed"];
+            if (dbReader.HasColumn("Thu") && dbReader["Thu"] != DBNull.Value) Thu = (string)dbReader["Thu"];
+            if (dbReader.HasColumn("Fri") && dbReader["Fri"] != DBNull.Value) Fri = (string)dbReader["Fri"];
+            if (dbReader.HasColumn("Sat") && dbReader["Sat"] != DBNull.Value) Sat = (string)dbReader["Sat"];
+            if (dbReader.HasColumn("Sun") && dbReader["Sun"] != DBNull.Value) Sun = (string)dbReader["Sun"];
 
 
 

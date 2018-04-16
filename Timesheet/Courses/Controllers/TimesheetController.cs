@@ -228,5 +228,22 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+
+
+        [HttpPost]
+        public List<WorkingHours> GetTimeSheetDetails(WorkingHours Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var result = _searchRepository.GetTimeSheetDetails(Model.TimePeriodId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

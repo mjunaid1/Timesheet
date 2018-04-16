@@ -432,13 +432,30 @@ namespace Courses.DataAccess
             }
         }
 
-        
+
+        //public bool addWorkingHours(WorkingHours Model)
+        //{
+        //    using (var conn = new SqlConnection(TimesheetConnectionString))
+        //    {
+        //        conn.Open();
+        //        string qry = "insert into [TimesheetDetails_tbl] (TimePeriodId,ProjectId,Hours,Date,Created) values (" + Model.TimePeriodId + "," + Model.ProjectId + ",'"+Model.Hours+"','"+Model.Date+"','" + System.DateTime.Now + "')";
+        //        using (var cmd = new SqlCommand(qry, conn))
+        //        {
+        //            cmd.CommandType = CommandType.Text;
+        //            cmd.ExecuteNonQuery();
+
+        //        }
+
+        //        return true;
+        //    }
+        //}
+
         public bool addWorkingHours(WorkingHours Model)
         {
             using (var conn = new SqlConnection(TimesheetConnectionString))
             {
                 conn.Open();
-                string qry = "insert into [TimesheetDetails_tbl] (TimePeriodId,ProjectId,Hours,Date,Created) values (" + Model.TimePeriodId + "," + Model.ProjectId + ",'"+Model.Hours+"','"+Model.Date+"','" + System.DateTime.Now + "')";
+                string qry = "insert into [TimesheetDetails_tbl] (TimePeriodId,ProjectId,Hours,Date,Created) values (" + Model.TimePeriodId + "," + Model.ProjectId + ",'" + Model.Hours + "','" + Model.Date + "','" + System.DateTime.Now + "')";
                 using (var cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -447,6 +464,41 @@ namespace Courses.DataAccess
                 }
 
                 return true;
+            }
+        }
+
+
+
+        public List<WorkingHours> GetTimeSheetDetails(long TimePeriodId)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "  select * from TimesheetDetails_tbl inner join Project_Tbl on Project_Tbl.ProjectId = TimesheetDetails_tbl.ProjectId inner join Company_Tbl on Company_Tbl.CompanyId = Project_Tbl.CompanyId where TimesheetDetails_tbl.TimePeriodId = " + TimePeriodId + "";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<WorkingHours> data = new List<WorkingHours>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new WorkingHours(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
             }
         }
     }

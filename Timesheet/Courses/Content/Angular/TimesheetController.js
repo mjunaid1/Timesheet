@@ -18,6 +18,7 @@
             $scope.getTimePeriods();
             if ($('#paramid').val() != undefined) {
                 $scope.getTimePeriodsPerId();
+                $scope.GetTimeSheetDetails();
             }
         } 
 
@@ -406,6 +407,28 @@
 
     }
 
+
+    $scope.Obj_getTimeSheetDetails = [];
+
+    $scope.GetTimeSheetDetails = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetTimeSheetDetails";
+        var data = {
+            TimePeriodId: $('#paramid').val()
+        }
+        $http.post(resource, data).success(function (data, status) {
+            $scope.Obj_getTimeSheetDetails = data;
+
+
+     
+
+            //   alert("object: "+datedata)
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
   //  alert($('#paramid').val());
 
 
@@ -523,9 +546,16 @@ timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $filte
 
           //  alert(CompanyID + ": " + ProjectID + ": " + CurrentDate + ": " + Hours);
 
-       
 
-            //  alert($scope.selectedCompany);
+            var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            var d = new Date(CurrentDate);
+            var dayName = days[d.getDay()];
+       
+            var startdate = new Date(CurrentDate).getDay();
+            
+           // var startdate = $filter('date')(CurrentDate, 'EEE');
+            alert(dayName);
+
             var data = {
 
                 TimePeriodId: TimePeriodId,
@@ -537,18 +567,18 @@ timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $filte
 
             var resource = location.protocol + "//" + location.host + "/api/Search/addWorkingHours";
 
-            $http.post(resource, data).success(function (data, status) {
-                if (data = "true") {
-                    $scope.isError = false;
-                    $scope.isSuccess = true;
-                    $scope.successMessage = "Successfully Added...";
-                    $uibModalInstance.close('ok');
-                }
+            //$http.post(resource, data).success(function (data, status) {
+            //    if (data = "true") {
+            //        $scope.isError = false;
+            //        $scope.isSuccess = true;
+            //        $scope.successMessage = "Successfully Added...";
+            //        $uibModalInstance.close('ok');
+            //    }
 
-            })
-                .error(function (data, status) {
-                    // this isn't happening:
-                })
+            //})
+            //    .error(function (data, status) {
+            //        // this isn't happening:
+            //    })
 
 
 
