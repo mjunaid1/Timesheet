@@ -130,8 +130,7 @@ namespace Courses.Entities
     }
 
 
-
-    public class WorkingHours
+    public class WorkingHours2
     {
         public long TimePeriodId { get; set; }
         public long ProjectId { get; set; }
@@ -139,13 +138,27 @@ namespace Courses.Entities
         public string Hours { get; set; }
         public string CompanyName { get; set; }
         public string ProjectName { get; set; }
-        public string Mon { get; set; }
-        public string Tue { get; set; }
-        public string Wed { get; set; }
-        public string Thu { get; set; }
-        public string Fri { get; set; }
-        public string Sat { get; set; }
-        public string Sun { get; set; }
+      
+    }
+
+
+        public class WorkingHours
+    {
+        public long TimePeriodId { get; set; }
+        public long ProjectId { get; set; }
+        public string Date { get; set; }
+        public string Hours { get; set; }
+        public string CompanyName { get; set; }
+        public string ProjectName { get; set; }
+        public TimeSpan Mon { get; set; }
+        public TimeSpan Tue { get; set; }
+        public TimeSpan Wed { get; set; }
+        public TimeSpan Thu { get; set; }
+        public TimeSpan Fri { get; set; }
+        public TimeSpan Sat { get; set; }
+        public TimeSpan Sun { get; set; }
+        public string Day { get; set; }
+
 
 
         public WorkingHours(IDataReader dbReader)
@@ -158,13 +171,13 @@ namespace Courses.Entities
             if (dbReader.HasColumn("CompanyName") && dbReader["CompanyName"] != DBNull.Value) CompanyName = (string)dbReader["CompanyName"];
             if (dbReader.HasColumn("ProjectName") && dbReader["ProjectName"] != DBNull.Value) ProjectName = (string)dbReader["ProjectName"];
 
-            if (dbReader.HasColumn("Mon") && dbReader["Mon"] != DBNull.Value) Mon = (string)dbReader["Mon"];
-            if (dbReader.HasColumn("Tue") && dbReader["Tue"] != DBNull.Value) Tue = (string)dbReader["Tue"];
-            if (dbReader.HasColumn("Wed") && dbReader["Wed"] != DBNull.Value) Wed = (string)dbReader["Wed"];
-            if (dbReader.HasColumn("Thu") && dbReader["Thu"] != DBNull.Value) Thu = (string)dbReader["Thu"];
-            if (dbReader.HasColumn("Fri") && dbReader["Fri"] != DBNull.Value) Fri = (string)dbReader["Fri"];
-            if (dbReader.HasColumn("Sat") && dbReader["Sat"] != DBNull.Value) Sat = (string)dbReader["Sat"];
-            if (dbReader.HasColumn("Sun") && dbReader["Sun"] != DBNull.Value) Sun = (string)dbReader["Sun"];
+            if (dbReader.HasColumn("Mon") && dbReader["Mon"] != DBNull.Value) Mon = (TimeSpan)dbReader["Mon"];
+            if (dbReader.HasColumn("Tue") && dbReader["Tue"] != DBNull.Value) Tue = (TimeSpan)dbReader["Tue"];
+            if (dbReader.HasColumn("Wed") && dbReader["Wed"] != DBNull.Value) Wed = (TimeSpan)dbReader["Wed"];
+            if (dbReader.HasColumn("Thu") && dbReader["Thu"] != DBNull.Value) Thu = (TimeSpan)dbReader["Thu"];
+            if (dbReader.HasColumn("Fri") && dbReader["Fri"] != DBNull.Value) Fri = (TimeSpan)dbReader["Fri"];
+            if (dbReader.HasColumn("Sat") && dbReader["Sat"] != DBNull.Value) Sat = (TimeSpan)dbReader["Sat"];
+            if (dbReader.HasColumn("Sun") && dbReader["Sun"] != DBNull.Value) Sun = (TimeSpan)dbReader["Sun"];
 
 
 

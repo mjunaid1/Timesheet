@@ -455,10 +455,16 @@ namespace Courses.DataAccess
             using (var conn = new SqlConnection(TimesheetConnectionString))
             {
                 conn.Open();
-                string qry = "insert into [TimesheetDetails_tbl] (TimePeriodId,ProjectId,Hours,Date,Created) values (" + Model.TimePeriodId + "," + Model.ProjectId + ",'" + Model.Hours + "','" + Model.Date + "','" + System.DateTime.Now + "')";
-                using (var cmd = new SqlCommand(qry, conn))
+               // string qry = "insert into [TimesheetDetails_tbl] (TimePeriodId,ProjectId,Hours,Date,Created) values (" + Model.TimePeriodId + "," + Model.ProjectId + ",'" + Model.Hours + "','" + Model.Date + "','" + System.DateTime.Now + "')";
+                using (var cmd = new SqlCommand("[AddWorkingHours]", conn))
                 {
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ProjectId", SqlDbType.BigInt).Value = Model.ProjectId;
+                    cmd.Parameters.Add("@TimePeriodId", SqlDbType.BigInt).Value = Model.TimePeriodId;
+                    cmd.Parameters.Add("@Hours", SqlDbType.NVarChar).Value = Model.Hours;
+                    cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Model.Day;
+
+
                     cmd.ExecuteNonQuery();
 
                 }

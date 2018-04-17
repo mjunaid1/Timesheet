@@ -279,7 +279,8 @@
 
         modalInstance.result.then(
             function handleResolve(response) {
-
+                $scope.GetTimeSheetDetails();
+                $scope.getTimePeriodsPerId();
             },
             function handleReject(error) {
 
@@ -382,6 +383,8 @@
             var end = new Date(newend);
             var count = 0;
             var datedata = [];
+
+
             while (start < end) {
                 //  alert(new Date(start).getTime() / 1000); // unix timestamp format
               // ISO Date format 
@@ -398,6 +401,22 @@
 
             $scope.datesdata = datedata;
 
+
+            var days1 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            var ShortDays = [];
+
+            angular.forEach($scope.datesdata, function (value1, key) {
+                var d = new Date(value1);
+                var dayName = days1[d.getDay()];
+                ShortDays[key] = dayName;
+
+               // alert("d");
+
+            });
+
+            $scope.Short = ShortDays;
+
+
          //   alert("object: "+datedata)
         })
             .error(function (data, status) {
@@ -411,6 +430,9 @@
     $scope.Obj_getTimeSheetDetails = [];
 
     $scope.GetTimeSheetDetails = function () {
+
+     
+
         var resource = location.protocol + "//" + location.host + "/api/Search/GetTimeSheetDetails";
         var data = {
             TimePeriodId: $('#paramid').val()
@@ -419,6 +441,54 @@
             $scope.Obj_getTimeSheetDetails = data;
 
 
+            //var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+          
+
+           
+
+            //    angular.forEach(data, function (value, key) {
+            //        alert("1")
+            //        angular.forEach($scope.datesdata, function (value1, key) {
+
+            //            var d = new Date(value1);
+            //            var dayName = days[d.getDay()];
+            //          //  alert(dayName)
+
+            //        if (dayName == "Mon")
+            //        {
+            //            alert("Mon:" + value.Mon)
+            //        }
+
+
+            //        if (dayName == "Tue") {
+            //            alert("Tue:" + value.Tue)
+            //        }
+
+
+            //        if (dayName == "Wed") {
+
+            //            alert("Wed:" + value.Wed)
+            //        }
+            //        if (dayName == "Thu") {
+            //            alert("Thu:" + value.Thu)
+
+            //        }
+            //        if (dayName == "Fri") {
+            //            alert("Fri:" + value.Fri)
+            //        }
+            //        if (dayName == "Sat") {
+            //            alert("Sat:" + value.Sat)
+            //        }
+            //        if (dayName == "Sun") {
+            //            alert("Sun:" + value.Sun)
+            //        }
+
+
+            //    });
+
+
+            //});
      
 
             //   alert("object: "+datedata)
@@ -554,31 +624,32 @@ timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $filte
             var startdate = new Date(CurrentDate).getDay();
             
            // var startdate = $filter('date')(CurrentDate, 'EEE');
-            alert(dayName);
+          //  alert(dayName);
 
             var data = {
 
                 TimePeriodId: TimePeriodId,
                 ProjectId: ProjectID,
                 Date: CurrentDate,
-                Hours: Hours
+                Hours: Hours,
+                Day: dayName
 
             }
 
             var resource = location.protocol + "//" + location.host + "/api/Search/addWorkingHours";
 
-            //$http.post(resource, data).success(function (data, status) {
-            //    if (data = "true") {
-            //        $scope.isError = false;
-            //        $scope.isSuccess = true;
-            //        $scope.successMessage = "Successfully Added...";
-            //        $uibModalInstance.close('ok');
-            //    }
+            $http.post(resource, data).success(function (data, status) {
+                if (data = "true") {
+                    $scope.isError = false;
+                    $scope.isSuccess = true;
+                    $scope.successMessage = "Successfully Added...";
+                    $uibModalInstance.close('ok');
+                }
 
-            //})
-            //    .error(function (data, status) {
-            //        // this isn't happening:
-            //    })
+            })
+                .error(function (data, status) {
+                    // this isn't happening:
+                })
 
 
 
