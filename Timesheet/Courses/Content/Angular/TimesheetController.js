@@ -505,6 +505,27 @@
   //  alert($scope.Obj_getTimePeriodsPerId[0].TimePeriods)
 
 
+    $scope.SubmitTimeSheet = function () {
+        var des = $("#shortDescription1d").val();
+
+       // alert(des);
+
+        var resource = location.protocol + "//" + location.host + "/api/Search/SubmitTimeSheet";
+        var data = {
+            Description: des,
+            TimePeriodId: $('#paramid').val()
+        }
+        $http.post(resource, data).success(function (data, status) {
+            if (data = "true") {
+                $scope.getTimePeriodsPerId();
+
+            }
+        });
+
+    }
+
+
+
 });
 
 

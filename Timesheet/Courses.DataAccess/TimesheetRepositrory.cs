@@ -507,5 +507,23 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+        
+        public bool SubmitTimeSheet(TimesheetModel Model)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "update [Timesheet_tbl] set Description = '"+Model.Description+"' , SubmitedDate = '"+ System.DateTime.Now + "' , status = 'Submitted' where TimePeriodId  = " + Model.TimePeriodId;
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
     }
 }

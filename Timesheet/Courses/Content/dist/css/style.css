@@ -142,7 +142,7 @@ a:hover, a:active, a:focus {
 	transition: none
 }
 .content {
-	min-height: 250px;
+	/*min-height: 250px;*/
 	padding: 15px;
 	margin-right: auto;
 	margin-left: auto;

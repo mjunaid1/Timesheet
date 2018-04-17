@@ -245,5 +245,20 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+        [HttpPost] 
+        public bool SubmitTimeSheet([FromBody]TimesheetModel Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var Result = _searchRepository.SubmitTimeSheet(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

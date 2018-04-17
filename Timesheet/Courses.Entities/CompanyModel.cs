@@ -109,6 +109,8 @@ namespace Courses.Entities
         public DateTime SubmittedDate { get; set; }
         public string Hours { get; set; }
         public string duration { get; set; }
+        public string Description { get; set; }
+
 
         public TimesheetModel(IDataReader dbReader)
         {
@@ -120,6 +122,7 @@ namespace Courses.Entities
             if (dbReader.HasColumn("SubmittedDate") && dbReader["SubmittedDate"] != DBNull.Value) SubmittedDate = (DateTime)dbReader["SubmittedDate"];
             if (dbReader.HasColumn("Hours") && dbReader["Hours"] != DBNull.Value) Hours = (string)dbReader["Hours"];
             if (dbReader.HasColumn("duration") && dbReader["duration"] != DBNull.Value) duration = (string)dbReader["duration"];
+            if (dbReader.HasColumn("Description") && dbReader["Description"] != DBNull.Value) Description = (string)dbReader["Description"];
 
 
 

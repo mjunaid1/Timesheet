@@ -376,10 +376,19 @@ namespace Courses
 
 
             
+
             config.Routes.MapHttpRoute(
    name: "GetTimeSheetDetails",
     routeTemplate: "api/Search/GetTimeSheetDetails",
         defaults: new { controller = "Timesheet", action = "GetTimeSheetDetails" }
+            );
+
+
+            
+            config.Routes.MapHttpRoute(
+   name: "SubmitTimeSheet",
+    routeTemplate: "api/Search/SubmitTimeSheet",
+        defaults: new { controller = "Timesheet", action = "SubmitTimeSheet" }
             );
         }
             
