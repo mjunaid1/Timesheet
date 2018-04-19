@@ -260,5 +260,21 @@ namespace Courses.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        public List<TimesheetModel> GetSubmittedTimeSheets()
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var result = _searchRepository.GetSubmittedTimeSheets();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

@@ -35,12 +35,12 @@ html, body {
 	height: 100%
 }
 body {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 400;
-	overflow-x: hidden;
-	overflow-y: auto;
-	font-size: 15px;
-	color: #666f73;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 15px;
+    color: #000000;
 }
 .wrapper {
 	height: 100%;

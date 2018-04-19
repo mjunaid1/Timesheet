@@ -40,100 +40,139 @@
                 <p  ng-show="isStudent" class="lead" style="font-size:27px; font-weight:normal;color:black">
                     Welcome To Time Sheet Project...</p>
 
-             
-  
-    
 
-                <div ng-show="isAdmin" class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-table "></i><span style="color:black; font-weight:bold;"> Students </span> Enrolled
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive table-sm ">
-                            <table class="table table-striped table-bordered" cellspacing="0">
-                                <thead class="table-dark">
+
+
+              
+
+
+                    <div ng-show="isAdmin" class="info-box">
+                        <div class="col-12">
+                            <h4 class="text-black">Submitted TimeSheet Period List</h4>
+                        </div>
+
+                        <hr />
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-hover col-12 ">
+                                <thead>
                                     <tr>
-                                        <th>STUDENT USERNAME</th>
-                                        <th>COURSE NAME</th>
-                                        <th>CURRENT MODULE NAME</th>
-                                        <th>MODULE %</th>
-                                        <th>EXAM</th>
-                                        <th>RESULT</th>
-                                        <th>COURSE %</th>
-
-
+                                        <th style="padding: 8px;">Periods</th>
+                                        @*<th>Period Type</th>*@
+                                        <th style="padding: 8px;">Duration</th>
+                                        <th style="padding: 8px;">Total Hours</th>
+                                        <th style="padding: 8px;">Submitted On</th>
+                                        @*<th>Approved On</th>
+                                            <th>Rejected On</th>*@
+                                        <th style="padding: 8px;">Status</th>
+                                        <th style="padding: 8px;">View Sheet</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="x in getAllEnrolledStudents">
+                                    <tr ng-repeat="x in Obj_GetSubmittedTimeSheets">
+                                        <td style="text-align: center;">{{x.TimePeriods}}</td>
+                                        @*<td>
+                                                Internet
+                                                Explorer 4.0
+                                            </td>*@
+                                        <td style="text-align: center;">{{x.duration}}</td>
+                                        <td style="text-align: center;">{{x.Hours}}</td>
+                                        <td style="text-align: center;"><span ng-show="x.SubmittedDate == '0001-01-01T00:00:00'">--</span><span ng-show="x.SubmittedDate != '0001-01-01T00:00:00'">{{x.SubmittedDate | date : "M/d/yyyy"}}</span></td>
+                                        @*<td>
+                                                Internet
+                                                Explorer 4.0
+                                            </td>
+                                            <td></td>*@
+                                        <td style="padding: 10px 10px 10px 10px;text-align: center;"><span ng-show="x.Status == 'Not Submitted'" class="label label-warning">{{x.Status}}</span> <span ng-show="x.Status == 'Submitted'" class="label label-info">{{x.Status}}</span></td>
+                                        <td style="text-align: center;">
 
+                                            <span><a style="text-align:center;" href="/home/TimeEntryPeriod2/{{x.TimePeriodId}}"> <i style="color:black" class="fa fa-window-maximize"></i> View Time-Sheet</a></span>
+                                            @*<div class="btn-group pull-right open">
+                                                    <button type="button" class="btn default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="font-size:13px;">
+                                                        <i class="fa fa-cog"></i> Options
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu" style="margin-left: -52px;margin-top: 23px;">
+                                                        <li><a style="padding: 8px 16px;" href="/home/TimeEntryPeriod2/{{x.TimePeriodId}}">View Time-Sheet</a></li>
+                                                        <li><a style="padding: 8px 16px;" href="#">View Attachment</a></li>
 
-                                        <td>{{x.Username}}</td>
-                                        <td>{{x.CourseName}}</td>
-                                        <td>{{x.CurrentModuleName}}</td>
-                                        <td>{{x.ModulePer}}</td>
-                                        <td>{{x.Exam}}</td>
-                                        <td>{{x.Result}}</td>
-                                        <td>{{x.CoursePer}}</td>
-
+                                                    </ul>
+                                                </div>*@
+                                        </td>
                                     </tr>
 
+
+
                                 </tbody>
+                                @*<tfoot>
+                                        <tr>
+                                            <th>Rendering engine</th>
+                                            <th>Browser</th>
+                                            <th>Platform(s)</th>
+                                            <th>Engine version</th>
+                                            <th>CSS grade</th>
+                                        </tr>
+                                    </tfoot>*@
                             </table>
                         </div>
                     </div>
-                </div>
 
-                <div  ng-show="isStudent" class="info-box">
-                    <h4 class="text-black">TimeSheet Period List <button style="float:right"  ng-click="addTimePriods()"  type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add TimeSheet</button></h4>
 
-                    <p> Time-Sheet Period</p>
+
+
+                <div ng-show="isStudent" class="info-box">
+                    <div class="col-12">
+                        <h4 class="text-black">TimeSheet Period List <button style="float:right" ng-click="addTimePriods()" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add TimeSheet</button></h4>
+                    </div>
+
+                    <hr />
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="example1" class="table table-bordered table-hover col-12 ">
                             <thead>
                                 <tr>
-                                    <th>Period</th>
+                                    <th style="padding: 8px;">Periods</th>
                                     @*<th>Period Type</th>*@
-                                    <th>Duration</th>
-                                    <th>Hours</th>
-                                    <th>Submitted On</th>
+                                    <th style="padding: 8px;">Duration</th>
+                                    <th style="padding: 8px;">Total Hours</th>
+                                    <th style="padding: 8px;">Submitted On</th>
                                     @*<th>Approved On</th>
-                                    <th>Rejected On</th>*@
-                                    <th>Status</th>
-                                    <th></th>
+                                        <th>Rejected On</th>*@
+                                    <th style="padding: 8px;">Status</th>
+                                    <th style="padding: 8px;">View Sheet</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="x in Obj_getTimePeriods">
-                                    <td>{{x.TimePeriods}}</td>
+                                    <td style="text-align: center;">{{x.TimePeriods}}</td>
                                     @*<td>
-                Internet
-                Explorer 4.0
-            </td>*@
-                                    <td>{{x.duration}}</td>
-                                    <td>{{x.Hours}}</td>
-                                    <td><span ng-show="x.SubmittedDate == '0001-01-01T00:00:00'">--</span><span ng-show="x.SubmittedDate != '0001-01-01T00:00:00'">{{x.SubmittedDate}}</span></td>
+                                            Internet
+                                            Explorer 4.0
+                                        </td>*@
+                                    <td style="text-align: center;">{{x.duration}}</td>
+                                    <td style="text-align: center;">{{x.Hours}}</td>
+                                    <td style="text-align: center;"><span ng-show="x.SubmittedDate == '0001-01-01T00:00:00'">--</span><span ng-show="x.SubmittedDate != '0001-01-01T00:00:00'">{{x.SubmittedDate | date : "M/d/yyyy"}}</span></td>
                                     @*<td>
-                Internet
-                Explorer 4.0
-            </td>
-            <td></td>*@
-                                    <td><span ng-show="x.Status == 'Not Submitted'" class="label label-warning">{{x.Status}}</span> <span ng-show="x.Status == 'Submitted'" class="label label-info">{{x.Status}}</span></td>
-                                    <td style="vertical-align:middle">
-                                        <div class="btn-group pull-right open">
-                                            <button type="button" class="btn default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="font-size:13px;">
-                                                <i class="fa fa-cog"></i> Options
-                                                @*<i class="fa fa-angle-down"></i>*@
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu" style="margin-left: -52px;margin-top: 23px;">
-                                                <li><a style="padding: 8px 16px;" href="/home/TimeEntryPeriod2/{{x.TimePeriodId}}">View Time-Sheet</a></li>
-                                                <li><a style="padding: 8px 16px;" href="#">View Attachment</a></li>
+                                            Internet
+                                            Explorer 4.0
+                                        </td>
+                                        <td></td>*@
+                                    <td style="padding: 10px 10px 10px 10px;text-align: center;"><span ng-show="x.Status == 'Not Submitted'" class="label label-warning">{{x.Status}}</span> <span ng-show="x.Status == 'Submitted'" class="label label-info">{{x.Status}}</span></td>
+                                    <td style="text-align: center;">
 
-                                            </ul>
-                                        </div>
+                                        <span><a style="text-align:center;" href="/home/TimeEntryPeriod2/{{x.TimePeriodId}}"> <i style="color:black" class="fa fa-window-maximize"></i> View Time-Sheet</a></span>
+                                        @*<div class="btn-group pull-right open">
+                                                <button type="button" class="btn default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="font-size:13px;">
+                                                    <i class="fa fa-cog"></i> Options
+                                                    <i class="fa fa-angle-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" style="margin-left: -52px;margin-top: 23px;">
+                                                    <li><a style="padding: 8px 16px;" href="/home/TimeEntryPeriod2/{{x.TimePeriodId}}">View Time-Sheet</a></li>
+                                                    <li><a style="padding: 8px 16px;" href="#">View Attachment</a></li>
+
+                                                </ul>
+                                            </div>*@
                                     </td>
                                 </tr>
-                         
+
 
 
                             </tbody>
@@ -149,8 +188,6 @@
                         </table>
                     </div>
                 </div>
-
-
         }
 
         else

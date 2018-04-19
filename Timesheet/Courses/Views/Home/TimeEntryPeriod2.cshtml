@@ -53,7 +53,7 @@
                             </div>
                             
                             <div class="col-lg-3">
-                                <h4 style="font-size:15px;margin-bottom:10px;margin-top: 20px" class="text-black"><i class="fa fa-plus"></i>&nbsp;TimeSheet Total</h4>
+                                <h4 style="font-size:15px;margin-bottom:10px;margin-top: 20px" class="text-black"><i class="fa fa-plus"></i>&nbsp;Total Hours</h4>
                                 <span style="font-size: x-large;color: #333333;padding: 42px;">{{Obj_getTimePeriodsPerId[0].Hours}}</span>
                             </div>
 
@@ -711,7 +711,7 @@
                         </div>
                         
                         
-                        <button ng-click="SubmitTimeSheet()" type="button" class="btn btn-info"><i class="fa fa-pencil-square-o"></i> <span>Submit</span></button>
+                        <button ng-disabled="Obj_getTimePeriodsPerId[0].Status == 'Submitted'" ng-click="SubmitTimeSheet()" type="button" class="btn btn-info"><i class="fa fa-pencil-square-o"></i> <span>Submit</span></button>
                     </div>
                 </div>
             </div>

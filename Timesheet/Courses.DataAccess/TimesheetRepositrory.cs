@@ -525,5 +525,39 @@ namespace Courses.DataAccess
                 return true;
             }
         }
+
+        
+        public List<TimesheetModel> GetSubmittedTimeSheets()
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "select * from [Timesheet_tbl] where status = 'Submitted'";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<TimesheetModel> data = new List<TimesheetModel>();
+                    //var myReader = cmd.ExecuteReader();
+                    using (var myReader = cmd.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (myReader.Read())
+                            {
+                                var get = new TimesheetModel(myReader);
+                                data.Add(get);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // LOG ERROR
+                            throw ex;
+                        }
+                    }
+                    return data;
+                }
+            }
+        }
     }
 }

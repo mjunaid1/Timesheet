@@ -13,6 +13,7 @@
             $scope.getEmployees();
             $scope.getCompanyEmployees();
             $scope.getProjects();
+            $scope.GetSubmittedTimeSheets();
          
         } else if ($scope.role == 2) {
             $scope.getTimePeriods();
@@ -524,7 +525,24 @@
 
     }
 
+    
+    $scope.Obj_GetSubmittedTimeSheets = [];
 
+    $scope.GetSubmittedTimeSheets = function () {
+        var resource = location.protocol + "//" + location.host + "/api/Search/GetSubmittedTimeSheets";
+      
+        $http.get(resource).success(function (data, status) {
+            $scope.Obj_GetSubmittedTimeSheets = data;
+
+
+
+        })
+            .error(function (data, status) {
+                // this isn't happening:
+            })
+
+
+    }
 
 });
 

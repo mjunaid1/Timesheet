@@ -390,6 +390,15 @@ namespace Courses
     routeTemplate: "api/Search/SubmitTimeSheet",
         defaults: new { controller = "Timesheet", action = "SubmitTimeSheet" }
             );
+
+
+            
+            config.Routes.MapHttpRoute(
+   name: "GetSubmittedTimeSheets",
+    routeTemplate: "api/Search/GetSubmittedTimeSheets",
+        defaults: new { controller = "Timesheet", action = "GetSubmittedTimeSheets" }
+            );
+
         }
             
 

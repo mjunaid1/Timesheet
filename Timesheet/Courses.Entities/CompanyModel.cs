@@ -119,7 +119,7 @@ namespace Courses.Entities
             if (dbReader.HasColumn("TimePeriods") && dbReader["TimePeriods"] != DBNull.Value) TimePeriods = (string)dbReader["TimePeriods"];
             if (dbReader.HasColumn("UserName") && dbReader["UserName"] != DBNull.Value) UserName = (string)dbReader["UserName"];
             if (dbReader.HasColumn("Status") && dbReader["Status"] != DBNull.Value) Status = (string)dbReader["Status"];
-            if (dbReader.HasColumn("SubmittedDate") && dbReader["SubmittedDate"] != DBNull.Value) SubmittedDate = (DateTime)dbReader["SubmittedDate"];
+            if (dbReader.HasColumn("SubmitedDate") && dbReader["SubmitedDate"] != DBNull.Value) SubmittedDate = (DateTime)dbReader["SubmitedDate"];
             if (dbReader.HasColumn("Hours") && dbReader["Hours"] != DBNull.Value) Hours = (string)dbReader["Hours"];
             if (dbReader.HasColumn("duration") && dbReader["duration"] != DBNull.Value) duration = (string)dbReader["duration"];
             if (dbReader.HasColumn("Description") && dbReader["Description"] != DBNull.Value) Description = (string)dbReader["Description"];
