@@ -137,6 +137,37 @@ namespace Courses.Controllers
         }
 
 
+        public ActionResult ViewTimeSheet()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            if (Request.IsAuthenticated)
+            {
+                s.Username = @User.Identity.GetUserName();
+
+                var r = Repository.CheckUser(s);
+
+
+                if (r.Role == 1)
+                {
+                    ViewBag.role = r.Role;
+                    return View();
+                }
+                else
+                    return RedirectToAction("Index", "Home");
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
+
+
+        }
+
         public ActionResult TimeEntryPeriod2(int? id)
         {
             ViewBag.Message = "Your application description page.";
@@ -148,7 +179,7 @@ namespace Courses.Controllers
                 var r = Repository.CheckUser(s);
 
 
-                if (r.Role == 2)
+                if (r.Role == 2 || r.Role == 1)
                 {
                     ViewBag.role = r.Role;
                     ViewBag.id = id;

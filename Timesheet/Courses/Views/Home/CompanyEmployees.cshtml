@@ -5,37 +5,39 @@
 }
 
 
-    <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <section class="content-header sty-one">
-            <h1>Dashboard</h1>
-            <ol class="breadcrumb">
-                <li><a href="/Home/Index">Home</a></li>
-                <li><i class="fa fa-angle-right"></i> Company Employees</li>
-            </ol>
-        </section>
-        
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <section class="content-header sty-one">
+        <h1>Company Employees</h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index">Home</a></li>
+            <li><i class="fa fa-angle-right"></i> Company Employees</li>
+        </ol>
+    </section>
 
 
-        <form id="myform" class="form-horizontal">
-            <div class="row">
-                <div class="col-12">
 
-                    <H1 style="color:rgb(53, 53, 53); font-weight:bold;">Company Employees</H1>
+    <form id="myform" class="form-horizontal">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="form-row">
+                    <div class="col-lg-3">
+
+                        <fieldset class="form-group">
+                            <label> COMPANY NAME: </label>
+
+                            <select id="selectedCompany" ng-model="selectedCompany" class="selectpicker">
+
+
+
+                                <option ng-repeat="x in Obj_getCompany" value="{{x.CompanyId}}">{{x.CompanyName}}</option>
+
+
+                            </select>
+                        </fieldset>
+                    </div>
                     <br />
-                    <label> COMPANY NAME: </label>
-
-                    <select  id="selectedCompany" ng-model="selectedCompany" class="selectpicker col-3">
-
-                     
-
-                        <option ng-repeat="x in Obj_getCompany" value="{{x.CompanyId}}">{{x.CompanyName}}</option>
-
-
-                    </select>
-                    <br />
-                    <br />
-
                     <div class="widget-box">
                         <div class="widget-title">
 
@@ -71,7 +73,7 @@
                             <!-- Example DataTables Card-->
                             <div class="card mb-3 ">
                                 <div class="card-header">
-                                    <i class="fa fa-table "></i><span style="color:#000000; font-weight:bold;"> COMPANY-EMPLOYEES </span> 
+                                    <i class="fa fa-table "></i><span style="color:#000000; font-weight:bold;"> COMPANY-EMPLOYEES </span>
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive table-sm">
@@ -105,27 +107,28 @@
 
                         </div>
 
-                     
 
 
-                      
+
+
 
                     </div>
                 </div>
 
             </div>
-        </form>
-
-   
-
-  
-
-    </div>
+        </div>
+    </form>
 
 
 
 
-   
+
+</div>
+
+
+
+
+
 
 
 
