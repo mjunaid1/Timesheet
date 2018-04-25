@@ -137,7 +137,7 @@ namespace Courses.Controllers
         }
 
 
-        public ActionResult ViewTimeSheet()
+        public ActionResult ViewTimeSheet(int ?id,string username )
         {
             ViewBag.Message = "Your application description page.";
 
@@ -151,6 +151,13 @@ namespace Courses.Controllers
                 if (r.Role == 1)
                 {
                     ViewBag.role = r.Role;
+                    ViewBag.userName = username;
+                    ViewBag.id = id;
+
+                    if (id == null || username == null || username == "")
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
                     return View();
                 }
                 else
@@ -179,7 +186,7 @@ namespace Courses.Controllers
                 var r = Repository.CheckUser(s);
 
 
-                if (r.Role == 2 || r.Role == 1)
+                if (r.Role == 2)
                 {
                     ViewBag.role = r.Role;
                     ViewBag.id = id;

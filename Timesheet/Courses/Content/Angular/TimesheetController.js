@@ -14,6 +14,10 @@
             $scope.getCompanyEmployees();
             $scope.getProjects();
             $scope.GetSubmittedTimeSheets();
+            if ($('#paramid').val() != undefined) {
+                $scope.getTimePeriodsPerId();
+                $scope.GetTimeSheetDetails();
+            }
          
         } else if ($scope.role == 2) {
             $scope.getTimePeriods();
@@ -355,10 +359,21 @@
 
     $scope.getTimePeriodsPerId  = function () {
         var resource = location.protocol + "//" + location.host + "/api/Search/GetTimePeriodsPerId";
-        var data = {
-            UserName: $scope.UserName,
-            TimePeriodId: $('#paramid').val()
+        if ($scope.role == 1) {
+       //     alert($('#User').val() + "  "+ $('#paramid').val())
+            var data = {
+                UserName: $('#User').val(),
+                TimePeriodId: $('#paramid').val()
+            }
+
+        } else {
+            var data = {
+                UserName: $scope.UserName,
+                TimePeriodId: $('#paramid').val()
+            }
+
         }
+       
         $http.post(resource, data).success(function (data, status) {
             $scope.Obj_getTimePeriodsPerId = data;
 
