@@ -163,10 +163,11 @@
         var resource = location.protocol + "//" + location.host + "/api/Search/AddCompanyEmployees";
             $http.post(resource, data1).success(function (data, status) {
                 if (data = "true") {
+
                     $scope.isError = false;
                     $scope.isSuccess = true;
                     $scope.successMessage = "Records Successfully Added...";
-               
+                    $scope.getCompanyEmployees();
 
                 }
             });
