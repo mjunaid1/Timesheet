@@ -276,5 +276,21 @@ namespace Courses.Controllers
             }
         }
 
+        
+      [HttpPost]
+        public bool SaveAdminTimeSheet([FromBody]WorkingHours Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var Result = _searchRepository.SaveAdminTimeSheet(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

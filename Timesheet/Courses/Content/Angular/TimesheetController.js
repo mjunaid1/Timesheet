@@ -560,6 +560,120 @@
 
     }
 
+    $scope.SaveAdminTimeSheet = function () {
+
+        var TimePeriodId = 0;
+        var ProjectId = 0;
+        var Mon = "00:00:00";
+        var Tue = "00:00:00";
+        var Wed = "00:00:00";
+        var Thu = "00:00:00";
+        var Fri = "00:00:00";
+        var Sat = "00:00:00";
+        var Sun = "00:00:00";
+
+
+        //angular.forEach($scope.datesdata, function (value1, key) {
+        //    alert(value1)
+        //});
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        angular.forEach($scope.Obj_getTimeSheetDetails, function (value, key) {
+          //  alert(value.CompanyName)
+            TimePeriodId = value.TimePeriodId;
+            ProjectId = value.ProjectId
+                    angular.forEach($scope.datesdata, function (value1, key1) {
+
+                      //  alert(value1)
+
+                        var d = new Date(value1);
+                        var dayName = days[d.getDay()];
+                     //   alert(dayName)
+
+                      
+
+                    if (dayName == "Mon")
+                    {
+                        //alert("Mon:" + value.Mon)
+                    //    alert($("#Mon" + key + key1).val());
+                        Mon = $("#Mon" + key + key1).val();
+                    }
+
+
+                    if (dayName == "Tue") {
+                       // alert("Tue:" + value.Tue)
+                     //   alert($("#Tue" + key + key1).val());
+                        Tue = $("#Tue" + key + key1).val();
+                    }
+
+
+                    if (dayName == "Wed") {
+
+                       // alert("Wed:" + value.Wed)
+                      //  alert($("#Wed" + key + key1).val());
+                        Wed = $("#Wed" + key + key1).val();
+                    }
+                    if (dayName == "Thu") {
+                      //  alert("Thu:" + value.Thu)
+                    //    alert($("#Thu" + key + key1).val());
+                        Thu = $("#Thu" + key + key1).val();
+
+                    }
+                    if (dayName == "Fri") {
+                      //  alert("Fri:" + value.Fri)
+                    //    alert($("#Fri" + key + key1).val());
+                        Fri = $("#Fri" + key + key1).val(); 
+                    }
+                    if (dayName == "Sat") {
+                      //  alert("Sat:" + value.Sat)
+                    //    alert($("#Sat" + key + key1).val());
+                        Sat = $("#Sat" + key + key1).val();
+                    }
+                    if (dayName == "Sun") {
+                       // alert("Sun:" + value.Sun)
+                    //    alert($("#Sun" + key + key1).val());
+                        Sun = $("#Sun" + key + key1).val();
+                    }
+
+
+                });
+
+                    var data = {
+                        TimePeriodId: TimePeriodId,
+                        Mon: Mon,
+                        Tue: Tue,
+                        Wed: Wed,
+                        Thu: Thu,
+                        Fri: Fri,
+                        Sat: Sat,
+                        Sun: Sun,
+                        ProjectId: ProjectId
+
+                    }
+
+                    var resource = location.protocol + "//" + location.host + "/api/Search/SaveAdminTimeSheet";
+                    $http.post(resource, data).success(function (data, status) {
+                        if (data = "true") {
+                            $scope.isError = false;
+                            $scope.isSuccess = true;
+                            $scope.successMessage = "Successfully Updated...";
+                            $scope.getTimePeriodsPerId();
+                        }
+                    });
+
+                //    alert(TimePeriodId +": Mon="+Mon+" Tue="+Tue+" Wed="+Wed+" Thu="+Thu+" Fri="+Fri+" Sat="+Sat+" Sun="+Sun);
+
+            });
+
+       // $scope.GetTimeSheetDetails();
+       // alert("Mon:"+Mon+" Tue:"+Tue+" Wed:"+Wed);
+
+      
+    
+    }
+
+ 
+
 });
 
 
@@ -570,14 +684,27 @@ timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $htt
         var startdate = $filter('date')($scope.startdate, 'MM/dd/yyyy');
         var enddate = $filter('date')($scope.enddate, 'MM/dd/yyyy');
 
+        var date_diff_indays = function (date1, date2) {
+            dt1 = new Date(date1);
+            dt2 = new Date(date2);
+            return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24));
+        }
+      
 
 
         if ((startdate != undefined || startdate != null) && (enddate != undefined || enddate != null)) {
 
-            var data = {
-                TimePeriods: startdate + "-" + enddate,
-                UserName: Username
-            }
+            if (date_diff_indays(startdate, enddate) <= 6) {
+
+
+                console.log(date_diff_indays(startdate, enddate));
+
+
+                var data = {
+                    TimePeriods: startdate + "-" + enddate,
+                    UserName: Username
+                }
+
 
             var resource = location.protocol + "//" + location.host + "/api/Search/AddTimePeriods";
             $http.post(resource, data).success(function (data, status) {
@@ -587,6 +714,25 @@ timesheetApp.controller('addTimePriodsModalInstanceCtrl', function ($scope, $htt
                 }
             });
 
+
+
+
+
+            } else {
+                $scope.isError = true;
+                $scope.isSuccess = false;
+                $scope.errormessage = "Time Periods Should be in 7 Days...";
+            }
+
+         
+
+        
+
+           
+           
+
+
+          
 
 
         } else {
@@ -667,7 +813,7 @@ timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $filte
         var CurrentDate = $("#selectedCurrentDate").val();
         var Hours = $scope.hours;
 
-        if (CompanyID != "? undefined:undefined ?" && ProjectID != "? undefined:undefined ?" && CurrentDate != "? undefined:undefined ?" && Hours != "undefined" && Hours != "") {
+        if (CompanyID != "? undefined:undefined ?" && ProjectID != "? undefined:undefined ?" && CurrentDate != "? undefined:undefined ?" && Hours != undefined && Hours != "") {
 
           //  alert(CompanyID + ": " + ProjectID + ": " + CurrentDate + ": " + Hours);
 
@@ -686,7 +832,7 @@ timesheetApp.controller('addTimeRowsModalInstanceCtrl', function ($scope, $filte
                 TimePeriodId: TimePeriodId,
                 ProjectId: ProjectID,
                 Date: CurrentDate,
-                Hours: Hours,
+                Hours: Hours + ":00",
                 Day: dayName
 
             }

@@ -653,7 +653,7 @@
                 <div class="col-sm-12">
 
                     <label>Working Hours</label>
-                    <input type="text" ng-model="hours" class="form-control" />
+                    <input maxlength="5" type="text" ng-model="hours" class="form-control" />
                 </div>
                 <br />
                 <div class="col-sm-12">
@@ -707,7 +707,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="shortDescription1">Description :</label>
-                            <textarea  name="shortDescriptiondf"  id="shortDescription1d" rows="6" class="form-control">{{Obj_getTimePeriodsPerId[0].Description}}</textarea>
+                            <textarea ng-disabled="Obj_getTimePeriodsPerId[0].Status == 'Submitted'" name="shortDescriptiondf"  id="shortDescription1d" rows="6" class="form-control">{{Obj_getTimePeriodsPerId[0].Description}}</textarea>
                         </div>
                         
                         

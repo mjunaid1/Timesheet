@@ -559,5 +559,49 @@ namespace Courses.DataAccess
                 }
             }
         }
+
+        //public bool SaveAdminTimeSheet(WorkingHours Model)
+        //{
+        //    using (var conn = new SqlConnection(TimesheetConnectionString))
+        //    {
+        //        conn.Open();
+        //        string qry = "update [TimesheetDetails_tbl] set Mon = '"+ Model.Mon + "' , Tue = '"+Model.Tue+"' , Wed = '"+ Model.Wed + "' , Thu = '"+Model.Thu+"' , Fri = '"+ Model.Fri+ "', Sat = '"+ Model.Sat + "' , Sun = '"+Model.Sun+"' where ProjectId = "+Model.ProjectId+" and TimePeriodId =  "+ Model.TimePeriodId;
+        //        using (var cmd = new SqlCommand(qry, conn))
+        //        {
+        //            cmd.CommandType = CommandType.Text;
+        //            cmd.ExecuteNonQuery();
+
+        //        }
+
+        //        return true;
+        //    }
+        //}
+
+        public bool SaveAdminTimeSheet(WorkingHours Model)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("[AdminUpdateHours]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ProjectId", SqlDbType.BigInt).Value = Model.ProjectId;
+                    cmd.Parameters.Add("@TimePeriodId", SqlDbType.BigInt).Value = Model.TimePeriodId;
+                    cmd.Parameters.Add("@Mon", SqlDbType.Time).Value = Model.Mon;
+                    cmd.Parameters.Add("@Tue", SqlDbType.Time).Value = Model.Tue;
+                    cmd.Parameters.Add("@Wed", SqlDbType.Time).Value = Model.Wed;
+                    cmd.Parameters.Add("@Thu", SqlDbType.Time).Value = Model.Thu;
+                    cmd.Parameters.Add("@Fri", SqlDbType.Time).Value = Model.Fri;
+                    cmd.Parameters.Add("@Sat", SqlDbType.Time).Value = Model.Sat;
+                    cmd.Parameters.Add("@Sun", SqlDbType.Time).Value = Model.Sun;
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
     }
 }

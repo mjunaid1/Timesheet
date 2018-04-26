@@ -399,6 +399,14 @@ namespace Courses
         defaults: new { controller = "Timesheet", action = "GetSubmittedTimeSheets" }
             );
 
+
+            
+            config.Routes.MapHttpRoute(
+   name: "SaveAdminTimeSheet",
+    routeTemplate: "api/Search/SaveAdminTimeSheet",
+        defaults: new { controller = "Timesheet", action = "SaveAdminTimeSheet" }
+            );
+
         }
             
 
