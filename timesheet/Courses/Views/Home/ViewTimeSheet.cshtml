@@ -117,18 +117,18 @@
                                     </td>
 
                                     <td ng-repeat="x in datesdata">
-                                        <table id="TTT0" class="intab" border="0" style="border-width:0px;">
+                                        <table class="intab" border="0" style="border-width:0px;">
                                             <tbody>
-                                                <tr id="RTT0" style="border-width:0px;">
+                                                <tr  style="border-width:0px;">
 
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input readonly name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Mon}}" id="C_C_C_W_G_TT0_0" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
+                                                    <td  style="border-width:0px;width:90px;"><input readonly name="" type="text" value="{{x.Mon}}" id="" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
 
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div id="C_C_C_W_G_Pn00_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                                        @*<div  class="IP" style="display: none; visibility: hidden; position: absolute;">
                                             <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS00" rows="2" cols="20" id="C_C_C_W_G_DS00_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl020');" style="height:75px;width:200px;">Project plan meeting</textarea>
-                                        </div>
+                                        </div>*@
                                     </td>
 
 
@@ -152,55 +152,55 @@
 
                                     @*<td  ng-repeat="x in datesdata">*@
                                     <td ng-repeat="x1 in Short">
-                                        <table id="TTT0" class="intab" border="0" style="border-width:0px;">
+                                        <table  class="intab" border="0" style="border-width:0px;">
                                             <tbody>
-                                                <tr ng-show="x1 == 'Mon'" id="RTT0" style="border-width:0px;">
+                                                <tr ng-show="x1 == 'Mon'"  style="border-width:0px;">
 
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Mon}}" id="Mon{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
-
-                                                </tr>
-
-                                                <tr ng-show="x1 == 'Tue'" id="RTT0" style="border-width:0px;">
-
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Tue}}" id="Tue{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Mon}}" id="Mon{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
 
                                                 </tr>
 
-                                                <tr ng-show="x1 == 'Wed'" id="RTT0" style="border-width:0px;">
+                                                <tr ng-show="x1 == 'Tue'"  style="border-width:0px;">
 
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Wed}}" id="Wed{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
-
-                                                </tr>
-
-                                                <tr ng-show="x1 == 'Thu'" id="RTT0" style="border-width:0px;">
-
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Thu}}" id="Thu{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Tue}}" id="Tue{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
 
                                                 </tr>
 
-                                                <tr ng-show="x1 == 'Fri'" id="RTT0" style="border-width:0px;">
+                                                <tr ng-show="x1 == 'Wed'"  style="border-width:0px;">
 
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Fri}}" id="Fri{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
-
-                                                </tr>
-
-                                                <tr ng-show="x1 == 'Sat'" id="RTT0" style="border-width:0px;">
-
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Sat}}" id="Sat{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Wed}}" id="Wed{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
 
                                                 </tr>
 
-                                                <tr ng-show="x1 == 'Sun'" id="RTT0" style="border-width:0px;">
+                                                <tr ng-show="x1 == 'Thu'"  style="border-width:0px;">
 
-                                                    <td id="CTT0" style="border-width:0px;width:90px;"><input  name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$TT0" type="text" value="{{x.Sun}}" id="Sun{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" onchange="javascript:UpdateSum(0,this);" onkeydown="return (event.keyCode!=13);" style="width:90px;text-align:center;"><input type="hidden" name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$MT0_ClientState" id="C_C_C_W_G_MT0_ClientState_0"><span id="C_C_C_W_G_VT0_0" style="color:Red;visibility:hidden;"></span><span id="C_C_C_W_G_NV0_0" style="color:Red;display:none;">Invalid Time</span></td>
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Thu}}" id="Thu{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
+
+                                                </tr>
+
+                                                <tr ng-show="x1 == 'Fri'"  style="border-width:0px;">
+
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Fri}}" id="Fri{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
+
+                                                </tr>
+
+                                                <tr ng-show="x1 == 'Sat'"  style="border-width:0px;">
+
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Sat}}" id="Sat{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
+
+                                                </tr>
+
+                                                <tr ng-show="x1 == 'Sun'"  style="border-width:0px;">
+
+                                                    <td  style="border-width:0px;width:90px;"><input  name="" type="text" value="{{x.Sun}}" id="Sun{{$parent.$index}}{{$index}}" class="form-control input-disp-valid label-not-submitted-border" style="width:90px;text-align:center;"></td>
 
                                                 </tr>
 
                                             </tbody>
                                         </table>
-                                        <div id="C_C_C_W_G_Pn00_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
+                                        @*<div id="C_C_C_W_G_Pn00_0" class="IP" style="display: none; visibility: hidden; position: absolute;">
                                             <span class="PL">Description:</span><textarea name="ctl00$ctl00$ctl00$C$C$C$W$G$ctl02$DS00" rows="2" cols="20" id="C_C_C_W_G_DS00_0" class="form-control input-disp-valid" onblur="hidepopup('ctl00$ctl00$ctl00$C$C$C$W$G$ctl020');" style="height:75px;width:200px;">Project plan meeting</textarea>
-                                        </div>
+                                        </div>*@
                                     </td>
 
 
