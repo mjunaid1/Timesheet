@@ -123,7 +123,7 @@
 
                 <div ng-show="isStudent" class="info-box">
                     <div class="col-12">
-                        <h4 class="text-black">TimeSheet Period List <button style="float:right" ng-click="addTimePriods()" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add TimeSheet</button></h4>
+                        <h4 class="text-black">TimeSheet Period List <button style="float:right" ng-click="addTimePriods()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add TimeSheet</button></h4>
                     </div>
 
                     <hr />
@@ -174,7 +174,7 @@
                                                 </ul>
                                             </div>*@
                                     </td>
-                                    <td  style="text-align: center;"><a ng-click="deleteTimePeriods(x.TimePeriodId)" ng-show="x.Status == 'Not Submitted'" href="" ><i style="color:red" class="fa fa-times"></i></a></td>
+                                    <td  style="text-align: center;"><a ng-click="deleteTimePeriods(x.TimePeriodId)" ng-show="x.Status == 'Not Submitted'" href="" ><i style="color:red;font-size:x-large" class="fa fa-trash-o"></i></a></td>
                                 </tr>
 
 
