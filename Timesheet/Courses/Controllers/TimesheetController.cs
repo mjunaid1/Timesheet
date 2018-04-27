@@ -292,5 +292,20 @@ namespace Courses.Controllers
             }
         }
 
+        [HttpPost] 
+        public bool DeleteTimePeriods([FromBody]WorkingHours Model)
+        {
+            try
+            {
+                TimesheetRepositrory _searchRepository = new TimesheetRepositrory();
+                var Result = _searchRepository.DeleteTimePeriods(Model);
+                return Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

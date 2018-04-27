@@ -407,6 +407,13 @@ namespace Courses
         defaults: new { controller = "Timesheet", action = "SaveAdminTimeSheet" }
             );
 
+            
+            config.Routes.MapHttpRoute(
+   name: "DeleteTimePeriods",
+    routeTemplate: "api/Search/DeleteTimePeriods",
+        defaults: new { controller = "Timesheet", action = "DeleteTimePeriods" }
+            );
+
         }
             
 

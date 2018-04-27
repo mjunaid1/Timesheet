@@ -672,7 +672,23 @@
     
     }
 
- 
+    $scope.deleteTimePeriods = function (TimePeriodId) {
+
+        var data = {
+            TimePeriodId: TimePeriodId
+
+        }
+
+        if (window.confirm("Are you sure to Delete Time Periods ?")) {
+            var resource = location.protocol + "//" + location.host + "/api/Search/DeleteTimePeriods";
+            $http.post(resource, data).success(function (data, status) {
+                if (data = "true") {
+
+                    $scope.getTimePeriods();
+                }
+            });
+        }
+    }
 
 });
 

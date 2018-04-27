@@ -603,5 +603,26 @@ namespace Courses.DataAccess
                 return true;
             }
         }
+
+        
+        public bool DeleteTimePeriods(WorkingHours Model)
+        {
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("[DeleteTimeSheet]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@TimePeriodId", SqlDbType.BigInt).Value = Model.TimePeriodId;
+                
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                return true;
+            }
+        }
     }
 }
