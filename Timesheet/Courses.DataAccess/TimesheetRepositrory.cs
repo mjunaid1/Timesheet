@@ -624,5 +624,22 @@ namespace Courses.DataAccess
                 return true;
             }
         }
+        public bool UpdateLogin_info(string email)
+        {
+            var timeUtc = DateTime.UtcNow;
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+            using (var conn = new SqlConnection(TimesheetConnectionString))
+            {
+                conn.Open();
+                string qry = "INSERT INTO [dbo].[Login_info]([Username],[DateTime]) VALUES ( '"+ email + "','"+ easternTime + "')";
+                using (var cmd = new SqlCommand(qry, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+        }
     }
 }

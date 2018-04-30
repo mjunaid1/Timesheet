@@ -16,6 +16,7 @@ namespace Courses.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        TimesheetRepositrory TR = new TimesheetRepositrory();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -80,6 +81,7 @@ namespace Courses.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    TR.UpdateLogin_info(model.Email);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
