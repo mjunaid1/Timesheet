@@ -129,6 +129,13 @@ namespace Courses.Entities
 
         }
 
+        public TimesheetModel()
+        {
+
+
+
+
+        }
 
     }
 

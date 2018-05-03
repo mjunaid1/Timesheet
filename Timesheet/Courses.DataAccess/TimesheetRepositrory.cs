@@ -351,6 +351,8 @@ namespace Courses.DataAccess
         {
             using (var conn = new SqlConnection(TimesheetConnectionString))
             {
+             
+                TimesheetModel data = new TimesheetModel();
                 conn.Open();
                 string qry = "insert into [Timesheet_tbl] (TimePeriods,UserName,Hours,duration,status,Created) values ('" + Model.TimePeriods + "','" + Model.UserName + "',0,0,'Not Submitted','" + System.DateTime.Now + "')";
                 using (var cmd = new SqlCommand(qry, conn))
@@ -358,6 +360,35 @@ namespace Courses.DataAccess
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
 
+
+                    string qry2 = "select max(TimePeriodId) as TimePeriodId from Timesheet_tbl where TimePeriods = '"+ Model.TimePeriods + "' and UserName = '"+ Model.UserName + "'";
+
+                    using (var cmd2 = new SqlCommand(qry2, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        var myReader = cmd2.ExecuteReader();
+
+                        myReader.Read();
+
+
+                        data.TimePeriodId = (long)myReader["TimePeriodId"];
+
+                        myReader.Close();
+
+                        var timeUtc = DateTime.UtcNow;
+                        TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                        DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+
+                        string qry3 = "INSERT INTO [dbo].[Timesheet_TBL_info] ([TimePeriodId],[CreatedPeriodDateTime]) VALUES ("+ data.TimePeriodId + ",'"+ easternTime + "')";
+
+                        using (var cmd3 = new SqlCommand(qry3, conn))
+                        {
+                            cmd.CommandType = CommandType.Text;
+
+                            cmd3.ExecuteNonQuery();
+                        }
+
+                        }
                 }
 
                 return true;
@@ -467,6 +498,20 @@ namespace Courses.DataAccess
 
                     cmd.ExecuteNonQuery();
 
+                    var timeUtc = DateTime.UtcNow;
+                    TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+
+                    string qry3 = "insert into [TimesheetDetails_info] (HoursDateTime,TimePeriodId,Day) values ('" + easternTime + "'," + Model.TimePeriodId + ", '"+ Model.Day + "')";
+
+                    using (var cmd3 = new SqlCommand(qry3, conn))
+                    {
+                        cmd3.CommandType = CommandType.Text;
+
+                        cmd3.ExecuteNonQuery();
+                    }
+
+
                 }
 
                 return true;
@@ -519,6 +564,19 @@ namespace Courses.DataAccess
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
+
+                    var timeUtc = DateTime.UtcNow;
+                    TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+
+                    string qry3 = "update [Timesheet_TBL_info] set SubmittedDateTime = '"+easternTime+"' where TimePeriodId =  "+Model.TimePeriodId;
+
+                    using (var cmd3 = new SqlCommand(qry3, conn))
+                    {
+                        cmd3.CommandType = CommandType.Text;
+
+                        cmd3.ExecuteNonQuery();
+                    }
 
                 }
 
